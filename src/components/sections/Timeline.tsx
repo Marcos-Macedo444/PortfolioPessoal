@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { timeline } from "@/data/timeline";
@@ -12,7 +12,7 @@ export function Timeline() {
         <SectionTitle
           eyebrow="timeline"
           title="Jornada técnica em construção"
-          description="Uma linha do tempo para mostrar evolução, projetos, hackathons e aprofundamento em segurança e infraestrutura."
+          description="Uma evolução que começa no trabalho prático, passa pela transição para tecnologia e chega ao foco atual em NOC, infraestrutura e cybersecurity."
         />
 
         <div className="relative">
@@ -26,7 +26,7 @@ export function Timeline() {
                 }`}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
+                viewport={{ once: false, margin: "-80px" }}
                 transition={{ duration: 0.45 }}
               >
                 <div className="absolute left-0 top-5 grid h-8 w-8 place-items-center rounded-md border border-matrix-green/45 bg-matrix-black text-matrix-green md:left-1/2 md:-translate-x-1/2">

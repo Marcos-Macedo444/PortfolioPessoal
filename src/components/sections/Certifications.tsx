@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -23,7 +23,7 @@ export function Certifications() {
               className="cyber-panel overflow-hidden rounded-lg"
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
+              viewport={{ once: false, margin: "-80px" }}
               transition={{ duration: 0.4, delay: index * 0.04 }}
             >
               <div className="relative aspect-[16/10] bg-matrix-graphite">

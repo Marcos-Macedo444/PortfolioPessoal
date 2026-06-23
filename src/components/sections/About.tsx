@@ -31,27 +31,9 @@ export function About() {
             className="space-y-6"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: false, margin: "-80px" }}
             transition={{ duration: 0.5 }}
           >
-            <div className="mb-6 grid gap-5 md:grid-cols-[180px_1fr] md:items-center">
-              <div className="relative aspect-square overflow-hidden rounded-lg border border-matrix-green/25 bg-matrix-graphite">
-                <Image
-                  src="/images/profile/profile-photo.jpg"
-                  alt="Imagem ilustrativa do perfil profissional de Marcos Macêdo"
-                  fill
-                  sizes="(min-width: 768px) 180px, 100vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
-                <p className="font-mono text-xs uppercase text-matrix-green">professional profile</p>
-                <p className="mt-2 text-sm leading-6 text-matrix-muted">
-                  Presença técnica com foco em segurança, infraestrutura, automação e soluções que
-                  resolvem problemas reais.
-                </p>
-              </div>
-            </div>
             <p className="text-lg leading-9 text-matrix-muted">{profile.about}</p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {values.map((item, index) => {
@@ -63,7 +45,7 @@ export function About() {
                     className="rounded-lg border border-white/10 bg-white/[0.03] p-4"
                     initial={{ opacity: 0, y: 18 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
                     transition={{ duration: 0.4, delay: index * 0.05 }}
                   >
                     <Icon className="mb-3 h-5 w-5 text-matrix-green" aria-hidden />
@@ -74,17 +56,36 @@ export function About() {
             </div>
           </motion.div>
 
-          <TerminalWindow
-            title="profile-scan"
-            lines={[
-              "whoami",
-              "cat skills.txt",
-              "scan --profile marcos",
-              "status --learning continuous",
-              "focus --cybersecurity infrastructure automation",
-              "output: builder mindset"
-            ]}
-          />
+          <motion.div
+            className="grid gap-5"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, margin: "-80px" }}
+            transition={{ duration: 0.5, delay: 0.08 }}
+          >
+            <div className="cyber-panel scan-surface overflow-hidden rounded-lg p-3">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-matrix-cyan/20 bg-matrix-graphite">
+                <Image
+                  src="/images/profile/profile2.png"
+                  alt="Foto de Marcos Macêdo em contexto profissional"
+                  fill
+                  sizes="(min-width: 1024px) 38vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+
+            <TerminalWindow
+              title="profile-scan"
+              lines={[
+                "whoami",
+                "scan --experience chaveiro-residencial",
+                "status --current-role noc-intern",
+                "focus --cybersecurity infrastructure automation",
+                "output: practical mindset + technical evolution"
+              ]}
+            />
+          </motion.div>
         </div>
       </div>
     </section>

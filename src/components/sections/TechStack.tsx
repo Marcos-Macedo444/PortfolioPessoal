@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { carouselSkills, technologies } from "@/data/technologies";
@@ -26,7 +26,7 @@ export function TechStack() {
                 className="cyber-panel scan-surface rounded-lg p-5"
                 initial={{ opacity: 0, y: 22 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
+                viewport={{ once: false, margin: "-80px" }}
                 transition={{ duration: 0.4, delay: index * 0.025 }}
               >
                 <div className="flex items-start justify-between gap-4">
@@ -45,7 +45,7 @@ export function TechStack() {
                     className="h-full rounded-full bg-gradient-to-r from-matrix-green to-matrix-cyan"
                     initial={{ width: 0 }}
                     whileInView={{ width: `${technology.signal}%` }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
                     transition={{ duration: 0.9 }}
                   />
                 </div>

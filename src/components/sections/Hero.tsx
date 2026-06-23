@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail, Radar, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Mail, Radar, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { TerminalWindow } from "@/components/ui/TerminalWindow";
-import { profile, statusMetrics, systemStatuses } from "@/data/profile";
+import { profile } from "@/data/profile";
 import { usePrefersReducedMotion } from "@/hooks/useReducedMotion";
 
 export function Hero() {
@@ -47,7 +47,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-cyber-radial" aria-hidden />
       <div className="absolute inset-x-0 top-20 h-px bg-gradient-to-r from-transparent via-matrix-green/45 to-transparent" aria-hidden />
 
-      <div className="container-shell relative grid min-h-[calc(92vh-7rem)] items-center gap-10 pb-14 lg:grid-cols-[1.02fr_0.98fr]">
+      <div className="container-shell relative grid min-h-[calc(92vh-7rem)] items-center gap-10 pb-14 lg:grid-cols-[1fr_0.82fr]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -104,57 +104,41 @@ export function Hero() {
             </Button>
           </div>
 
-          <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:max-w-2xl">
-            {systemStatuses.slice(0, 4).map((status) => (
+          <div className="mt-10 grid gap-3 sm:grid-cols-3 lg:max-w-2xl">
+            {["NOC Internship", "Cybersecurity", "Infrastructure"].map((status) => (
               <div key={status} className="rounded-md border border-white/10 bg-white/[0.03] px-4 py-3">
-                <p className="flex items-center gap-2 font-mono text-xs uppercase text-matrix-muted">
-                  <ShieldCheck className="h-4 w-4 text-matrix-green" aria-hidden />
-                  {status}
-                </p>
+                <p className="font-mono text-xs uppercase text-matrix-muted">{status}</p>
               </div>
             ))}
           </div>
         </motion.div>
 
         <motion.div
-          className="grid gap-5 lg:animate-float-panel motion-reduce:animate-none"
+          className="relative mx-auto w-full max-w-sm lg:max-w-md lg:animate-float-panel motion-reduce:animate-none"
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
         >
-          <div className="cyber-panel scan-surface rounded-lg p-5">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="font-mono text-xs uppercase text-matrix-green">Network Status</p>
-                <h2 className="mt-1 text-xl font-semibold text-matrix-text">Threat Intelligence Panel</h2>
+          <div className="absolute -inset-4 rounded-[2rem] border border-matrix-green/10 bg-matrix-green/5 blur-2xl" aria-hidden />
+          <div className="cyber-panel scan-surface relative overflow-hidden rounded-2xl p-3 shadow-cyan">
+            <div className="relative aspect-[3/4] overflow-hidden rounded-xl border border-matrix-green/30 bg-matrix-graphite">
+              <Image
+                src="/images/profile/profile.png"
+                alt="Foto profissional de Marcos Macêdo"
+                fill
+                priority
+                sizes="(min-width: 1024px) 34vw, (min-width: 640px) 420px, 92vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-matrix-black/55 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4 rounded-lg border border-white/10 bg-matrix-black/70 p-4 backdrop-blur-md">
+                <p className="font-mono text-xs uppercase text-matrix-green">current status</p>
+                <p className="mt-1 text-sm font-semibold text-matrix-text">
+                  Estagiário NOC em cybersecurity
+                </p>
               </div>
-              <span className="rounded-md border border-matrix-green/30 bg-matrix-green/10 px-3 py-1 font-mono text-xs text-matrix-green">
-                Access Granted
-              </span>
-            </div>
-
-            <div className="mt-6 space-y-4">
-              {statusMetrics.map((metric) => (
-                <div key={metric.label}>
-                  <div className="mb-2 flex items-center justify-between gap-3 font-mono text-xs">
-                    <span className="text-matrix-muted">{metric.label}</span>
-                    <span className="text-matrix-cyan">{metric.value}</span>
-                  </div>
-                  <div className="h-2 overflow-hidden rounded-full bg-white/10">
-                    <motion.div
-                      className="h-full rounded-full bg-gradient-to-r from-matrix-green via-matrix-cyan to-matrix-blue"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${metric.progress}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: 0.1 }}
-                    />
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
-
-          <TerminalWindow title="marcos-dashboard" className="overflow-hidden" />
         </motion.div>
       </div>
     </section>

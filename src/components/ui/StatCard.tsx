@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import type { Stat } from "@/types";
@@ -15,7 +15,7 @@ export function StatCard({ stat, index }: StatCardProps) {
       className="cyber-panel scan-surface rounded-lg p-5"
       initial={{ opacity: 0, y: 22 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={{ once: false, margin: "-80px" }}
       transition={{ duration: 0.45, delay: index * 0.06 }}
     >
       <p className="font-mono text-4xl font-semibold text-matrix-green">

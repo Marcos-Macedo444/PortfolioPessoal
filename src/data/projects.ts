@@ -36,8 +36,10 @@ export const projects: Project[] = [
       "Organização de dados e regras de negócio",
       "Empacotamento de aplicação para uso local"
     ],
-    image: "/images/projects/finance-system-thumbnail.png",
-    imageAlt: "Imagem ilustrativa do sistema de gestão financeira empresarial"
+    externalUrl:
+      "https://www.linkedin.com/posts/marcos-mac%C3%AAdo_python-finanaexas-automatizaaexaeto-activity-7123007392362995712-iayb?utm_source=share&utm_medium=member_desktop&rcm=ACoAAED7QjEBiesnTD0IyAJyqByg9HfR5krJvow",
+    externalLabel: "Ver publicação",
+    externalType: "linkedin"
   },
   {
     id: "image-processing",
@@ -63,8 +65,9 @@ export const projects: Project[] = [
       "Convolução e filtros",
       "Raciocínio algorítmico aplicado"
     ],
-    image: "/images/projects/image-processing-thumbnail.png",
-    imageAlt: "Imagem ilustrativa do projeto de processamento digital de imagens"
+    externalUrl: "https://github.com/Marcos-Macedo444/ProcessamentoDeImagens.git",
+    externalLabel: "Ver no GitHub",
+    externalType: "github"
   },
   {
     id: "horas-academy",
@@ -88,8 +91,9 @@ export const projects: Project[] = [
       "Experiência mobile",
       "Controle de informações para certificados"
     ],
-    image: "/images/projects/horas-academy-thumbnail.png",
-    imageAlt: "Imagem ilustrativa do projeto Horas Academy"
+    externalUrl: "https://github.com/Marcos-Macedo444/HorasAcademyFront.git",
+    externalLabel: "Ver no GitHub",
+    externalType: "github"
   },
   {
     id: "crazy-cine",
@@ -113,7 +117,8 @@ export const projects: Project[] = [
       "Rotas e controllers",
       "Integração entre backend e interface"
     ],
-    image: "/images/projects/crazy-cine-thumbnail.png",
-    imageAlt: "Imagem ilustrativa do projeto Crazy Cine"
+    externalUrl: "https://github.com/Marcos-Macedo444/CrazyCine-Flask.git",
+    externalLabel: "Ver no GitHub",
+    externalType: "github"
   }
 ];

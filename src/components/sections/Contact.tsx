@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { FormEvent, useState } from "react";
 import { motion } from "framer-motion";
@@ -38,7 +38,7 @@ export function Contact() {
             className="space-y-6"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: false, margin: "-80px" }}
             transition={{ duration: 0.5 }}
           >
             <div className="space-y-4">
@@ -88,7 +88,7 @@ export function Contact() {
             className="cyber-panel rounded-lg p-6"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: false, margin: "-80px" }}
             transition={{ duration: 0.5, delay: 0.08 }}
           >
             <div className="grid gap-5 sm:grid-cols-2">

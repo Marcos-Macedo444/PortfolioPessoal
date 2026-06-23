@@ -5,9 +5,9 @@ export const profile = {
   monogram: "MM",
   title: "Tecnologia • Infraestrutura • Cybersecurity • Automação",
   headline:
-    "Transformo problemas reais em soluções tecnológicas por meio de automação, segurança, infraestrutura e desenvolvimento de sistemas.",
+    "Minha trajetória saiu do trabalho prático com clientes para infraestrutura, NOC, cybersecurity e automação, sempre buscando resolver problemas reais com responsabilidade técnica.",
   about:
-    "Sou apaixonado por tecnologia, infraestrutura, cybersecurity, automação e desenvolvimento de soluções. Gosto de entender como sistemas funcionam, explorar novas tecnologias e criar projetos que resolvem problemas reais. Minha trajetória combina participação em hackathons, desenvolvimento de sistemas acadêmicos, projetos práticos em Python e interesse constante por segurança, redes e automação.",
+    "Comecei minha vida profissional como chaveiro residencial, uma experiência que fortaleceu atendimento, precisão, responsabilidade e solução de problemas sob demanda. Hoje atuo como estagiário NOC em uma empresa de cybersecurity, evoluindo em monitoramento, redes, infraestrutura, análise e resposta a incidentes. Em paralelo, desenvolvo projetos em Python, backend, automação e sistemas acadêmicos para transformar aprendizado em entregas concretas.",
   philosophy:
     "Acredito que a tecnologia deve ser aplicada para resolver problemas reais. Meu objetivo é desenvolver soluções que combinem simplicidade, eficiência, segurança e impacto.",
   email: "marcosfilipe.macedo@gmail.com",
@@ -16,12 +16,12 @@ export const profile = {
   linkedinLabel: "linkedin.com/in/marcos-macêdo",
   githubLabel: "github.com/Marcos-Macedo444",
   typingRoles: [
-    "Cybersecurity Enthusiast",
+    "NOC Intern",
+    "Cybersecurity Learner",
     "Infrastructure Builder",
     "Automation Developer",
     "Problem Solver",
-    "Python Developer",
-    "Future Security Professional"
+    "Python Developer"
   ],
   introLines: [
     "Initializing portfolio...",
@@ -82,15 +82,15 @@ export const stats: Stat[] = [
     description: "Sistemas, automações, algoritmos e experiências web."
   },
   {
-    label: "Hackathon vencido",
+    label: "Experiência NOC",
     value: 1,
-    description: "Campeão do Hack27 com a equipe RED BOOST."
+    description: "Atuação atual em ambiente de cybersecurity e monitoramento."
   },
   {
-    label: "Pessoas na apresentação final",
+    label: "Audiência em pitch técnico",
     value: 100,
     suffix: "+",
-    description: "Pitch técnico apresentado para audiência ampla."
+    description: "Apresentação de solução tecnológica para público amplo."
   },
   {
     label: "Tecnologias estudadas",

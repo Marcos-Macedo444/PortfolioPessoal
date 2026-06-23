@@ -3,15 +3,12 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { projectFilters, projects } from "@/data/projects";
-import type { Project } from "@/types";
 import { ProjectCard } from "@/components/ui/ProjectCard";
-import { ProjectModal } from "@/components/ui/ProjectModal";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { cn } from "@/lib/utils";
 
 export function Projects() {
   const [activeFilter, setActiveFilter] = useState("Todos");
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === "Todos") {
@@ -33,7 +30,7 @@ export function Projects() {
         <SectionTitle
           eyebrow="loading projects"
           title="Projetos com foco em problemas reais"
-          description="Cards preparados para prints, links opcionais, detalhes completos e evolução futura do portfólio."
+          description="Cards sem imagens, focados em contexto, tecnologias, aprendizados e links diretos para publicação ou repositório."
         />
 
         <div className="mb-8 flex gap-2 overflow-x-auto pb-2">
@@ -57,7 +54,7 @@ export function Projects() {
         <motion.div layout className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} onDetails={setSelectedProject} />
+              <ProjectCard key={project.id} project={project} />
             ))}
           </AnimatePresence>
         </motion.div>
@@ -72,8 +69,6 @@ export function Projects() {
           </div>
         ) : null}
       </div>
-
-      <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
     </section>
   );
 }

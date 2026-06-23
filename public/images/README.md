@@ -4,26 +4,24 @@ Substitua os arquivos mantendo os mesmos nomes para atualizar as imagens sem alt
 
 ## Foto profissional
 
-- `public/images/profile/profile-photo.jpg`
+- `public/images/profile/profile.png`
+- `public/images/profile/profile2.png`
 
-Use uma foto vertical ou quadrada. O componente corta a imagem em formato quadrado.
+`profile.png` aparece no Hero, ao lado do nome. `profile2.png` aparece na seção Sobre.
 
 ## Projetos
 
-- `public/images/projects/finance-system-thumbnail.png`
-- `public/images/projects/image-processing-thumbnail.png`
-- `public/images/projects/horas-academy-thumbnail.png`
-- `public/images/projects/crazy-cine-thumbnail.png`
-
-Use prints, capas ou thumbnails em proporção próxima de 16:10.
+Os cards de projetos não usam imagens atualmente. Eles usam texto, tecnologias e links externos configurados em `src/data/projects.ts`.
 
 ## Eventos e hackathons
 
-- `public/images/events/hack27-team.jpg`
-- `public/images/events/hack27-presentation.jpg`
-- `public/images/events/hack27-award.jpg`
+- `public/images/hack27/Team.jpg`
+- `public/images/hack27/Team2.jpg`
+- `public/images/hack27/Presentation.jpg`
+- `public/images/hack27/Award.jpg`
+- `public/images/hack27/Award2.jpg`
 
-Use fotos em proporção próxima de 16:9.
+As imagens do Hack27 usam containers com `object-contain`, então retrato e paisagem ficam visíveis sem cortes agressivos.
 
 ## Open Graph
 
@@ -33,7 +31,8 @@ Esse arquivo está reservado para uma imagem social futura. Quando for criado, a
 
 ## Onde editar caminhos manualmente
 
-- Foto: `src/components/sections/About.tsx`
+- Foto principal do Hero: `src/components/sections/Hero.tsx`
+- Foto complementar da seção Sobre: `src/components/sections/About.tsx`
 - Projetos: `src/data/projects.ts`
 - Eventos Hack27: `src/components/sections/Hack27.tsx`
 - Certificações: `src/data/certifications.ts`

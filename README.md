@@ -21,10 +21,10 @@ Portfólio web profissional, responsivo e interativo para Marcos Macêdo, com es
 - Barra de progresso de scroll
 - Ticker automático de habilidades
 - Carrossel contínuo de habilidades
-- Fundo com grid tecnológico e efeito Matrix leve em canvas
+- Fundo cyber com grid sutil, scanner, glow e textura tecnológica leve
 - Seção Sobre com terminal simulado e área preparada para foto profissional
 - Seção premium Hack27 com badge, troféu, galeria preparada e competências
-- Projetos com filtros, cards animados e modal de detalhes
+- Projetos com filtros, cards animados, contexto técnico e links externos
 - Stack visual com cards, badges e barras de sinal
 - Estatísticas com contadores animados
 - Timeline profissional
@@ -142,7 +142,7 @@ public/
   images/
     profile/
     projects/
-    events/
+    hack27/
     certifications/
     backgrounds/
     og/
@@ -151,18 +151,17 @@ public/
 
 ## Como trocar imagens
 
-Substitua os arquivos em `public/images` mantendo os mesmos nomes, ou edite os caminhos nos arquivos de dados.
+Substitua os arquivos em `public/images` mantendo os mesmos nomes, ou edite os caminhos indicados abaixo.
 
 Arquivos principais preparados:
 
-- `public/images/profile/profile-photo.jpg`
-- `public/images/projects/finance-system-thumbnail.png`
-- `public/images/projects/image-processing-thumbnail.png`
-- `public/images/projects/horas-academy-thumbnail.png`
-- `public/images/projects/crazy-cine-thumbnail.png`
-- `public/images/events/hack27-team.jpg`
-- `public/images/events/hack27-presentation.jpg`
-- `public/images/events/hack27-award.jpg`
+- `public/images/profile/profile.png`
+- `public/images/profile/profile2.png`
+- `public/images/hack27/Team.jpg`
+- `public/images/hack27/Team2.jpg`
+- `public/images/hack27/Presentation.jpg`
+- `public/images/hack27/Award.jpg`
+- `public/images/hack27/Award2.jpg`
 - `public/images/certifications/certificate-placeholder.png`
 - `public/images/backgrounds/cyber-grid.png`
 - `public/images/og/portfolio-og.png` para uma imagem social futura
@@ -171,14 +170,16 @@ Também existe um guia específico em `public/images/README.md`.
 
 ### Padrão recomendado
 
-- Foto profissional: use `public/images/profile/profile-photo.jpg`.
-- Imagens de projetos: use thumbnails ou prints em `public/images/projects/`.
-- Imagens de eventos e hackathons: use `public/images/events/`.
+- Foto principal do Hero: use `public/images/profile/profile.png`.
+- Foto complementar da seção Sobre: use `public/images/profile/profile2.png`.
+- Imagens do Hack27: use `public/images/hack27/`.
+- Projetos não usam imagem nos cards atualmente; os links ficam em `src/data/projects.ts`.
 - Imagens para previews sociais: use `public/images/og/`.
 
 Se quiser trocar caminhos manualmente, edite:
 
-- Foto profissional: `src/components/sections/About.tsx`.
+- Foto principal: `src/components/sections/Hero.tsx`.
+- Foto complementar: `src/components/sections/About.tsx`.
 - Projetos: `src/data/projects.ts`.
 - Hack27/eventos: `src/components/sections/Hack27.tsx`.
 - Certificações: `src/data/certifications.ts`.
@@ -195,10 +196,9 @@ Cada projeto suporta:
 - tecnologias
 - funcionalidades
 - aprendizados
-- imagem
-- alt text
-- link de GitHub opcional
-- link de demo opcional
+- link externo
+- label do botão
+- tipo do link, como GitHub ou LinkedIn
 
 ## Como editar tecnologias
 
@@ -251,5 +251,5 @@ Neste projeto, `baseUrl` deve ser mantido porque o alias `@/*` depende dele e j�
 ## Personalização recomendada
 
 - Validar o slug final do LinkedIn antes do deploy público.
-- Substituir placeholders por fotos reais do perfil, Hack27, projetos e certificações.
+- Substituir ou atualizar imagens reais do perfil, Hack27 e certificações quando necessário.
 - Definir `NEXT_PUBLIC_SITE_URL` no ambiente de produção.

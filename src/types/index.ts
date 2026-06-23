@@ -32,8 +32,9 @@ export type Project = {
   technologies: string[];
   features: string[];
   learnings: string[];
-  image: string;
-  imageAlt: string;
+  externalUrl: string;
+  externalLabel: string;
+  externalType: "github" | "linkedin";
   githubUrl?: string;
   demoUrl?: string;
 };
