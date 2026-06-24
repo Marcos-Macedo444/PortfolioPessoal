@@ -11,6 +11,7 @@ type ButtonProps = {
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
   ariaLabel?: string;
+  disabled?: boolean;
 };
 
 const variants = {
@@ -31,11 +32,13 @@ export function Button({
   icon,
   onClick,
   type = "button",
-  ariaLabel
+  ariaLabel,
+  disabled = false
 }: ButtonProps) {
   const classes = cn(
     "group inline-flex min-h-11 items-center justify-center gap-2 rounded-md border px-4 py-2 text-sm font-semibold transition duration-300",
     "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-matrix-green",
+    disabled && "cursor-not-allowed opacity-60",
     variants[variant],
     className
   );
@@ -57,7 +60,7 @@ export function Button({
   }
 
   return (
-    <button type={type} className={classes} aria-label={ariaLabel} onClick={onClick}>
+    <button type={type} className={classes} aria-label={ariaLabel} onClick={onClick} disabled={disabled}>
       {icon}
       <span>{children}</span>
     </button>

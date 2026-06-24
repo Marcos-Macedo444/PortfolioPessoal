@@ -21,7 +21,7 @@ Portfólio web profissional, responsivo e interativo para Marcos Macêdo, com es
 - Barra de progresso de scroll
 - Ticker automático de habilidades
 - Carrossel contínuo de habilidades
-- Fundo cyber com grid sutil, rede de sinais, radar e textura tecnológica leve
+- Fundo cyber com grid 3D, radar, rede de sinais, trilhas SVG e atmosfera SOC/NOC
 - Seção Sobre com terminal simulado e área preparada para foto profissional
 - Seção premium Hack27 com badge, troféu, galeria preparada e competências
 - Projetos com filtros, cards animados, contexto técnico e links externos
@@ -29,7 +29,8 @@ Portfólio web profissional, responsivo e interativo para Marcos Macêdo, com es
 - Estatísticas com contadores animados
 - Timeline profissional
 - Filosofia profissional em destaque
-- Contato com GitHub, LinkedIn, e-mail, cópia de e-mail e formulário visual
+- Contato com GitHub, LinkedIn, e-mail, cópia de e-mail e formulário funcional via API Route
+- Rodapé com direitos reservados, crédito de desenvolvimento e links profissionais
 - Command Palette acessível por botão ou `Ctrl+K`
 - Easter egg profissional ao digitar `hack27`
 - SEO básico com metadata, robots, sitemap e favicon
@@ -83,6 +84,13 @@ npm run start
 
 O comando `npm run start` só funciona depois de `npm run build`.
 
+Este projeto não usa script `preview`; no Next.js o equivalente é:
+
+```bash
+npm run build
+npm run start
+```
+
 ## Lint e TypeScript
 
 ```bash
@@ -90,13 +98,44 @@ npm run lint
 npm run typecheck
 ```
 
+## Formulário de contato em produção
+
+O formulário da seção Contato usa a Route Handler `src/app/api/contact/route.ts` e envia e-mails pelo Resend no servidor. A chave nunca é exposta no front-end.
+
+Crie uma conta no Resend, gere uma API key e configure um domínio ou subdomínio verificado para o remetente. No painel da Vercel, abra o projeto e vá em **Settings > Environment Variables**. Cadastre:
+
+```text
+RESEND_API_KEY=
+CONTACT_TO_EMAIL=marcosfilipe.macedo@gmail.com
+CONTACT_FROM_EMAIL=Marcos Macêdo <contato@seudominio.com>
+NEXT_PUBLIC_SITE_URL=https://sua-url-final.vercel.app
+```
+
+`CONTACT_FROM_EMAIL` precisa usar um domínio verificado no Resend. Para testar a interface localmente sem enviar e-mail real, copie `.env.example` para `.env.local` e use:
+
+```text
+CONTACT_FORM_DRY_RUN=true
+```
+
+Não ative `CONTACT_FORM_DRY_RUN` em produção, porque ele simula sucesso sem enviar o e-mail.
+
+Para testar localmente:
+
+```bash
+npm run dev
+```
+
+Depois envie o formulário em `http://localhost:3000`. Sem as variáveis reais do Resend, o formulário valida os campos e retorna erro de configuração para envios reais. Com `CONTACT_FORM_DRY_RUN=true`, ele permite validar o fluxo de sucesso da interface.
+
+Para testar em produção, configure as variáveis na Vercel, faça redeploy e envie uma mensagem pelo Preview Deployment ou pela URL final. Confira também o painel **Logs** da Vercel e a caixa de entrada de `CONTACT_TO_EMAIL`.
+
 ## Node e dependências
 
 - Node.js LTS recomendado: versão 20 ou 22.
 - O projeto também funciona com Node 24 neste ambiente, mas para Vercel/local a faixa configurada é `>=20.11.0 <25`.
 - O npm vem junto com o Node.js.
 - Não é necessário instalar Next.js, Vite, Tailwind ou TypeScript globalmente.
-- Não há arquivo `.env`, `.nvmrc` ou `.node-version` obrigatório.
+- Há um `.env.example` documentando as variáveis opcionais/necessárias para contato e SEO.
 - Para versionar e publicar pelo GitHub, instale Git.
 - A Vercel CLI não é obrigatória; o deploy pode ser feito pelo site da Vercel conectado ao GitHub.
 
@@ -241,7 +280,7 @@ Neste projeto, `baseUrl` deve ser mantido porque o alias `@/*` depende dele e j�
 ## Observações de segurança
 
 - Não há chaves de API, tokens ou credenciais no projeto.
-- O formulário de contato é apenas visual e não envia dados para backend.
+- O formulário de contato usa uma API Route server-side e depende de variáveis de ambiente para enviar e-mails em produção.
 - Os textos de terminal, scan e acesso são apenas estéticos.
 - A identidade hacker/cyber é ética e profissional; não há funcionalidades de invasão, exploração, phishing, malware ou coleta indevida.
 

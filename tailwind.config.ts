@@ -46,6 +46,27 @@ const config: Config = {
           "0%": { transform: "translateX(-110%)" },
           "100%": { transform: "translateX(110%)" }
         },
+        gridFlow: {
+          "0%": { backgroundPosition: "0 0, 0 0" },
+          "100%": { backgroundPosition: "0 96px, 96px 0" }
+        },
+        radarSweep: {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" }
+        },
+        signalTrace: {
+          "0%": { strokeDashoffset: "320", opacity: "0.2" },
+          "45%": { opacity: "0.85" },
+          "100%": { strokeDashoffset: "0", opacity: "0.2" }
+        },
+        nodePulse: {
+          "0%, 100%": { opacity: "0.45", transform: "scale(1)" },
+          "50%": { opacity: "1", transform: "scale(1.35)" }
+        },
+        energyBreath: {
+          "0%, 100%": { opacity: "0.55", transform: "scale(1)" },
+          "50%": { opacity: "0.9", transform: "scale(1.05)" }
+        },
         pulseGlow: {
           "0%, 100%": { opacity: "0.55" },
           "50%": { opacity: "1" }
@@ -59,6 +80,11 @@ const config: Config = {
         ticker: "ticker 28s linear infinite",
         "ticker-slow": "ticker 42s linear infinite",
         scan: "scan 4.8s ease-in-out infinite",
+        "grid-flow": "gridFlow 18s linear infinite",
+        "radar-sweep": "radarSweep 14s linear infinite",
+        "signal-trace": "signalTrace 7s ease-in-out infinite",
+        "node-pulse": "nodePulse 4.4s ease-in-out infinite",
+        "energy-breath": "energyBreath 8s ease-in-out infinite",
         "pulse-glow": "pulseGlow 2.8s ease-in-out infinite",
         "float-panel": "floatPanel 7s ease-in-out infinite"
       }
