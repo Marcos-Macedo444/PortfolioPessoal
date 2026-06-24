@@ -1,291 +1,702 @@
-# Marcos Macêdo | Cybersecurity, Infraestrutura e Automação
+# Marcos Macêdo | Portfólio Pessoal
 
-Portfólio web profissional, responsivo e interativo para Marcos Macêdo, com estética hacker/cyberpunk refinada e conteúdo voltado a cybersecurity, infraestrutura, automação, backend, projetos reais e Hack27.
+Este é o meu portfólio pessoal como profissional em evolução na área de tecnologia, com foco em infraestrutura, NOC, cybersecurity, automação, backend e projetos reais.
+
+A ideia deste projeto foi criar um site que não fosse apenas uma página bonita com meu nome. Eu queria um portfólio com identidade própria, visual forte, atmosfera cyber/hacker profissional e conteúdo organizado para mostrar minha trajetória, meus projetos, minhas habilidades e minhas formas de contato.
+
+O projeto está publicado em:
+
+```text
+https://marcosmacedo.dev
+```
+
+## Sobre O Projeto
+
+Este portfólio foi desenvolvido com Next.js, React, TypeScript e Tailwind CSS. Ele tem uma estética inspirada em ambientes SOC/NOC, cybersecurity, infraestrutura digital, redes, radar, sinais e painéis técnicos.
+
+O objetivo visual é transmitir tecnologia, segurança, monitoramento, automação e evolução técnica, mas sem cair em uma chuva Matrix genérica. O background foi pensado como uma camada própria do site, com grid 3D, radar, trilhas de rede, pontos de sinal e movimento sutil.
+
+O site também tem formulário de contato funcionando em produção. As mensagens são enviadas pelo Resend para meu e-mail real, usando uma API server-side do Next.js para não expor nenhuma chave no front-end.
+
+## Status Atual
+
+- Publicado em produção no domínio `marcosmacedo.dev`.
+- Deploy feito pela Vercel.
+- Formulário de contato funcionando com Resend.
+- E-mail de recebimento: `marcosfilipe.macedo@gmail.com`.
+- Domínio próprio `.dev` configurado.
+- Background cyber/SOC finalizado.
+- Footer com direitos reservados e crédito de desenvolvimento.
+- Imagens reais de perfil e Hack27 configuradas.
+- Seção de certificações removida para manter o portfólio mais direto e atual.
 
 ## Tecnologias
 
-- Next.js
-- React
+As principais tecnologias usadas neste projeto são:
+
+- Next.js 14
+- React 18
 - TypeScript
 - Tailwind CSS
 - Framer Motion
 - Lucide React
 - React Icons
-- Vercel-ready
+- Resend
+- Vercel
 
-## Funcionalidades
+Também usei alguns scripts auxiliares em Node.js para deixar o projeto mais estável no Windows com OneDrive.
 
-- Intro animada em estilo terminal com `Access granted`
-- Hero avançada com texto digitando, painel de status e terminal visual
-- Navbar fixa com blur, seção ativa e menu mobile
-- Barra de progresso de scroll
-- Ticker automático de habilidades
-- Carrossel contínuo de habilidades
-- Fundo cyber com grid 3D, radar, rede de sinais, trilhas SVG e atmosfera SOC/NOC
-- Seção Sobre com terminal simulado e área preparada para foto profissional
-- Seção premium Hack27 com badge, troféu, galeria preparada e competências
-- Projetos com filtros, cards animados, contexto técnico e links externos
-- Skill matrix compacta por áreas, badges e barras de sinal
-- Estatísticas com contadores animados
-- Timeline profissional
-- Filosofia profissional em destaque
-- Contato com GitHub, LinkedIn, e-mail, cópia de e-mail e formulário funcional via API Route
-- Rodapé com direitos reservados, crédito de desenvolvimento e links profissionais
-- Command Palette acessível por botão ou `Ctrl+K`
-- Easter egg profissional ao digitar `hack27`
-- SEO básico com metadata, robots, sitemap e favicon
-- Suporte a `prefers-reduced-motion`
+## Principais Funcionalidades
 
-## Como instalar
+- Intro animada em estilo terminal.
+- Hero com foto, textos dinamicos e painel visual.
+- Navbar fixa com blur, menu responsivo e secao ativa.
+- Barra de progresso de scroll.
+- Ticker de habilidades.
+- Background cyber com grid 3D, radar, sinais, trilhas SVG e atmosfera SOC/NOC.
+- Cursor glow em desktop.
+- Secao Sobre com narrativa profissional.
+- Secao Hack27 com imagens reais, contexto do evento e competencias.
+- Projetos com filtros, cards e links externos.
+- Skill matrix agrupada por areas tecnicas.
+- Estatisticas com contadores animados.
+- Timeline da minha jornada.
+- Filosofia profissional.
+- Formulario de contato funcional com API Route.
+- Protecao basica contra spam com honeypot.
+- Validacao no front-end e no servidor.
+- Footer profissional com direitos reservados.
+- Command Palette com atalho `Ctrl+K`.
+- Easter egg ao digitar `hack27`.
+- SEO com metadata, robots, sitemap e favicon.
+- Suporte a `prefers-reduced-motion`.
 
-Instale o Node.js LTS e depois rode:
+## Estrutura Das Secoes
+
+O site esta organizado assim:
+
+```text
+Hero
+SkillTicker
+Sobre
+Hack27
+Projetos
+Tecnologias
+Estatisticas
+Jornada
+Filosofia
+Contato
+Footer
+```
+
+Cada secao tem uma funcao clara. Eu quis evitar uma pagina baguncada ou puramente decorativa. A proposta e que a pessoa entenda rapido quem eu sou, no que estou evoluindo, quais projetos ja construi e como entrar em contato comigo.
+
+## Background
+
+O background atual fica em:
+
+```text
+src/components/ui/CyberBackground.tsx
+```
+
+Ele foi criado com CSS, gradientes e SVG leve. Nao usei canvas pesado nem biblioteca 3D, porque eu queria manter performance boa em desktop e mobile.
+
+O conceito visual mistura:
+
+- SOC/NOC futurista
+- radar/scanner
+- grid 3D
+- rede de conexoes
+- pontos de sinal
+- energia digital
+- profundidade visual
+- atmosfera cyberpunk profissional
+
+As animacoes respeitam `prefers-reduced-motion` usando classes `motion-reduce`.
+
+## Formulario De Contato
+
+O formulario fica em:
+
+```text
+src/components/sections/Contact.tsx
+```
+
+A rota server-side fica em:
+
+```text
+src/app/api/contact/route.ts
+```
+
+O fluxo e assim:
+
+1. A pessoa preenche nome, e-mail, assunto e mensagem.
+2. O front-end valida os campos.
+3. O front-end envia um `POST` para `/api/contact`.
+4. A API valida tudo novamente no servidor.
+5. A API usa o Resend para enviar o e-mail.
+6. Eu recebo a mensagem em `marcosfilipe.macedo@gmail.com`.
+
+O formulario valida:
+
+- nome obrigatorio
+- e-mail obrigatorio
+- formato valido de e-mail
+- mensagem obrigatoria
+- tamanho minimo da mensagem
+- bloqueio contra envio vazio
+- feedback de carregamento
+- feedback de sucesso
+- feedback de erro
+- cooldown contra multiplos envios seguidos
+- honeypot invisivel contra spam
+
+O e-mail enviado contem:
+
+- nome da pessoa
+- e-mail da pessoa
+- assunto informado
+- mensagem
+- data e hora do envio
+- origem: portfolio pessoal
+
+## Variaveis De Ambiente
+
+As variaveis reais ficam na Vercel. Elas nao devem ser colocadas no codigo e nao devem ser commitadas.
+
+No projeto da Vercel, configure em:
+
+```text
+Project Settings > Environment Variables
+```
+
+Variaveis usadas:
+
+```env
+RESEND_API_KEY=
+CONTACT_TO_EMAIL=marcosfilipe.macedo@gmail.com
+CONTACT_FROM_EMAIL=Marcos Macêdo <contato@marcosmacedo.dev>
+NEXT_PUBLIC_SITE_URL=https://marcosmacedo.dev
+```
+
+Para producao, `CONTACT_FORM_DRY_RUN` nao deve ficar ativo.
+
+O arquivo `.env.example` existe apenas como referencia:
+
+```text
+.env.example
+```
+
+Para testar localmente com envio real, crie um `.env.local` com as variaveis verdadeiras. Esse arquivo nao deve ir para o GitHub.
+
+Exemplo local:
+
+```env
+RESEND_API_KEY=sua_chave_real_do_resend
+CONTACT_TO_EMAIL=marcosfilipe.macedo@gmail.com
+CONTACT_FROM_EMAIL=Marcos Macêdo <contato@marcosmacedo.dev>
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```
+
+Para testar apenas a interface sem enviar e-mail real:
+
+```env
+CONTACT_FORM_DRY_RUN=true
+```
+
+## Resend
+
+O Resend e usado para envio de e-mails do formulario.
+
+Eu configurei o dominio proprio para conseguir usar um remetente profissional:
+
+```text
+contato@marcosmacedo.dev
+```
+
+No codigo, a chave do Resend e lida somente no servidor:
+
+```ts
+process.env.RESEND_API_KEY
+```
+
+Ela nao aparece no bundle do front-end.
+
+## Dominio E Deploy
+
+O dominio principal do projeto e:
+
+```text
+https://marcosmacedo.dev
+```
+
+O deploy e feito pela Vercel. O fluxo atual e:
+
+1. Altero o projeto localmente.
+2. Valido com scripts de desenvolvimento.
+3. Faço commit.
+4. Faço push para o GitHub.
+5. A Vercel faz deploy automaticamente a partir da branch `main`.
+
+Como este projeto e Next.js, a Vercel detecta automaticamente o framework.
+
+Configuracao esperada na Vercel:
+
+```text
+Framework Preset: Next.js
+Install Command: npm install
+Build Command: npm run build
+Output Directory: vazio
+```
+
+## Como Rodar Localmente
+
+Instale as dependencias:
 
 ```bash
 npm install
 ```
 
-## Como rodar localmente
+Rode o ambiente de desenvolvimento:
 
 ```bash
 npm run dev
 ```
 
-Depois acesse:
+Acesse:
 
 ```text
 http://localhost:3000
 ```
 
-Se a porta `3000` já estiver ocupada, rode:
+Se a porta `3000` estiver ocupada:
 
 ```bash
 npm run dev -- -p 3002
 ```
 
-E acesse:
+Nao abra arquivos como `src/app/page.tsx` diretamente no navegador. O projeto precisa rodar pelo servidor do Next.js.
 
-```text
-http://localhost:3002
-```
-
-Não abra arquivos como `src/app/page.tsx` diretamente no navegador. O projeto precisa rodar pelo servidor do Next.js para carregar React, Tailwind, CSS e assets em `/_next/static`.
-
-## Como gerar build
-
-```bash
-npm run build
-```
-
-Para iniciar o build localmente:
-
-```bash
-npm run start
-```
-
-O comando `npm run start` só funciona depois de `npm run build`.
-
-Este projeto não usa script `preview`; no Next.js o equivalente é:
-
-```bash
-npm run build
-npm run start
-```
-
-## Lint e TypeScript
-
-```bash
-npm run lint
-npm run typecheck
-```
-
-## Formulário de contato em produção
-
-O formulário da seção Contato usa a Route Handler `src/app/api/contact/route.ts` e envia e-mails pelo Resend no servidor. A chave nunca é exposta no front-end.
-
-Crie uma conta no Resend, gere uma API key e configure um domínio ou subdomínio verificado para o remetente. No painel da Vercel, abra o projeto e vá em **Settings > Environment Variables**. Cadastre:
-
-```text
-RESEND_API_KEY=
-CONTACT_TO_EMAIL=marcosfilipe.macedo@gmail.com
-CONTACT_FROM_EMAIL=Marcos Macêdo <contato@seudominio.com>
-NEXT_PUBLIC_SITE_URL=https://sua-url-final.vercel.app
-```
-
-`CONTACT_FROM_EMAIL` precisa usar um domínio verificado no Resend. Para testar a interface localmente sem enviar e-mail real, copie `.env.example` para `.env.local` e use:
-
-```text
-CONTACT_FORM_DRY_RUN=true
-```
-
-Não ative `CONTACT_FORM_DRY_RUN` em produção, porque ele simula sucesso sem enviar o e-mail.
-
-Para testar localmente:
+## Scripts Disponiveis
 
 ```bash
 npm run dev
 ```
 
-Depois envie o formulário em `http://localhost:3000`. Sem as variáveis reais do Resend, o formulário valida os campos e retorna erro de configuração para envios reais. Com `CONTACT_FORM_DRY_RUN=true`, ele permite validar o fluxo de sucesso da interface.
+Roda o projeto localmente em modo desenvolvimento.
 
-Para testar em produção, configure as variáveis na Vercel, faça redeploy e envie uma mensagem pelo Preview Deployment ou pela URL final. Confira também o painel **Logs** da Vercel e a caixa de entrada de `CONTACT_TO_EMAIL`.
+```bash
+npm run build
+```
 
-## Node e dependências
+Gera o build de producao.
 
-- Node.js LTS recomendado: versão 20 ou 22.
-- O projeto também funciona com Node 24 neste ambiente, mas para Vercel/local a faixa configurada é `>=20.11.0 <25`.
-- O npm vem junto com o Node.js.
-- Não é necessário instalar Next.js, Vite, Tailwind ou TypeScript globalmente.
-- Há um `.env.example` documentando as variáveis opcionais/necessárias para contato e SEO.
-- Para versionar e publicar pelo GitHub, instale Git.
-- A Vercel CLI não é obrigatória; o deploy pode ser feito pelo site da Vercel conectado ao GitHub.
+```bash
+npm run start
+```
 
-## Observação sobre Windows e OneDrive
+Roda localmente o build de producao. Precisa executar `npm run build` antes.
 
-Os scripts `dev`, `build`, `start` e `lint` chamam `scripts/next-runner.cjs`. Esse runner resolve o caminho real do projeto antes de executar o Next.js e limpa `.next` antes de `dev` e `build`.
+```bash
+npm run lint
+```
 
-Isso evita problemas no Windows quando o mesmo caminho aparece com casing diferente, por exemplo `OneDrive` e `Onedrive`. Esse conflito pode fazer o Webpack carregar módulos duplicados e causar erros como `Cannot read properties of null (reading 'useContext')` durante o prerender.
+Roda o ESLint.
 
-## Deploy na Vercel
+```bash
+npm run typecheck
+```
 
-Este projeto é um app Next.js, então na Vercel use a configuração padrão de Next.js.
+Roda a checagem TypeScript sem emitir arquivos.
 
-1. Crie uma conta em `https://vercel.com`, se ainda não tiver.
-2. Suba este projeto para um repositório no GitHub.
-3. Na Vercel, escolha **Add New Project**.
-4. Importe o repositório do GitHub.
-5. Framework Preset: `Next.js`.
-6. Install Command: `npm install` ou `npm ci`.
-7. Build Command: `npm run build`.
-8. Output Directory: deixe vazio. A Vercel detecta a saída do Next.js automaticamente.
-9. Variável opcional: `NEXT_PUBLIC_SITE_URL` com a URL final do site.
-10. Clique em **Deploy**.
-11. Abra a URL publicada e confira a página inicial, `/robots.txt` e `/sitemap.xml`.
+Este projeto nao tem script `preview`. O equivalente em Next.js e:
 
-Arquivos que não devem ir para o GitHub já estão no `.gitignore`: `node_modules`, `.next`, `.env*`, logs, builds locais e caches TypeScript.
+```bash
+npm run build
+npm run start
+```
 
-## Estrutura de pastas
+## Observacao Sobre Windows E OneDrive
+
+Este projeto esta em uma pasta do OneDrive no Windows. Para evitar problemas de caminho com `OneDrive` e `Onedrive`, os scripts usam runners proprios:
+
+```text
+scripts/next-runner.cjs
+scripts/typecheck-runner.cjs
+```
+
+O `next-runner.cjs` resolve o caminho real do projeto e limpa `.next` antes de `dev` e `build`. Isso evita conflitos de cache e modulos duplicados no Next.js.
+
+## Estrutura De Pastas
 
 ```text
 src/
   app/
+    api/
+      contact/
+        route.ts
+    globals.css
+    layout.tsx
+    not-found.tsx
+    page.tsx
+    robots.ts
+    sitemap.ts
   components/
     layout/
+      BackToTop.tsx
+      Footer.tsx
+      Navbar.tsx
+      ScrollProgress.tsx
     sections/
+      About.tsx
+      Contact.tsx
+      Hack27.tsx
+      Hero.tsx
+      Philosophy.tsx
+      Projects.tsx
+      Stats.tsx
+      TechStack.tsx
+      Timeline.tsx
     ui/
+      AnimatedCounter.tsx
+      Button.tsx
+      CommandPalette.tsx
+      CursorGlow.tsx
+      CyberBackground.tsx
+      IntroOverlay.tsx
+      ProjectCard.tsx
+      SectionTitle.tsx
+      SkillTicker.tsx
+      StatCard.tsx
+      TechBadge.tsx
+      TerminalWindow.tsx
   data/
+    navigation.ts
+    profile.ts
+    projects.ts
+    technologies.ts
+    timeline.ts
   hooks/
+    useCommandPalette.ts
+    useReducedMotion.ts
+    useScrollSpy.ts
   lib/
+    utils.ts
   types/
+    index.ts
 public/
-  images/
-    profile/
-    projects/
-    hack27/
-    backgrounds/
-    og/
   icons/
+    favicon.svg
+  images/
+    backgrounds/
+    hack27/
+    og/
+    profile/
+scripts/
+  next-runner.cjs
+  typecheck-runner.cjs
 ```
 
-## Como trocar imagens
+## Arquivos Principais
 
-Substitua os arquivos em `public/images` mantendo os mesmos nomes, ou edite os caminhos indicados abaixo.
+```text
+src/app/page.tsx
+```
 
-Arquivos principais preparados:
+Monta a pagina principal e organiza a ordem das secoes.
 
-- `public/images/profile/profile.png`
-- `public/images/profile/profile2.png`
-- `public/images/hack27/Team.jpg`
-- `public/images/hack27/Team2.jpg`
-- `public/images/hack27/Presentation.jpg`
-- `public/images/hack27/Award.jpg`
-- `public/images/hack27/Award2.jpg`
-- `public/images/backgrounds/cyber-grid.png`
-- `public/images/og/portfolio-og.png` para uma imagem social futura
+```text
+src/app/layout.tsx
+```
 
-Também existe um guia específico em `public/images/README.md`.
+Define metadata, SEO basico e estrutura global do app.
 
-### Padrão recomendado
+```text
+src/app/api/contact/route.ts
+```
 
-- Foto principal do Hero: use `public/images/profile/profile.png`.
-- Foto complementar da seção Sobre: use `public/images/profile/profile2.png`.
-- Imagens do Hack27: use `public/images/hack27/`.
-- Projetos não usam imagem nos cards atualmente; os links ficam em `src/data/projects.ts`.
-- Imagens para previews sociais: use `public/images/og/`.
+API server-side que valida e envia mensagens pelo Resend.
 
-Se quiser trocar caminhos manualmente, edite:
+```text
+src/components/ui/CyberBackground.tsx
+```
 
-- Foto principal: `src/components/sections/Hero.tsx`.
-- Foto complementar: `src/components/sections/About.tsx`.
-- Projetos: `src/data/projects.ts`.
-- Hack27/eventos: `src/components/sections/Hack27.tsx`.
+Background principal do portfolio.
 
-## Como editar projetos
+```text
+src/components/sections/Contact.tsx
+```
 
-Edite `src/data/projects.ts`.
+Formulario de contato com validacoes e estados de envio.
 
-Cada projeto suporta:
+```text
+src/data/profile.ts
+```
 
-- título
-- categoria
-- descrição
+Informacoes principais do meu perfil, links e textos base.
+
+```text
+src/data/projects.ts
+```
+
+Lista dos projetos exibidos no portfolio.
+
+```text
+src/data/technologies.ts
+```
+
+Tecnologias, grupos de habilidades, ticker e matriz visual.
+
+## Projetos Exibidos
+
+Atualmente o portfolio mostra estes projetos:
+
+- Sistema de Gestao Financeira Empresarial
+- Processamento Digital de Imagens
+- Horas Academy
+- Crazy Cine
+
+Os projetos ficam em:
+
+```text
+src/data/projects.ts
+```
+
+Cada projeto tem:
+
+- id
+- titulo
+- categorias
+- resumo
+- descricao
 - tecnologias
 - funcionalidades
 - aprendizados
 - link externo
-- label do botão
-- tipo do link, como GitHub ou LinkedIn
+- label do botao
+- tipo do link
 
-## Como editar tecnologias
+## Skill Matrix
 
-Edite `src/data/technologies.ts`.
+A skill matrix fica em:
 
-Ali ficam:
-
-- grupos da skill matrix
-- tecnologias da matrix
-- ticker de habilidades
-- carrossel de habilidades
-- ícones
-- nível visual
-- sinal/progresso
-
-## Como editar contatos
-
-Edite `src/data/profile.ts`.
-
-Campos principais:
-
-- `email`
-- `githubUrl`
-- `linkedinUrl`
-- labels exibidas no site
-
-O e-mail atual configurado no projeto é `marcosfilipe.macedo@gmail.com`.
-
-## TypeScript e aliases de import
-
-O `tsconfig.json` usa:
-
-```json
-"baseUrl": ".",
-"paths": {
-  "@/*": ["./src/*"]
-}
+```text
+src/data/technologies.ts
+src/components/sections/TechStack.tsx
 ```
 
-Essa configuração é normal em projetos Next.js com imports absolutos. Ela permite importar arquivos como `@/components/ui/Button` em vez de usar caminhos relativos longos como `../../components/ui/Button`.
+Ela esta organizada por grupos:
 
-Neste projeto, `baseUrl` deve ser mantido porque o alias `@/*` depende dele e já é usado em vários componentes.
+- Cybersecurity
+- Infraestrutura
+- Automacao
+- Desenvolvimento
+- Redes / NOC
+- Ferramentas
 
-## Observações de segurança
+Cada habilidade tem nome, area, nivel, sinal visual e icone.
 
-- Não há chaves de API, tokens ou credenciais no projeto.
-- O formulário de contato usa uma API Route server-side e depende de variáveis de ambiente para enviar e-mails em produção.
-- Os textos de terminal, scan e acesso são apenas estéticos.
-- A identidade hacker/cyber é ética e profissional; não há funcionalidades de invasão, exploração, phishing, malware ou coleta indevida.
+## Imagens
 
-## Personalização recomendada
+As imagens ficam em:
 
-- Validar o slug final do LinkedIn antes do deploy público.
-- Substituir ou atualizar imagens reais do perfil e Hack27 quando necessário.
-- Definir `NEXT_PUBLIC_SITE_URL` no ambiente de produção.
+```text
+public/images/
+```
+
+Imagens de perfil:
+
+```text
+public/images/profile/profile.png
+public/images/profile/profile2.png
+```
+
+Imagens do Hack27:
+
+```text
+public/images/hack27/Team.jpg
+public/images/hack27/Team2.jpg
+public/images/hack27/Presentation.jpg
+public/images/hack27/Award.jpg
+public/images/hack27/Award2.jpg
+```
+
+Imagem social futura:
+
+```text
+public/images/og/
+```
+
+Os cards de projeto atualmente nao usam imagens. Eles usam texto, tecnologias e links externos.
+
+## Como Atualizar Conteudo
+
+Para alterar meus dados principais:
+
+```text
+src/data/profile.ts
+```
+
+Para alterar projetos:
+
+```text
+src/data/projects.ts
+```
+
+Para alterar tecnologias:
+
+```text
+src/data/technologies.ts
+```
+
+Para alterar timeline:
+
+```text
+src/data/timeline.ts
+```
+
+Para alterar navegacao:
+
+```text
+src/data/navigation.ts
+```
+
+Para alterar o formulario:
+
+```text
+src/components/sections/Contact.tsx
+src/app/api/contact/route.ts
+```
+
+Para alterar o background:
+
+```text
+src/components/ui/CyberBackground.tsx
+tailwind.config.ts
+```
+
+## SEO
+
+O SEO basico fica em:
+
+```text
+src/app/layout.tsx
+src/app/robots.ts
+src/app/sitemap.ts
+```
+
+O dominio final usado em producao e:
+
+```text
+https://marcosmacedo.dev
+```
+
+Se o dominio mudar, eu preciso atualizar `NEXT_PUBLIC_SITE_URL` na Vercel.
+
+## Acessibilidade E Performance
+
+O projeto foi pensado para funcionar bem em desktop e mobile.
+
+Alguns cuidados:
+
+- textos com contraste alto
+- layout responsivo
+- menu mobile compacto
+- elementos com foco visivel
+- animacoes respeitando `prefers-reduced-motion`
+- background leve, sem canvas pesado
+- imagens carregadas pelo diretório `public`
+- API de contato no servidor
+
+## Seguranca
+
+Eu nao versiono chaves, tokens ou arquivos sensiveis.
+
+O `.gitignore` ignora:
+
+```text
+.env
+.env*.local
+node_modules
+.next
+logs
+builds locais
+caches TypeScript
+.vercel
+```
+
+O formulario tambem tem:
+
+- validacao no cliente
+- validacao no servidor
+- limite de tamanho dos campos
+- escape de HTML no conteudo do e-mail
+- honeypot
+- rate limit simples por IP/e-mail
+- mensagens de erro sem expor detalhes internos
+
+## Checklist Antes De Fazer Deploy
+
+Antes de subir mudancas importantes, eu rodo:
+
+```bash
+npm install
+npm run typecheck
+npm run lint
+npm run build
+```
+
+Depois valido:
+
+- pagina inicial
+- background
+- mobile
+- projetos
+- Hack27
+- formulario
+- footer
+- links externos
+- robots e sitemap
+
+## Fluxo De Deploy
+
+O fluxo normal e:
+
+```bash
+git status
+git add .
+git commit -m "mensagem do commit"
+git push origin main
+```
+
+Depois do push, a Vercel faz o deploy automaticamente.
+
+## Ambiente De Producao
+
+Em producao, o projeto depende das variaveis:
+
+```env
+RESEND_API_KEY=
+CONTACT_TO_EMAIL=marcosfilipe.macedo@gmail.com
+CONTACT_FROM_EMAIL=Marcos Macêdo <contato@marcosmacedo.dev>
+NEXT_PUBLIC_SITE_URL=https://marcosmacedo.dev
+```
+
+Essas variaveis ficam na Vercel, nao no repositorio.
+
+## Rodape
+
+O rodape atual mostra:
+
+```text
+© 2026 Marcos Macêdo. Todos os direitos reservados.
+Criado e desenvolvido por Marcos Macêdo.
+```
+
+Tambem mantem links para GitHub, LinkedIn e e-mail.
+
+## Observacao Final
+
+Este portfolio representa meu momento atual na tecnologia. Ele junta minha experiencia pratica, meus estudos, meus projetos e minha transicao para areas como infraestrutura, NOC, cybersecurity e automacao.
+
+Minha intencao e manter este projeto vivo, evoluindo junto com minha carreira, meus projetos e minha identidade profissional.
