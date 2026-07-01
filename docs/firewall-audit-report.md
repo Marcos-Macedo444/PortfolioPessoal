@@ -59,7 +59,7 @@ Correção implementada em `next.config.mjs`:
 - `poweredByHeader: false`
 - `productionBrowserSourceMaps: false`
 
-Observação: a CSP mantém `unsafe-inline` para `script-src` e `style-src` porque Next/React ainda dependem de inline runtime/styles nesse formato de app sem nonce customizado. Não foi habilitado `unsafe-eval`.
+Observação: a CSP mantém `unsafe-inline` para `script-src` e `style-src` porque Next/React ainda dependem de inline runtime/styles nesse formato de app sem nonce customizado. `unsafe-eval` não é habilitado em produção; ele só entra no `script-src` em desenvolvimento para suportar o runtime de debug do Next/React.
 
 2. Texto público com termos de segurança sem contexto defensivo suficiente.
 
@@ -243,6 +243,12 @@ Validação no navegador:
 O projeto está tecnicamente mais limpo, atualizado, com headers de segurança, sem vulnerabilidades conhecidas no `npm audit`, com linguagem pública mais defensiva e com validação local passando.
 
 Está pronto para merge na `main` do ponto de vista de build, lint, typecheck e auditoria local.
+
+## Complemento de desenvolvimento
+
+O `Content-Security-Policy` passou a ser gerado por ambiente: `script-src` inclui `'unsafe-eval'` somente quando `NODE_ENV` não é `production`, para suportar recursos de debug do React/Next no modo desenvolvimento. Em produção, a CSP continua sem `'unsafe-eval'`.
+
+A animação de loading foi implementada com React, CSS e SVG inline, sem imagens externas, scripts externos, canvas pesado ou novas dependências.
 
 Se o firewall corporativo continuar bloqueando, as hipóteses mais prováveis passam a ser externas ao código:
 

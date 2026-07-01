@@ -3,34 +3,45 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ShieldCheck } from "lucide-react";
+import { SecureLoadingAnimation } from "@/components/ui/SecureLoadingAnimation";
 import { profile } from "@/data/profile";
 import { usePrefersReducedMotion } from "@/hooks/useReducedMotion";
+
+const loadingLines = profile.introLines.slice(0, -1);
+const readyLine = profile.introLines[profile.introLines.length - 1];
 
 export function IntroOverlay() {
   const [visible, setVisible] = useState(true);
   const [lineCount, setLineCount] = useState(0);
+  const [verificationActive, setVerificationActive] = useState(false);
+  const [verificationComplete, setVerificationComplete] = useState(false);
   const reducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     if (reducedMotion) {
-      setLineCount(profile.introLines.length);
-      const timeout = window.setTimeout(() => setVisible(false), 650);
+      setLineCount(loadingLines.length);
+      setVerificationActive(true);
+      setVerificationComplete(true);
+      const timeout = window.setTimeout(() => setVisible(false), 900);
       return () => window.clearTimeout(timeout);
     }
 
     let currentLine = 0;
     const lineInterval = window.setInterval(() => {
       currentLine += 1;
-      setLineCount(Math.min(currentLine, profile.introLines.length));
+      setLineCount(Math.min(currentLine, loadingLines.length));
 
-      if (currentLine >= profile.introLines.length) {
+      if (currentLine >= loadingLines.length) {
         window.clearInterval(lineInterval);
+        setVerificationActive(true);
       }
     }, 430);
-    const closeTimeout = window.setTimeout(() => setVisible(false), 2450);
+    const completeTimeout = window.setTimeout(() => setVerificationComplete(true), 2750);
+    const closeTimeout = window.setTimeout(() => setVisible(false), 4000);
 
     return () => {
       window.clearInterval(lineInterval);
+      window.clearTimeout(completeTimeout);
       window.clearTimeout(closeTimeout);
     };
   }, [reducedMotion]);
@@ -55,12 +66,22 @@ export function IntroOverlay() {
               </div>
             </div>
             <div className="space-y-3 font-mono text-sm text-matrix-text">
-              {profile.introLines.slice(0, lineCount).map((line) => (
+              {loadingLines.slice(0, lineCount).map((line) => (
                 <p key={line}>
                   <span className="text-matrix-green">&gt;</span> {line}
                 </p>
               ))}
             </div>
+            <SecureLoadingAnimation
+              active={verificationActive}
+              complete={verificationComplete}
+              reducedMotion={reducedMotion}
+            />
+            {verificationComplete ? (
+              <p className="mt-4 font-mono text-sm text-matrix-text">
+                <span className="text-matrix-green">&gt;</span> {readyLine}
+              </p>
+            ) : null}
           </div>
         </motion.div>
       ) : null}

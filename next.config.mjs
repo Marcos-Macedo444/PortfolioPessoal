@@ -1,3 +1,14 @@
+const isDevelopment = process.env.NODE_ENV !== "production";
+const scriptSource = [
+  "script-src",
+  "'self'",
+  "'unsafe-inline'",
+  ...(isDevelopment ? ["'unsafe-eval'"] : [])
+].join(" ");
+const connectSource = isDevelopment
+  ? "connect-src 'self' ws://localhost:* ws://127.0.0.1:* ws://[::1]:*"
+  : "connect-src 'self'";
+
 const securityHeaders = [
   {
     key: "Content-Security-Policy",
@@ -10,8 +21,8 @@ const securityHeaders = [
       "img-src 'self' data: blob:",
       "font-src 'self' data:",
       "style-src 'self' 'unsafe-inline'",
-      "script-src 'self' 'unsafe-inline'",
-      "connect-src 'self'",
+      scriptSource,
+      connectSource,
       "manifest-src 'self'",
       "upgrade-insecure-requests"
     ].join("; ")
