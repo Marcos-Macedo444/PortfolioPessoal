@@ -318,6 +318,7 @@ docs/
 
 ## Projetos Exibidos
 
+- Sorteio de Times Futebol
 - Sistema de Gestão Financeira Empresarial
 - Processamento Digital de Imagens
 - Horas Academy
@@ -329,7 +330,7 @@ Os projetos ficam em:
 src/data/projects.ts
 ```
 
-Cada projeto possui título, categorias, resumo, descrição, tecnologias, funcionalidades, aprendizados e link externo.
+Cada projeto possui título, categorias, resumo, descrição, tecnologias, funcionalidades, aprendizados e links externos quando disponíveis.
 
 ## Conteúdo e Imagens
 

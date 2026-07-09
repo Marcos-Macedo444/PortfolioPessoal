@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Activity, ArrowUpRight, Github, Linkedin } from "lucide-react";
+import { Activity, ArrowUpRight, Github, Globe2, Linkedin } from "lucide-react";
 import type { Project } from "@/types";
 import { Button } from "@/components/ui/Button";
 import { TechBadge } from "@/components/ui/TechBadge";
@@ -12,6 +12,7 @@ type ProjectCardProps = {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   const LinkIcon = project.externalType === "linkedin" ? Linkedin : Github;
+  const hasDemo = Boolean(project.demoUrl);
 
   return (
     <motion.article
@@ -57,11 +58,23 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </ul>
       </div>
 
-      <div className="mt-6">
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        {project.demoUrl ? (
+          <Button
+            href={project.demoUrl}
+            external
+            variant="secondary"
+            icon={<Globe2 className="h-4 w-4" aria-hidden />}
+            className="w-full sm:w-auto"
+          >
+            Ver projeto online
+            <ArrowUpRight className="h-4 w-4" aria-hidden />
+          </Button>
+        ) : null}
         <Button
           href={project.externalUrl}
           external
-          variant="secondary"
+          variant={hasDemo ? "ghost" : "secondary"}
           icon={<LinkIcon className="h-4 w-4" aria-hidden />}
           className="w-full sm:w-auto"
         >

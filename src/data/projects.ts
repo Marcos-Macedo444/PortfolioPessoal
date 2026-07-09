@@ -6,12 +6,44 @@ export const projectFilters = [
   "Segurança defensiva",
   "Backend",
   "Web",
+  "React",
   "Educação",
   "Python",
   "Mobile"
 ];
 
 export const projects: Project[] = [
+  {
+    id: "football-team-draw",
+    title: "Sorteio de Times Futebol",
+    category: ["Web", "React", "Produto real"],
+    summary:
+      "Sistema web para sortear times equilibrados de futebol/pelada a partir da lista completa do grupo.",
+    description:
+      "Sistema web criado para resolver um problema real de organização entre amigos: extrair automaticamente os nomes da mensagem completa da pelada, ignorar Pix, horário, local e regras, classificar jogadores por habilidade e sortear times equilibrados.",
+    technologies: ["React", "Vite", "TypeScript", "LocalStorage", "Vercel"],
+    features: [
+      "Extração automática de nomes a partir da mensagem completa da pelada",
+      "Separação por habilidade de 1 a 5 estrelas",
+      "Sorteio equilibrado com base nas habilidades",
+      "Opção Não conheço tratada como média de 3 estrelas",
+      "Geração de mensagem pronta para WhatsApp",
+      "Exportação em PDF",
+      "Modelo de lista para copiar",
+      "Interface responsiva para celular e computador"
+    ],
+    learnings: [
+      "Parsing de mensagens reais com dados misturados",
+      "Modelagem de equilíbrio por habilidade",
+      "Persistência local com LocalStorage",
+      "Experiência responsiva para uso durante a pelada"
+    ],
+    externalUrl: "https://github.com/Marcos-Macedo444/SorteioTimesFutebol",
+    externalLabel: "Ver no GitHub",
+    externalType: "github",
+    githubUrl: "https://github.com/Marcos-Macedo444/SorteioTimesFutebol",
+    demoUrl: "https://sorteio-times-futebol-blond.vercel.app"
+  },
   {
     id: "finance-system",
     title: "Sistema de Gestão Financeira Empresarial",

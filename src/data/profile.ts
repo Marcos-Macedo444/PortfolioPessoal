@@ -59,7 +59,7 @@ export const contactLinks: ContactLink[] = [
 ];
 
 export const statusMetrics: StatusMetric[] = [
-  { label: "Projects Loaded", value: "4/4", progress: 88 },
+  { label: "Projects Loaded", value: "5/5", progress: 90 },
   { label: "Skills Indexed", value: "18+", progress: 92 },
   { label: "Defensive Security", value: "Enabled", progress: 96 },
   { label: "Automation Level", value: "Active", progress: 86 },
@@ -77,7 +77,7 @@ export const systemStatuses = [
 export const stats: Stat[] = [
   {
     label: "Projetos desenvolvidos",
-    value: 4,
+    value: 5,
     suffix: "+",
     description: "Sistemas, automações, algoritmos e experiências web."
   },
