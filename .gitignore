@@ -32,3 +32,4 @@ codex-dev-*.log
 
 # vercel
 .vercel
+.tmp/

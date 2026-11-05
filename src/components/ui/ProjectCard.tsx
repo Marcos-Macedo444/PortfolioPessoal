@@ -1,87 +1,95 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { Activity, ArrowUpRight, Github, Globe2, Linkedin } from "lucide-react";
+import Image from "next/image";
+import { ArrowUpRight, ChevronDown, Github, Linkedin } from "lucide-react";
 import type { Project } from "@/types";
-import { Button } from "@/components/ui/Button";
-import { TechBadge } from "@/components/ui/TechBadge";
 
-type ProjectCardProps = {
+export function ProjectCard({
+  project,
+  index = 0,
+}: {
   project: Project;
-};
-
-export function ProjectCard({ project }: ProjectCardProps) {
-  const LinkIcon = project.externalType === "linkedin" ? Linkedin : Github;
-  const hasDemo = Boolean(project.demoUrl);
-
+  index?: number;
+}) {
+  const Icon = project.externalType === "linkedin" ? Linkedin : Github;
   return (
-    <motion.article
-      layout
-      initial={{ opacity: 0, y: 22 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: "-80px" }}
-      exit={{ opacity: 0, y: -16 }}
-      transition={{ duration: 0.35 }}
-      className="tech-panel group relative overflow-hidden rounded-lg p-5 transition duration-300 hover:-translate-y-0.5 hover:border-matrix-cyan/25 hover:bg-matrix-panel/85 hover:shadow-panel"
+    <article
+      id={`project-${project.id}`}
+      className={`project-entry ${project.demoUrl ? "featured-project" : ""}`}
     >
-      <div className="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-matrix-cyan/35 to-transparent opacity-60" />
-      <div className="flex items-start justify-between gap-4">
-        <div className="grid h-11 w-11 shrink-0 place-items-center rounded-md border border-matrix-cyan/20 bg-matrix-cyan/10 text-matrix-cyan">
-          <Activity className="h-5 w-5" aria-hidden />
+      {project.image && (
+        <a
+          className="project-preview"
+          href={project.demoUrl || project.externalUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Abrir ${project.title}`}
+        >
+          <Image
+            src={project.image}
+            alt={project.imageAlt || project.title}
+            fill
+            sizes="(max-width:700px) 90vw, 55vw"
+            className="object-cover"
+          />
+          <span className="preview-caption">
+            Aplicação real <ArrowUpRight size={16} />
+          </span>
+        </a>
+      )}
+      <div className="project-body">
+        <div className="project-overline">
+          <span>0{index + 1}</span>
+          <span>{project.category.slice(0, 2).join(" / ")}</span>
         </div>
-        <div className="flex flex-wrap justify-end gap-2">
-          {project.category.slice(0, 2).map((item) => (
-            <TechBadge key={item}>{item}</TechBadge>
-          ))}
-        </div>
-      </div>
-
-      <h3 className="mt-5 text-xl font-semibold text-matrix-text">{project.title}</h3>
-      <p className="mt-3 text-sm leading-6 text-matrix-muted">{project.summary}</p>
-      <p className="mt-4 text-sm leading-6 text-matrix-muted/95">{project.description}</p>
-
-      <div className="mt-5 flex flex-wrap gap-2">
-        {project.technologies.map((technology) => (
-          <TechBadge key={technology}>{technology}</TechBadge>
-        ))}
-      </div>
-
-      <div className="mt-5 border-t border-white/10 pt-4">
-        <p className="font-mono text-xs uppercase text-matrix-cyan">Pontos do projeto</p>
-        <ul className="mt-3 space-y-2 text-sm text-matrix-muted">
-          {project.features.slice(0, 3).map((feature) => (
-            <li key={feature} className="flex gap-2">
-              <span className="mt-1 text-matrix-green">&rsaquo;</span>
-              <span>{feature}</span>
-            </li>
+        <h3>{project.title}</h3>
+        <p className="project-summary">{project.summary}</p>
+        <ul className="plain-tags">
+          {project.technologies.map((technology) => (
+            <li key={technology}>{technology}</li>
           ))}
         </ul>
-      </div>
-
-      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-        {project.demoUrl ? (
-          <Button
-            href={project.demoUrl}
-            external
-            variant="secondary"
-            icon={<Globe2 className="h-4 w-4" aria-hidden />}
-            className="w-full sm:w-auto"
+        <details className="project-details">
+          <summary>
+            Sobre o projeto <ChevronDown size={16} />
+          </summary>
+          <div className="project-detail-body">
+            <p>{project.description}</p>
+            <h4>O que ele faz</h4>
+            <ul>
+              {project.features.map((feature) => (
+                <li key={feature}>{feature}</li>
+              ))}
+            </ul>
+            <h4>Aprendizados</h4>
+            <ul>
+              {project.learnings.map((learning) => (
+                <li key={learning}>{learning}</li>
+              ))}
+            </ul>
+          </div>
+        </details>
+        <div className="project-links">
+          {project.demoUrl && (
+            <a
+              href={project.demoUrl}
+              className="text-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ver projeto online <ArrowUpRight size={16} />
+            </a>
+          )}
+          <a
+            href={project.externalUrl}
+            className="text-link"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            Ver projeto online
-            <ArrowUpRight className="h-4 w-4" aria-hidden />
-          </Button>
-        ) : null}
-        <Button
-          href={project.externalUrl}
-          external
-          variant={hasDemo ? "ghost" : "secondary"}
-          icon={<LinkIcon className="h-4 w-4" aria-hidden />}
-          className="w-full sm:w-auto"
-        >
-          {project.externalLabel}
-          <ArrowUpRight className="h-4 w-4" aria-hidden />
-        </Button>
+            <Icon size={15} />
+            {project.externalLabel}
+            <ArrowUpRight size={16} />
+          </a>
+        </div>
       </div>
-    </motion.article>
+    </article>
   );
 }

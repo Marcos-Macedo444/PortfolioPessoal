@@ -3,8 +3,10 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
+import { useMotionPreference } from "@/components/ui/Preferences";
 
 export function BackToTop() {
+  const motionEnabled = useMotionPreference();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -20,11 +22,17 @@ export function BackToTop() {
         <motion.button
           type="button"
           aria-label="Voltar ao topo"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-5 right-5 z-40 grid h-11 w-11 place-items-center rounded-md border border-matrix-green/45 bg-matrix-panel/85 text-matrix-green shadow-glow backdrop-blur transition hover:bg-matrix-green hover:text-matrix-black"
-          initial={{ opacity: 0, y: 18 }}
+          title="Voltar ao topo"
+          onClick={() =>
+            window.scrollTo({
+              top: 0,
+              behavior: motionEnabled ? "smooth" : "auto",
+            })
+          }
+          className="back-to-top icon-button"
+          initial={{ opacity: 0, y: motionEnabled ? 18 : 0 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 18 }}
+          exit={{ opacity: 0, y: motionEnabled ? 18 : 0 }}
         >
           <ArrowUp className="h-5 w-5" aria-hidden />
         </motion.button>

@@ -1,52 +1,81 @@
-"use client";
-
-import { motion } from "framer-motion";
+import { ArrowUpRight, BriefcaseBusiness } from "lucide-react";
 import { timeline } from "@/data/timeline";
-import { SectionTitle } from "@/components/ui/SectionTitle";
-import { TechBadge } from "@/components/ui/TechBadge";
+import { profile } from "@/data/profile";
 
 export function Timeline() {
+  const current = timeline[0];
+  const internship = timeline.find((item) => item.title === "Estagiário NOC")!;
   return (
-    <section id="jornada" className="relative py-24">
+    <section id="jornada" className="section journey">
       <div className="container-shell">
-        <SectionTitle
-          eyebrow="timeline"
-          title="Jornada técnica em construção"
-          description="Uma evolução que começa no trabalho prático, passa pela transição para tecnologia e chega ao foco atual em NOC, infraestrutura e segurança defensiva."
-        />
-
-        <div className="relative">
-          <div className="absolute left-4 top-0 h-full w-px bg-gradient-to-b from-matrix-green via-matrix-cyan to-transparent md:left-1/2" aria-hidden />
-          <div className="space-y-6">
-            {timeline.map((item, index) => (
-              <motion.article
-                key={item.title}
-                className={`relative grid gap-4 pl-12 md:grid-cols-2 md:pl-0 ${
-                  index % 2 === 0 ? "md:text-right" : ""
-                }`}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: "-80px" }}
-                transition={{ duration: 0.45 }}
-              >
-                <div className="absolute left-0 top-5 grid h-8 w-8 place-items-center rounded-md border border-matrix-green/45 bg-matrix-black text-matrix-green md:left-1/2 md:-translate-x-1/2">
-                  <span className="h-2 w-2 rounded-full bg-matrix-green" aria-hidden />
-                </div>
-                <div className={index % 2 === 0 ? "md:pr-10" : "md:col-start-2 md:pl-10"}>
-                  <div className="tech-panel rounded-lg p-5 text-left">
-                    <p className="font-mono text-xs uppercase text-matrix-cyan">{item.period}</p>
-                    <h3 className="mt-2 text-xl font-semibold text-matrix-text">{item.title}</h3>
-                    <p className="mt-3 leading-7 text-matrix-muted">{item.description}</p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {item.tags.map((tag) => (
-                        <TechBadge key={tag}>{tag}</TechBadge>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </motion.article>
-            ))}
-          </div>
+        <div className="section-heading journey-heading">
+          <p className="eyebrow">01 / Trajetória</p>
+          <h2>
+            Conexões que
+            <br />
+            constroem meu caminho<span className="accent">.</span>
+          </h2>
+        </div>
+        <div className="experience-list">
+          <article className="experience current-experience">
+            <span className="experience-node" aria-hidden="true">
+              <BriefcaseBusiness size={18} />
+            </span>
+            <div className="experience-date">
+              <span className="current-tag">Atuação atual</span>
+              <p>{current.period}</p>
+              <p>{profile.employment}</p>
+            </div>
+            <div className="experience-body">
+              <p className="company-name">{profile.company}</p>
+              <h3>{current.title}</h3>
+              <p>{current.description}</p>
+              <ul className="responsibilities">
+                <li>
+                  Análise de eventos e alarmes; acompanhamento de
+                  disponibilidade, desempenho e SLAs.
+                </li>
+                <li>
+                  Ações corretivas e intervenções operacionais, com
+                  escalonamento para equipes especializadas, operadoras e
+                  fornecedores.
+                </li>
+                <li>
+                  Criação e atualização de documentação técnica, procedimentos e
+                  registros operacionais.
+                </li>
+              </ul>
+              <span className="location-note">{profile.location}</span>
+            </div>
+          </article>
+          <article className="experience">
+            <span className="experience-node" aria-hidden="true" />
+            <div className="experience-date">
+              <p>{internship.period}</p>
+            </div>
+            <div className="experience-body">
+              <h3>{internship.title}</h3>
+              <p>{internship.description}</p>
+            </div>
+          </article>
+          <article className="experience">
+            <span className="experience-node" aria-hidden="true" />
+            <div className="experience-date">
+              <p>Origem & fundamentos</p>
+            </div>
+            <div className="experience-body">
+              <h3>Da prática à tecnologia</h3>
+              <p>
+                O trabalho como chaveiro residencial me ensinou precisão,
+                atendimento e responsabilidade. Na transição para tecnologia,
+                aprofundei fundamentos de sistemas, redes e programação,
+                conectando esse aprendizado a projetos acadêmicos e pessoais.
+              </p>
+              <a href="#sobre" className="text-link">
+                Um pouco mais sobre mim <ArrowUpRight size={16} />
+              </a>
+            </div>
+          </article>
         </div>
       </div>
     </section>

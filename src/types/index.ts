@@ -1,27 +1,4 @@
-import type { ElementType } from "react";
-
-export type NavItem = {
-  label: string;
-  href: string;
-  id: string;
-};
-
-export type ContactLink = {
-  label: string;
-  value: string;
-  href: string;
-};
-
-export type StatusMetric = {
-  label: string;
-  value: string;
-  progress: number;
-};
-
-export type ProjectLink = {
-  label: string;
-  href: string;
-};
+export type NavItem = { label: string; href: string; id: string };
 
 export type Project = {
   id: string;
@@ -37,22 +14,8 @@ export type Project = {
   externalType: "github" | "linkedin";
   githubUrl?: string;
   demoUrl?: string;
-};
-
-export type Technology = {
-  name: string;
-  area: string;
-  level: "Base" | "Intermediário" | "Em evolução";
-  signal: number;
-  icon: ElementType;
-};
-
-export type SkillGroup = {
-  title: string;
-  description: string;
-  accent: "green" | "cyan" | "blue" | "purple";
-  icon: ElementType;
-  skills: Technology[];
+  image?: string;
+  imageAlt?: string;
 };
 
 export type TimelineItem = {
@@ -60,11 +23,4 @@ export type TimelineItem = {
   period: string;
   description: string;
   tags: string[];
-};
-
-export type Stat = {
-  label: string;
-  value: number;
-  suffix?: string;
-  description: string;
 };

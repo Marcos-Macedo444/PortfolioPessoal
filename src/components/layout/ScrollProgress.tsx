@@ -7,14 +7,10 @@ export function ScrollProgress() {
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 120,
     damping: 28,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
 
   return (
-    <motion.div
-      className="fixed left-0 right-0 top-0 z-[90] h-1 origin-left bg-gradient-to-r from-matrix-green via-matrix-cyan to-matrix-purple"
-      style={{ scaleX }}
-      aria-hidden
-    />
+    <motion.div className="scroll-progress" style={{ scaleX }} aria-hidden />
   );
 }

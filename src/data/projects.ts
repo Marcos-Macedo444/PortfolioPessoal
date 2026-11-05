@@ -15,6 +15,9 @@ export const projectFilters = [
 export const projects: Project[] = [
   {
     id: "football-team-draw",
+    image: "/images/projects/football-draw.webp",
+    imageAlt:
+      "Captura da aplicação Sorteio de Times Futebol, com lista de jogadores e configuração dos times",
     title: "Sorteio de Times Futebol",
     category: ["Web", "React", "Produto real"],
     summary:

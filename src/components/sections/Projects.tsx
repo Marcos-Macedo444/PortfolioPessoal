@@ -1,73 +1,79 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { projectFilters, projects } from "@/data/projects";
 import { ProjectCard } from "@/components/ui/ProjectCard";
-import { SectionTitle } from "@/components/ui/SectionTitle";
-import { cn } from "@/lib/utils";
 
 export function Projects() {
-  const [activeFilter, setActiveFilter] = useState("Todos");
-
-  const filteredProjects = useMemo(() => {
-    if (activeFilter === "Todos") {
-      return projects;
-    }
-
-    return projects.filter((project) => {
-      const categories = project.category.map((item) => item.toLowerCase());
-      const technologies = project.technologies.map((item) => item.toLowerCase());
-      const filter = activeFilter.toLowerCase();
-
-      return categories.includes(filter) || technologies.includes(filter);
-    });
-  }, [activeFilter]);
-
+  const [filter, setFilter] = useState("Todos");
+  const visible = useMemo(
+    () =>
+      projects.filter(
+        (project) =>
+          filter === "Todos" ||
+          [...project.category, ...project.technologies].some(
+            (value) => value.toLowerCase() === filter.toLowerCase(),
+          ),
+      ),
+    [filter],
+  );
   return (
-    <section id="projetos" className="relative py-24">
+    <section id="projetos" className="section projects-section">
       <div className="container-shell">
-        <SectionTitle
-          eyebrow="loading projects"
-          title="Projetos com foco em problemas reais"
-          description="Cards sem imagens, focados em contexto, tecnologias, aprendizados e links diretos para publicação ou repositório."
-        />
-
-        <div className="mb-8 flex gap-2 overflow-x-auto pb-2">
-          {projectFilters.map((filter) => (
+        <div className="section-heading projects-heading">
+          <div>
+            <p className="eyebrow">03 / Da ideia à prática</p>
+            <h2>
+              Projetos com foco
+              <br />
+              em problemas reais<span className="accent">.</span>
+            </h2>
+          </div>
+          <p>
+            Ferramentas que construí para organizar, automatizar e aprender.
+            Cada projeto nasce de uma necessidade.
+          </p>
+        </div>
+        <div
+          className="project-filters"
+          role="group"
+          aria-label="Filtrar projetos"
+        >
+          {projectFilters.map((item) => (
             <button
               type="button"
-              key={filter}
-              onClick={() => setActiveFilter(filter)}
-              className={cn(
-                "shrink-0 rounded-md border px-4 py-2 font-mono text-xs transition",
-                activeFilter === filter
-                  ? "border-matrix-green bg-matrix-green text-matrix-black"
-                  : "border-white/10 bg-white/5 text-matrix-muted hover:border-matrix-green/45 hover:text-matrix-green"
-              )}
+              key={item}
+              aria-pressed={filter === item}
+              className={filter === item ? "selected" : ""}
+              onClick={() => setFilter(item)}
             >
-              {filter}
+              {item}
+              <span className="filter-marker" aria-hidden="true" />
             </button>
           ))}
         </div>
-
-        <motion.div layout className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </AnimatePresence>
-        </motion.div>
-
-        {!filteredProjects.length ? (
-          <div className="tech-panel mt-8 rounded-lg p-8 text-center">
-            <p className="font-mono text-sm text-matrix-green">resultado: nenhum projeto encontrado</p>
-            <p className="mt-2 text-matrix-muted">
-              Nenhum projeto cadastrado para este filtro ainda. A estrutura está pronta para receber
-              novos cards.
-            </p>
-          </div>
-        ) : null}
+        <p className="sr-only" role="status">
+          {visible.length} projetos encontrados
+        </p>
+        <div className="project-list">
+          {visible.map((project) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={projects.indexOf(project)}
+            />
+          ))}
+        </div>
+        {visible.length === 0 && (
+          <p className="empty-projects">
+            Nenhum projeto publicado nesta categoria. Meu trabalho em segurança
+            defensiva está descrito na{" "}
+            <a className="text-link" href="#jornada">
+              trajetória profissional
+            </a>
+            .
+          </p>
+        )}
       </div>
     </section>
   );

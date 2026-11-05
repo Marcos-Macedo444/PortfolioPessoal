@@ -1,206 +1,121 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { Medal, Presentation, Trophy, Users } from "lucide-react";
-import { SectionTitle } from "@/components/ui/SectionTitle";
-import { TechBadge } from "@/components/ui/TechBadge";
-import { usePrefersReducedMotion } from "@/hooks/useReducedMotion";
-import { cn } from "@/lib/utils";
+import { ArrowLeft, ArrowRight, Trophy } from "lucide-react";
 
-type HackImage = {
-  src: string;
-  alt: string;
-};
-
-const teamImages: HackImage[] = [
+const images = [
   {
     src: "/images/hack27/Team.jpg",
-    alt: "Equipe RED BOOST reunida no Hack27"
+    alt: "Equipe RED BOOST reunida no Hack27",
+    caption: "A equipe / RED BOOST",
+  },
+  {
+    src: "/images/hack27/Presentation.jpg",
+    alt: "Apresentação final da solução da RED BOOST no Hack27",
+    caption: "O pitch / Apresentação final",
+  },
+  {
+    src: "/images/hack27/Award.jpg",
+    alt: "Premiação da equipe RED BOOST no Hack27",
+    caption: "A conquista / Premiação",
   },
   {
     src: "/images/hack27/Team2.jpg",
-    alt: "Registro complementar da equipe RED BOOST no Hack27"
-  }
-];
-
-const awardImages: HackImage[] = [
-  {
-    src: "/images/hack27/Award.jpg",
-    alt: "Premiação da equipe RED BOOST no Hack27"
+    alt: "Outro registro da equipe RED BOOST no Hack27",
+    caption: "Juntos / Equipe RED BOOST",
   },
   {
     src: "/images/hack27/Award2.jpg",
-    alt: "Registro complementar da premiação no Hack27"
-  }
+    alt: "Registro complementar da premiação da RED BOOST",
+    caption: "Uma conquista coletiva / Hack27",
+  },
 ];
-
-const skills = [
-  "Trabalho em equipe",
-  "Comunicação",
-  "Liderança",
-  "Resolução de problemas",
-  "Inovação",
-  "Apresentação de soluções"
-];
-
-function HackCarousel({
-  images,
-  label
-}: {
-  images: HackImage[];
-  label: string;
-}) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const reducedMotion = usePrefersReducedMotion();
-
-  useEffect(() => {
-    if (reducedMotion || images.length < 2) {
-      return undefined;
-    }
-
-    const interval = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % images.length);
-    }, 4600);
-
-    return () => window.clearInterval(interval);
-  }, [images.length, reducedMotion]);
-
-  return (
-    <div className="relative overflow-hidden rounded-lg border border-white/10 bg-matrix-black/55">
-      <div className="relative aspect-[4/3]">
-        {images.map((image, index) => (
-          <Image
-            key={image.src}
-            src={image.src}
-            alt={image.alt}
-            fill
-            sizes="(min-width: 1024px) 32vw, (min-width: 640px) 50vw, 100vw"
-            className={cn(
-              "object-contain p-2 transition duration-700",
-              activeIndex === index ? "opacity-100" : "opacity-0"
-            )}
-          />
-        ))}
-      </div>
-
-      <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between rounded-md border border-white/10 bg-matrix-black/75 px-3 py-2 backdrop-blur">
-        <span className="font-mono text-xs uppercase text-matrix-text">{label}</span>
-        <div className="flex items-center gap-2" aria-label={`${label}: ${images.length} imagens`}>
-          {images.map((image, index) => (
-            <button
-              key={image.src}
-              type="button"
-              onClick={() => setActiveIndex(index)}
-              className={cn(
-                "h-2.5 w-2.5 rounded-full border transition",
-                activeIndex === index
-                  ? "border-matrix-green bg-matrix-green"
-                  : "border-white/40 bg-white/10 hover:border-matrix-cyan"
-              )}
-              aria-label={`Mostrar imagem ${index + 1} de ${label}`}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export function Hack27() {
+  const [selected, setSelected] = useState(0);
   return (
-    <section id="hack27" className="relative py-24">
+    <section id="hack27" className="section achievement-section">
       <div className="container-shell">
-        <SectionTitle
-          eyebrow="achievement unlocked"
-          title="Hack27: conquista com a RED BOOST"
-          description="Uma área única para registrar a vitória, a colaboração da equipe e a apresentação final da solução gamificada."
-        />
-
-        <motion.article
-          className="tech-panel signal-surface rounded-lg p-6 shadow-purple"
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: "-80px" }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr]">
-            <div>
-              <div className="mb-6 inline-flex items-center gap-3 rounded-md border border-matrix-green/40 bg-matrix-green/10 px-4 py-2 font-mono text-sm text-matrix-green">
-                <Trophy className="h-5 w-5" aria-hidden />
-                Campeão do Hack27
-              </div>
-
-              <div className="space-y-5 text-base leading-8 text-matrix-muted">
-                <p>
-                  A RED BOOST desenvolveu uma solução gamificada para treinamentos corporativos,
-                  criada para tornar o aprendizado mais engajador, dinâmico e mensurável.
-                </p>
-                <p>
-                  Minha contribuição conectou colaboração, pensamento de produto, comunicação e
-                  apresentação técnica para defender a solução em uma audiência ampla.
-                </p>
-              </div>
-
-              <div className="mt-8 grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
-                {[
-                  { icon: Users, label: "Equipe RED BOOST" },
-                  { icon: Presentation, label: "Apresentação final" },
-                  { icon: Medal, label: "Premiação" }
-                ].map((item) => {
-                  const Icon = item.icon;
-
-                  return (
-                    <div key={item.label} className="rounded-md border border-white/10 bg-white/[0.03] p-4">
-                      <Icon className="mb-3 h-5 w-5 text-matrix-cyan" aria-hidden />
-                      <p className="font-mono text-sm text-matrix-text">{item.label}</p>
-                    </div>
-                  );
-                })}
-              </div>
-
-              <div className="mt-8 flex flex-wrap gap-2">
-                {skills.map((skill) => (
-                  <TechBadge key={skill}>{skill}</TechBadge>
-                ))}
-              </div>
-            </div>
-
-            <div className="grid gap-5">
-              <section aria-labelledby="hack27-team-title" className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
-                <h3 id="hack27-team-title" className="mb-3 text-lg font-semibold text-matrix-text">
-                  Equipe RED BOOST
-                </h3>
-                <HackCarousel images={teamImages} label="Equipe" />
-              </section>
-
-              <section aria-labelledby="hack27-presentation-title" className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
-                <h3 id="hack27-presentation-title" className="mb-3 text-lg font-semibold text-matrix-text">
-                  Apresentação final
-                </h3>
-                <div className="relative overflow-hidden rounded-lg border border-white/10 bg-matrix-black/55">
-                  <div className="relative aspect-[4/3]">
-                    <Image
-                      src="/images/hack27/Presentation.jpg"
-                      alt="Apresentação final da RED BOOST no Hack27"
-                      fill
-                      sizes="(min-width: 1024px) 32vw, (min-width: 640px) 50vw, 100vw"
-                      className="object-contain p-2"
-                    />
-                  </div>
-                </div>
-              </section>
-
-              <section aria-labelledby="hack27-award-title" className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
-                <h3 id="hack27-award-title" className="mb-3 text-lg font-semibold text-matrix-text">
-                  Premiação
-                </h3>
-                <HackCarousel images={awardImages} label="Premiação" />
-              </section>
-            </div>
+        <div className="achievement-heading">
+          <div>
+            <p className="eyebrow">04 / Uma conquista coletiva</p>
+            <h2>
+              Ideias conectadas.
+              <br />
+              <span className="accent">Impacto em equipe.</span>
+            </h2>
           </div>
-        </motion.article>
+          <span className="award-label">
+            <Trophy size={22} />
+            <span>
+              Campeão
+              <br />
+              <strong>Hack27</strong>
+            </span>
+          </span>
+        </div>
+        <div className="achievement-grid">
+          <figure className="achievement-photo">
+            <div className="achievement-image">
+              <Image
+                key={images[selected].src}
+                src={images[selected].src}
+                alt={images[selected].alt}
+                fill
+                sizes="(max-width:700px) 90vw, 65vw"
+                className="object-contain"
+              />
+            </div>
+            <figcaption>
+              <span>{images[selected].caption}</span>
+              <div className="gallery-controls">
+                <span>{String(selected + 1).padStart(2, "0")} / 05</span>
+                <button
+                  type="button"
+                  className="icon-button"
+                  aria-label="Foto anterior do Hack27"
+                  onClick={() =>
+                    setSelected((selected + images.length - 1) % images.length)
+                  }
+                >
+                  <ArrowLeft size={17} />
+                </button>
+                <button
+                  type="button"
+                  className="icon-button"
+                  aria-label="Próxima foto do Hack27"
+                  onClick={() => setSelected((selected + 1) % images.length)}
+                >
+                  <ArrowRight size={17} />
+                </button>
+              </div>
+            </figcaption>
+          </figure>
+          <div className="achievement-copy">
+            <span className="team-wordmark">
+              RED
+              <br />
+              <span>BOOST</span>
+              <span className="accent">↗</span>
+            </span>
+            <p>
+              Uma solução gamificada para tornar treinamentos corporativos mais
+              engajadores, dinâmicos e mensuráveis.
+            </p>
+            <p>
+              Na RED BOOST, conectei colaboração, pensamento de produto,
+              comunicação e apresentação técnica para defender nossa solução na
+              apresentação final.
+            </p>
+            <ul className="plain-tags">
+              <li>Trabalho em equipe</li>
+              <li>Liderança</li>
+              <li>Comunicação</li>
+              <li>Inovação</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   );

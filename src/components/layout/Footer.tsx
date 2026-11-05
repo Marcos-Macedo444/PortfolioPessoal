@@ -1,43 +1,52 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { ArrowUp, ArrowUpRight } from "lucide-react";
+import { Monogram } from "@/components/ui/Monogram";
 import { profile } from "@/data/profile";
 
 export function Footer() {
-  const year = new Date().getFullYear();
-
   return (
-    <footer className="relative z-10 border-t border-white/10 bg-matrix-black/90 py-8">
-      <div className="container-shell flex flex-col gap-6 text-sm text-matrix-muted md:flex-row md:items-center md:justify-between">
-        <div>
-          <p className="font-semibold text-matrix-text">{profile.name}</p>
-          <p className="mt-1 font-mono text-xs">© {year} Marcos Macêdo. Todos os direitos reservados.</p>
-          <p className="mt-1 text-xs">Criado e desenvolvido por Marcos Macêdo.</p>
-        </div>
-        <div className="flex flex-col gap-3 md:items-end">
-          <p className="font-mono text-xs uppercase text-matrix-cyan/80">Portfolio Runtime</p>
-          <div className="flex flex-wrap gap-3">
+    <footer className="site-footer">
+      <div className="container-shell">
+        <div className="footer-top">
+          <a
+            className="brand"
+            href="#inicio"
+            aria-label="Marcos Macêdo, início"
+          >
+            <Monogram />
+            <span>
+              {profile.name}
+              <span className="accent">.</span>
+            </span>
+          </a>
+          <div className="footer-links">
             <a
               href={profile.githubUrl}
               target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 transition hover:text-matrix-green"
+              rel="noopener noreferrer"
             >
-              <Github className="h-4 w-4" aria-hidden />
-              GitHub
+              GitHub <ArrowUpRight size={13} />
             </a>
             <a
               href={profile.linkedinUrl}
               target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 transition hover:text-matrix-cyan"
+              rel="noopener noreferrer"
             >
-              <Linkedin className="h-4 w-4" aria-hidden />
-              LinkedIn
+              LinkedIn <ArrowUpRight size={13} />
             </a>
-            <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-2 transition hover:text-matrix-green">
-              <Mail className="h-4 w-4" aria-hidden />
-              E-mail
+            <a href={`mailto:${profile.email}`}>
+              E-mail <ArrowUpRight size={13} />
             </a>
           </div>
+          <a className="text-link" href="#inicio">
+            Voltar ao início <ArrowUp size={15} />
+          </a>
+        </div>
+        <div className="footer-bottom">
+          <p>
+            © {new Date().getFullYear()} Marcos Macêdo. Todos os direitos
+            reservados.
+          </p>
+          <p>Feito por mim. Conectado ao que importa.</p>
         </div>
       </div>
     </footer>

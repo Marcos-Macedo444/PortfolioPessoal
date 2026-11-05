@@ -1,145 +1,196 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail, Radar, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { motion, useInView } from "framer-motion";
+import {
+  ArrowDown,
+  ArrowUpRight,
+  Network,
+  Radio,
+  ShieldCheck,
+  Workflow,
+} from "lucide-react";
+import { connections } from "@/data/connections";
 import { profile } from "@/data/profile";
-import { usePrefersReducedMotion } from "@/hooks/useReducedMotion";
+import { useMotionPreference } from "@/components/ui/Preferences";
+
+const icons = [Network, Radio, ShieldCheck, Workflow];
+const paths = [
+  "M300 215H238L182 90H105",
+  "M300 215H362L418 90H495",
+  "M300 215H238L182 340H105",
+  "M300 215H362L418 340H495",
+];
 
 export function Hero() {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [typedRole, setTypedRole] = useState("");
-  const reducedMotion = usePrefersReducedMotion();
+  const [selected, setSelected] = useState(0);
+  const [tabVisible, setTabVisible] = useState(true);
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref);
+  const motionEnabled = useMotionPreference();
+  const area = connections[selected];
 
   useEffect(() => {
-    if (reducedMotion) {
-      setTypedRole(profile.typingRoles[0]);
-      return undefined;
-    }
-
-    const currentRole = profile.typingRoles[roleIndex];
-    let charIndex = 0;
-    let nextRoleTimeout = 0;
-    setTypedRole("");
-
-    const typing = window.setInterval(() => {
-      charIndex += 1;
-      setTypedRole(currentRole.slice(0, charIndex));
-
-      if (charIndex >= currentRole.length) {
-        window.clearInterval(typing);
-        nextRoleTimeout = window.setTimeout(() => {
-          setRoleIndex((current) => (current + 1) % profile.typingRoles.length);
-        }, 1300);
-      }
-    }, 55);
-
-    return () => {
-      window.clearInterval(typing);
-      window.clearTimeout(nextRoleTimeout);
-    };
-  }, [reducedMotion, roleIndex]);
+    const update = () => setTabVisible(document.visibilityState === "visible");
+    update();
+    document.addEventListener("visibilitychange", update);
+    return () => document.removeEventListener("visibilitychange", update);
+  }, []);
 
   return (
-    <section id="inicio" className="relative min-h-[92vh] overflow-hidden pt-28">
-      <div className="absolute inset-0 bg-tech-radial" aria-hidden />
-      <div className="absolute inset-x-0 top-20 h-px bg-gradient-to-r from-transparent via-matrix-green/45 to-transparent" aria-hidden />
-
-      <div className="container-shell relative grid min-h-[calc(92vh-7rem)] items-center gap-10 pb-14 lg:grid-cols-[1fr_0.82fr]">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-        >
-          <div className="mb-5 inline-flex items-center gap-2 rounded-md border border-matrix-green/25 bg-matrix-green/10 px-3 py-2 font-mono text-xs uppercase text-matrix-green">
-            <span className="h-2 w-2 rounded-full bg-matrix-green shadow-glow" aria-hidden />
-            System Online
-          </div>
-
-          <h1 className="text-5xl font-semibold text-matrix-text sm:text-6xl lg:text-7xl">
-            {profile.name}
-          </h1>
-          <p className="mt-5 max-w-3xl text-lg font-medium text-matrix-cyan sm:text-xl">
-            {profile.title}
+    <section id="inicio" className="hero">
+      <div className="container-shell hero-grid">
+        <div className="hero-copy">
+          <p className="eyebrow">
+            <span className="status-dot" /> Redes, infraestrutura & pessoas
           </p>
-          <p className="mt-6 max-w-2xl text-base leading-8 text-matrix-muted sm:text-lg">
-            {profile.headline}
-          </p>
-
-          <div className="mt-6 flex min-h-10 items-center gap-3 font-mono text-sm text-matrix-green sm:text-base">
-            <Sparkles className="h-4 w-4" aria-hidden />
-            <span>{typedRole}</span>
-            <span className="animate-pulse-glow" aria-hidden>
-              █
+          <h1>
+            Marcos
+            <br />
+            <span>
+              Macêdo<span className="name-period">.</span>
             </span>
+          </h1>
+          <p className="hero-role">{profile.title}</p>
+          <p className="hero-description">{profile.headline}</p>
+          <div className="hero-actions">
+            <a className="button" href="#projetos">
+              Explorar projetos <ArrowUpRight size={18} />
+            </a>
+            <a className="text-link" href="#jornada">
+              Minha trajetória <ArrowDown size={17} />
+            </a>
           </div>
+        </div>
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button href="#projetos" icon={<Radar className="h-4 w-4" aria-hidden />}>
-              Ver projetos
-            </Button>
-            <Button href="#jornada" variant="secondary" icon={<ArrowDown className="h-4 w-4" aria-hidden />}>
-              Conhecer trajetória
-            </Button>
-            <Button
-              href={profile.githubUrl}
-              external
-              variant="ghost"
-              icon={<Github className="h-4 w-4" aria-hidden />}
+        <div className="hero-network" ref={ref}>
+          <div className="network-heading">
+            <span>Conexões em movimento</span>
+            <span className="network-index">01 — 04</span>
+          </div>
+          <div
+            className="network-map"
+            data-running={motionEnabled && inView && tabVisible}
+          >
+            <svg
+              viewBox="0 0 600 430"
+              aria-hidden="true"
+              className="network-svg"
             >
-              GitHub
-            </Button>
-            <Button
-              href={profile.linkedinUrl}
-              external
-              variant="ghost"
-              icon={<Linkedin className="h-4 w-4" aria-hidden />}
-            >
-              LinkedIn
-            </Button>
-            <Button href="#contato" variant="ghost" icon={<Mail className="h-4 w-4" aria-hidden />}>
-              Contato
-            </Button>
-          </div>
-
-          <div className="mt-10 grid gap-3 sm:grid-cols-3 lg:max-w-2xl">
-            {["NOC Internship", "Defensive Security", "Infrastructure"].map((status) => (
-              <div key={status} className="rounded-md border border-white/10 bg-white/[0.03] px-4 py-3">
-                <p className="font-mono text-xs uppercase text-matrix-muted">{status}</p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="relative mx-auto w-full max-w-sm lg:max-w-md lg:animate-float-panel motion-reduce:animate-none"
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
-        >
-          <div className="absolute -inset-4 rounded-[2rem] border border-matrix-green/10 bg-matrix-green/5 blur-2xl" aria-hidden />
-          <div className="tech-panel signal-surface relative overflow-hidden rounded-2xl p-3 shadow-cyan">
-            <div className="relative aspect-[3/4] overflow-hidden rounded-xl border border-matrix-green/30 bg-matrix-graphite">
-              <Image
-                src="/images/profile/profile.png"
-                alt="Foto profissional de Marcos Macêdo"
-                fill
-                priority
-                sizes="(min-width: 1024px) 34vw, (min-width: 640px) 420px, 92vw"
-                className="object-cover"
+              <path
+                className="network-grid"
+                d="M0 90H600M0 215H600M0 340H600M105 0V430M300 0V430M495 0V430"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-matrix-black/55 via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4 rounded-lg border border-white/10 bg-matrix-black/70 p-4 backdrop-blur-md">
-                <p className="font-mono text-xs uppercase text-matrix-green">current status</p>
-                <p className="mt-1 text-sm font-semibold text-matrix-text">
-                  Estagiário NOC
-                </p>
-              </div>
+              <circle className="network-orbit" cx="300" cy="215" r="142" />
+              <circle
+                className="network-orbit inner"
+                cx="300"
+                cy="215"
+                r="104"
+              />
+              {paths.map((d, index) => (
+                <motion.path
+                  key={d}
+                  d={d}
+                  className={`network-route ${selected === index ? "selected" : ""}`}
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{
+                    duration: motionEnabled ? 0.9 : 0,
+                    delay: motionEnabled ? index * 0.04 : 0,
+                  }}
+                />
+              ))}
+              <path className="network-tail" d="M300 265V430" />
+              <path
+                className="network-core"
+                d="M246 242V188L273 219L300 188V242M310 242V188L337 219L364 188V242"
+              />
+              <circle cx="246" cy="242" r="4" className="signal-dot" />
+              <circle cx="364" cy="188" r="4" className="signal-dot" />
+              <circle
+                key={selected}
+                r="4"
+                className="route-signal"
+                style={{ offsetPath: `path('${paths[selected]}')` }}
+              />
+            </svg>
+            <div
+              className="network-nodes"
+              role="group"
+              aria-label="Áreas de atuação"
+            >
+              {connections.map((item, index) => {
+                const Icon = icons[index];
+                return (
+                  <button
+                    type="button"
+                    key={item.id}
+                    className={`network-node node-${index} ${selected === index ? "selected" : ""}`}
+                    aria-pressed={selected === index}
+                    aria-controls="area-description"
+                    onClick={() => setSelected(index)}
+                  >
+                    <span className="node-symbol">
+                      <Icon size={19} aria-hidden="true" />
+                    </span>
+                    <span>{item.label}</span>
+                  </button>
+                );
+              })}
             </div>
+            <span className="map-coordinate">MM / VITÓRIA, ES</span>
           </div>
-        </motion.div>
+          <div
+            className="network-context"
+            id="area-description"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            <p className="connection-label">
+              <span className="status-dot" /> {area.label}{" "}
+              <span className="connection-rule" />
+            </p>
+            <h2>{area.subtitle}</h2>
+            <p>{area.description}</p>
+            {area.projects.length > 0 && (
+              <a className="text-link" href="#project-finance-system">
+                Conhecer a automação financeira <ArrowUpRight size={15} />
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="container-shell hero-foot">
+        <div className="current-position">
+          <Image
+            src="/images/profile/profile.png"
+            alt="Marcos Macêdo"
+            width={44}
+            height={44}
+            sizes="44px"
+            className="mini-portrait"
+          />
+          <div>
+            <span>Atualmente na</span>
+            <p>
+              {profile.company} <ArrowUpRight size={13} />
+            </p>
+          </div>
+        </div>
+        <p className="hero-location">
+          Vitória / Espírito Santo
+          <br />
+          <span>Brasil</span>
+        </p>
+        <a
+          href="#jornada"
+          className="scroll-cue"
+          aria-label="Explorar minha trajetória"
+        >
+          <ArrowDown size={20} />
+        </a>
       </div>
     </section>
   );

@@ -5,41 +5,30 @@ import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { About } from "@/components/sections/About";
 import { Contact } from "@/components/sections/Contact";
 import { Hack27 } from "@/components/sections/Hack27";
-import { Hero } from "@/components/sections/Hero";
+import { ConnectionStory } from "@/components/sections/ConnectionStory";
 import { Philosophy } from "@/components/sections/Philosophy";
 import { Projects } from "@/components/sections/Projects";
-import { Stats } from "@/components/sections/Stats";
 import { TechStack } from "@/components/sections/TechStack";
-import { Timeline } from "@/components/sections/Timeline";
 import { CommandPalette } from "@/components/ui/CommandPalette";
-import { TechnicalBackground } from "@/components/ui/TechnicalBackground";
-import { CursorGlow } from "@/components/ui/CursorGlow";
-import { IntroOverlay } from "@/components/ui/IntroOverlay";
-import { SkillTicker } from "@/components/ui/SkillTicker";
+import { Preferences } from "@/components/ui/Preferences";
 
 export default function Home() {
   return (
-    <>
-      <IntroOverlay />
+    <Preferences>
       <ScrollProgress />
-      <TechnicalBackground />
-      <CursorGlow />
       <Navbar />
       <main id="main-content" className="relative z-10">
-        <Hero />
-        <SkillTicker />
+        <ConnectionStory />
         <About />
-        <Hack27 />
         <Projects />
+        <Hack27 />
         <TechStack />
-        <Stats />
-        <Timeline />
         <Philosophy />
         <Contact />
       </main>
       <Footer />
       <BackToTop />
       <CommandPalette />
-    </>
+    </Preferences>
   );
 }

@@ -9,7 +9,13 @@ export function scrollToSection(id: string) {
   const element = document.getElementById(id);
 
   if (element) {
-    element.scrollIntoView({ behavior: "smooth", block: "start" });
+    const reduced =
+      matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      document.documentElement.dataset.motion === "off";
+    element.scrollIntoView({
+      behavior: reduced ? "auto" : "smooth",
+      block: "start",
+    });
   }
 }
 

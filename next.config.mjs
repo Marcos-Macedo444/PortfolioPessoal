@@ -6,7 +6,7 @@ const scriptSource = [
   ...(isDevelopment ? ["'unsafe-eval'"] : [])
 ].join(" ");
 const connectSource = isDevelopment
-  ? "connect-src 'self' ws://localhost:* ws://127.0.0.1:* ws://[::1]:*"
+  ? "connect-src 'self' ws://localhost:* ws://127.0.0.1:*"
   : "connect-src 'self'";
 
 const securityHeaders = [

@@ -1,481 +1,136 @@
-# Marcos Macêdo | Portfólio Pessoal
+# Marcos Macêdo / Conexões em movimento
 
-Este é o meu portfólio pessoal como profissional em evolução na área de tecnologia, com foco em infraestrutura, NOC, segurança defensiva, automação, backend e projetos reais.
+Este é meu portfólio pessoal: minha trajetória em redes e infraestrutura, minha atuação em NOC e os projetos de software e automação que desenvolvo para resolver problemas reais.
 
-Eu criei este projeto para apresentar minha trajetória de forma clara, organizada e profissional. A proposta não é ser apenas uma página com meu nome, mas um portfólio com identidade própria, boa experiência em desktop e mobile, projetos documentados, formulário de contato funcional e uma base técnica segura para produção.
+Sou **Técnico de Networking I — NOC na Vision Cybersecurity**, contratado em tempo integral desde **setembro de 2026**, em Vitória, Espírito Santo, Brasil. Antes da efetivação, construí minha base prática como estagiário NOC. Minha experiência anterior como chaveiro residencial também faz parte dessa história: atendimento, precisão e responsabilidade continuam presentes na forma como trabalho.
 
-O projeto está publicado em:
+Meu endereço público é [marcosmacedo.dev](https://marcosmacedo.dev/).
 
-```text
-https://marcosmacedo.dev
-```
+## A identidade do portfólio
 
-## Sobre o Projeto
+Chamei o conceito de **Conexões em movimento**. Quatro áreas, Redes, NOC, Segurança e Automação, se conectam a um monograma MM. Cada ponto pode ser selecionado para conhecer uma parte da minha atuação. O percurso continua na trajetória profissional quando a página é rolada.
 
-O portfólio foi desenvolvido com Next.js, React, TypeScript e Tailwind CSS. A interface usa uma estética técnica inspirada em ambientes SOC/NOC, infraestrutura digital, monitoramento, sinais e painéis operacionais.
+O azul organiza as rotas e as ações; o verde marca os sinais e a seleção. O tema escuro usa `#09121E`, `#4C8DFF`, `#65F5A2` e `#E7EEF8`. No claro, adaptei os contrastes para manter a leitura. O tema segue o sistema até que a pessoa escolha outro, com preferência salva no navegador.
 
-O objetivo visual é transmitir tecnologia, segurança defensiva, automação e evolução técnica sem deixar a experiência pesada ou confusa. O background foi feito com CSS, gradientes e SVG leve, respeitando `prefers-reduced-motion`.
+O movimento é 2D, com SVG, CSS e Framer Motion. Os conteúdos aparecem imediatamente e a navegação usa a rolagem nativa. Há controle para pausar animações e suporte à preferência de movimento reduzido. As decisões estão em [DESIGN.md](DESIGN.md).
 
-O site também conta com formulário de contato em produção. As mensagens são enviadas pelo Resend por uma rota server-side do Next.js, mantendo a chave de API fora do front-end.
+## Minha atuação atual
 
-## Status Atual
+No NOC, trabalho com monitoramento de redes, telecomunicações e serviços de TI; classificação e acompanhamento de incidentes; troubleshooting e atuação em primeiro e segundo nível conforme os procedimentos. Também acompanho eventos, alarmes, disponibilidade, desempenho e SLAs, realizo intervenções operacionais, escalono ocorrências e atualizo documentação técnica.
 
-- Publicado em produção no domínio `marcosmacedo.dev`.
-- Deploy pela Vercel a partir da branch `main`.
-- Formulário de contato funcionando com Resend.
-- Domínio próprio `.dev` configurado.
-- Imagens reais de perfil e Hack27 configuradas.
-- Relatório de auditoria de firewall disponível em `docs/firewall-audit-report.md`.
-- Headers de segurança configurados no Next.js.
-- Dependências revisadas com `npm audit` sem vulnerabilidades conhecidas.
+O portfólio apresenta essa experiência sem divulgar dados de clientes, topologias operacionais ou informações internas. A rede visual é uma composição autoral e esquemática.
 
-## Tecnologias
+## O que está no site
 
-- Next.js 16
-- React 18
-- TypeScript
-- Tailwind CSS
-- Framer Motion
-- Lucide React
-- React Icons
-- Resend
-- Vercel
+- Abertura com nome, cargo atual, rede interativa e atalhos para projetos e trajetória.
+- Trajetória com a efetivação, o estágio como experiência anterior e minha transição para tecnologia.
+- Sobre mim com fotografia real e apresentação pessoal.
+- Projetos com filtros, demonstração real, links e detalhes expansíveis.
+- Conquista no Hack27 com a equipe RED BOOST e cinco fotografias navegáveis.
+- Competências organizadas por áreas e ferramentas, sem percentuais fictícios.
+- Filosofia profissional, contato, formulário e canais diretos.
+- Navegação responsiva, busca de seções com `Ctrl+K`, progresso de leitura e retorno ao início.
+- Temas claro/escuro/sistema, preferências persistidas e controle de animação.
+- Metadata, sitemap, robots, favicon e página 404.
 
-Também uso scripts auxiliares em Node.js para padronizar a execução dos comandos do Next.js e do TypeScript no ambiente local.
+Não há currículo, certificados ou diplomas para download no repositório. As datas do estágio ainda não estavam documentadas na base anterior; por isso, mantive a experiência histórica sem inventar um período.
 
-## Funcionalidades
+## Projetos exibidos
 
-- Intro animada em estilo terminal.
-- Hero com foto, texto dinâmico e chamadas principais.
-- Navbar fixa com menu responsivo e seção ativa.
-- Barra de progresso de scroll.
-- Ticker de habilidades.
-- Background técnico com grid, sinais, trilhas SVG e movimento sutil.
-- Cursor glow em desktop.
-- Seção Sobre com narrativa profissional.
-- Seção Hack27 com imagens reais e contexto da conquista.
-- Projetos com filtros, cards e links externos.
-- Skill matrix agrupada por áreas técnicas.
-- Estatísticas com contadores animados.
-- Timeline da minha jornada.
-- Filosofia profissional.
-- Formulário de contato com validação no cliente e no servidor.
-- Proteção básica contra spam com honeypot e cooldown.
-- Footer com direitos reservados.
-- Command Palette com atalho `Ctrl+K`.
-- SEO com metadata, robots, sitemap e favicon.
-- Suporte a `prefers-reduced-motion`.
+| Projeto                                  | Links                                                                                                                           |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Sorteio de Times Futebol                 | [Aplicação](https://sorteio-times-futebol-blond.vercel.app) · [GitHub](https://github.com/Marcos-Macedo444/SorteioTimesFutebol) |
+| Sistema de Gestão Financeira Empresarial | Publicação no LinkedIn, preservada em `src/data/projects.ts`                                                                    |
+| Processamento Digital de Imagens         | [GitHub](https://github.com/Marcos-Macedo444/ProcessamentoDeImagens)                                                            |
+| Horas Academy                            | [GitHub](https://github.com/Marcos-Macedo444/HorasAcademyFront)                                                                 |
+| Crazy Cine                               | [GitHub](https://github.com/Marcos-Macedo444/CrazyCine-Flask)                                                                   |
 
-## Estrutura das Seções
+No Sorteio de Times, usei uma captura da aplicação pública real. Os outros projetos preservam suas descrições, funcionalidades, aprendizados e links de origem, sem inventar demonstrações ou screenshots.
 
-```text
-Hero
-SkillTicker
-Sobre
-Hack27
-Projetos
-Tecnologias
-Estatísticas
-Jornada
-Filosofia
-Contato
-Footer
-```
+## Stack
 
-Cada seção tem uma função objetiva: apresentar quem eu sou, mostrar no que estou evoluindo, destacar projetos, registrar minha jornada e facilitar contato profissional.
+Next.js 16, React 18, TypeScript, Tailwind CSS, Framer Motion e Lucide. O envio de e-mail usa a API do Resend no servidor. A hospedagem está vinculada à Vercel e ao GitHub.
 
-## Formulário de Contato
+A tipografia de títulos é Space Grotesk, hospedada localmente. A licença SIL OFL acompanha a fonte em `public/fonts/OFL.txt`. Os textos usam fontes de sistema. Não há CDN ou cena 3D.
 
-O formulário fica em:
+## Desenvolvimento local
 
-```text
-src/components/sections/Contact.tsx
-```
-
-A rota server-side fica em:
-
-```text
-src/app/api/contact/route.ts
-```
-
-Fluxo do envio:
-
-1. A pessoa preenche nome, e-mail, assunto e mensagem.
-2. O front-end valida os campos.
-3. O front-end envia um `POST` para `/api/contact`.
-4. A API valida tudo novamente no servidor.
-5. A API envia a mensagem pelo Resend.
-6. Eu recebo o contato no e-mail configurado em produção.
-
-Validações e proteções:
-
-- nome obrigatório;
-- e-mail obrigatório;
-- formato válido de e-mail;
-- mensagem obrigatória;
-- tamanho mínimo da mensagem;
-- limite de tamanho dos campos;
-- honeypot invisível;
-- cooldown contra envios repetidos;
-- escape de HTML no conteúdo do e-mail;
-- mensagens de erro sem expor detalhes internos.
-
-## Variáveis de Ambiente
-
-As variáveis reais ficam configuradas na Vercel. Elas não devem ser colocadas no código e não devem ser commitadas.
-
-No projeto da Vercel, o caminho é:
-
-```text
-Project Settings > Environment Variables
-```
-
-Variáveis usadas em produção:
-
-```env
-RESEND_API_KEY=
-CONTACT_TO_EMAIL=marcosfilipe.macedo@gmail.com
-CONTACT_FROM_EMAIL=Marcos Macêdo <contato@marcosmacedo.dev>
-NEXT_PUBLIC_SITE_URL=https://marcosmacedo.dev
-CONTACT_FORM_DRY_RUN=false
-```
-
-Para rodar localmente com envio real, crie um `.env.local` com os valores reais. Esse arquivo é ignorado pelo Git.
-
-Para rodar a interface e a API sem enviar e-mail real:
-
-```env
-CONTACT_FORM_DRY_RUN=true
-```
-
-## Como Rodar Localmente
-
-Instale as dependências:
+Uso Node.js entre 20.11 e 24, conforme `package.json`.
 
 ```bash
 npm install
-```
-
-Rode em modo desenvolvimento:
-
-```bash
 npm run dev
 ```
 
-Acesse:
+O endereço padrão é `http://localhost:3000`. No Windows, `npm.cmd` pode ser usado quando a policy do PowerShell bloquear `npm.ps1`.
 
-```text
-http://localhost:3000
-```
-
-Se a porta `3000` estiver ocupada:
-
-```bash
-npm run dev -- -p 3002
-```
-
-O projeto precisa rodar pelo servidor do Next.js. Não abra arquivos `.tsx` diretamente no navegador.
-
-## Scripts
-
-```bash
-npm run dev
-```
-
-Roda o projeto localmente em modo desenvolvimento.
-
-```bash
-npm run build
-```
-
-Gera o build de produção com Next.js.
-
-```bash
-npm run start
-```
-
-Roda localmente o build de produção. Execute `npm run build` antes.
-
-```bash
-npm run lint
-```
-
-Roda o ESLint.
+Para validar e executar uma versão de produção:
 
 ```bash
 npm run typecheck
-```
-
-Roda a checagem TypeScript sem emitir arquivos.
-
-O projeto não tem script `preview`. No Next.js, o equivalente é:
-
-```bash
+npm run lint
 npm run build
 npm run start
 ```
 
-## Deploy
+Não existe script `test` na base atual. O runner `scripts/next-runner.cjs` normaliza caminhos do Windows e recria `.next` ao iniciar dev ou build. Por isso, encerro o dev antes de preparar um build e iniciar `start`.
 
-O deploy é feito pela Vercel. O fluxo principal é:
+## Formulário de contato
 
-1. Alterar e validar o projeto localmente.
-2. Criar commit.
-3. Enviar a branch `main` para o GitHub.
-4. A Vercel inicia o deploy de produção automaticamente.
+O formulário está em `src/components/sections/Contact.tsx`. Ele envia JSON para `/api/contact`, valida os campos, mostra estados de envio e mantém honeypot e cooldown. A rota em `src/app/api/contact/route.ts` valida novamente, escapa o conteúdo HTML e chama o Resend somente no servidor.
 
-Configuração esperada na Vercel:
+Variáveis de ambiente:
 
-```text
-Framework Preset: Next.js
-Install Command: npm install
-Build Command: npm run build
-Output Directory: vazio
+```env
+NEXT_PUBLIC_SITE_URL=https://marcosmacedo.dev
+RESEND_API_KEY=
+CONTACT_TO_EMAIL=marcosfilipe.macedo@gmail.com
+CONTACT_FROM_EMAIL=
 ```
 
-## Estrutura de Pastas
+Configuro os valores reais em **Vercel > Project Settings > Environment Variables**, no ambiente adequado. A chave do Resend nunca recebe prefixo `NEXT_PUBLIC_`. `CONTACT_FROM_EMAIL` deve ser um remetente autorizado no Resend. Para testar localmente sem enviar e-mails, posso usar `CONTACT_FORM_DRY_RUN=true`; essa opção deve ficar desativada em produção.
+
+Mantenho `.env` e `.env.*` ignorados no Git. `.env.example` é apenas um modelo sem segredos. A resposta de sucesso da API confirma aceitação pelo serviço; recebimento na caixa de entrada é uma confirmação separada.
+
+## Estrutura
 
 ```text
 src/
-  app/
-    api/
-      contact/
-        route.ts
-    globals.css
-    layout.tsx
-    not-found.tsx
-    page.tsx
-    robots.ts
-    sitemap.ts
+  app/                     Página, layout, metadata, estilos e API de contato
   components/
-    layout/
-      BackToTop.tsx
-      Footer.tsx
-      Navbar.tsx
-      ScrollProgress.tsx
-    sections/
-      About.tsx
-      Contact.tsx
-      Hack27.tsx
-      Hero.tsx
-      Philosophy.tsx
-      Projects.tsx
-      Stats.tsx
-      TechStack.tsx
-      Timeline.tsx
-    ui/
-      AnimatedCounter.tsx
-      Button.tsx
-      CommandPalette.tsx
-      CursorGlow.tsx
-      IntroOverlay.tsx
-      ProjectCard.tsx
-      SectionTitle.tsx
-      SkillTicker.tsx
-      StatCard.tsx
-      TechBadge.tsx
-      TechnicalBackground.tsx
-      TerminalWindow.tsx
-  data/
-    navigation.ts
-    profile.ts
-    projects.ts
-    technologies.ts
-    timeline.ts
-  hooks/
-    useCommandPalette.ts
-    useReducedMotion.ts
-    useScrollSpy.ts
-  lib/
-    utils.ts
-  types/
-    index.ts
+    layout/                Navegação, footer, progresso e retorno ao topo
+    sections/              Abertura, trajetória, sobre, projetos, conquista e contato
+    ui/                    Monograma, preferências, busca e apresentação de projetos
+  data/                    Perfil, conexões, navegação, projetos, competências e trajetória
+  hooks/                   Busca e acompanhamento da seção ativa
+  lib/                     Navegação e clipboard
+  types/                   Contratos dos conteúdos
 public/
-  icons/
-    favicon.svg
-  images/
-    backgrounds/
-    hack27/
-    profile/
-scripts/
-  next-runner.cjs
-  typecheck-runner.cjs
-docs/
-  firewall-audit-report.md
+  fonts/                   Space Grotesk e licença
+  icons/                   Favicon
+  images/profile/          Fotos pessoais em PNG
+  images/hack27/           Registros reais da RED BOOST
+  images/projects/         Captura real do Sorteio de Times
+  preferences.js           Aplica o tema salvo antes da primeira pintura
+scripts/                   Runners do Next.js e TypeScript
+docs/                      Auditoria histórica e validação do redesign
+DESIGN.md                  Sistema visual e decisões de movimento
 ```
 
-## Arquivos Principais
+Atualizo meu cargo e meus contatos em `src/data/profile.ts`; experiências em `src/data/timeline.ts`; projetos em `src/data/projects.ts`; descrições das áreas em `src/data/connections.ts`; ferramentas em `src/data/technologies.ts`. Os tokens dos temas ficam em `src/app/globals.css`.
 
-- `src/app/page.tsx`: monta a página principal.
-- `src/app/layout.tsx`: define metadata, SEO básico e estrutura global.
-- `src/app/api/contact/route.ts`: valida e envia mensagens pelo Resend.
-- `src/components/ui/TechnicalBackground.tsx`: background principal.
-- `src/components/sections/Contact.tsx`: formulário de contato.
-- `src/data/profile.ts`: dados principais do meu perfil.
-- `src/data/projects.ts`: lista de projetos exibidos.
-- `src/data/technologies.ts`: tecnologias, grupos de habilidades e matriz visual.
-- `docs/firewall-audit-report.md`: auditoria de segurança e falsos positivos de firewall.
+## Segurança e publicação
 
-## Projetos Exibidos
+Os headers em `next.config.mjs` incluem CSP, HSTS, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy` e `X-Frame-Options`. `unsafe-eval` só é permitido no modo de desenvolvimento do Next/React. Produção continua sem essa exceção. O relatório `docs/firewall-audit-report.md` registra a auditoria anterior; ele é histórico e não representa garantia de liberação em firewalls corporativos.
 
-- Sorteio de Times Futebol
-- Sistema de Gestão Financeira Empresarial
-- Processamento Digital de Imagens
-- Horas Academy
-- Crazy Cine
+O fluxo de produção existente usa a `main`: após validação e integração autorizada, um push dispara a Vercel. Branches de trabalho podem receber previews conforme a integração. Os resultados desta entrega, medições de laboratório e limitações estão em [docs/redesign-validation.md](docs/redesign-validation.md).
 
-Os projetos ficam em:
+Capturas locais de revisão ficam em `.tmp/redesign`, ignoradas pelo Git. Não publico caches, traces, segredos ou screenshots temporários no repositório.
 
-```text
-src/data/projects.ts
-```
+## Contato
 
-Cada projeto possui título, categorias, resumo, descrição, tecnologias, funcionalidades, aprendizados e links externos quando disponíveis.
+- [GitHub](https://github.com/Marcos-Macedo444)
+- [LinkedIn](https://www.linkedin.com/in/marcos-mac%C3%AAdo)
+- [E-mail](mailto:marcosfilipe.macedo@gmail.com)
 
-## Conteúdo e Imagens
-
-Dados principais:
-
-```text
-src/data/profile.ts
-```
-
-Projetos:
-
-```text
-src/data/projects.ts
-```
-
-Tecnologias:
-
-```text
-src/data/technologies.ts
-```
-
-Timeline:
-
-```text
-src/data/timeline.ts
-```
-
-Imagens públicas:
-
-```text
-public/images/
-```
-
-Imagens de perfil:
-
-```text
-public/images/profile/profile.png
-public/images/profile/profile2.png
-```
-
-Imagens do Hack27:
-
-```text
-public/images/hack27/Team.jpg
-public/images/hack27/Team2.jpg
-public/images/hack27/Presentation.jpg
-public/images/hack27/Award.jpg
-public/images/hack27/Award2.jpg
-```
-
-## SEO
-
-O SEO básico fica em:
-
-```text
-src/app/layout.tsx
-src/app/robots.ts
-src/app/sitemap.ts
-```
-
-O domínio usado em produção é:
-
-```text
-https://marcosmacedo.dev
-```
-
-Se o domínio mudar, `NEXT_PUBLIC_SITE_URL` também deve ser atualizado na Vercel.
-
-## Segurança
-
-Eu não versiono chaves, tokens ou arquivos sensíveis.
-
-O `.gitignore` cobre:
-
-```text
-.env
-.env.*
-!.env.example
-node_modules
-.next
-out
-build
-dist
-logs
-.vercel
-```
-
-O projeto também conta com:
-
-- variáveis de ambiente apenas no servidor para envio com Resend;
-- validação client-side e server-side no formulário;
-- limite de tamanho dos campos;
-- escape de HTML no e-mail enviado;
-- honeypot;
-- cooldown local e rate limit simples;
-- headers de segurança configurados no Next.js;
-- build sem source maps públicos de produção.
-
-## Checklist Antes de Produção
-
-Antes de enviar alterações para produção, eu valido:
-
-```bash
-npm audit --audit-level=low
-npm run typecheck
-npm run lint
-npm run build
-```
-
-Também confiro:
-
-- página inicial;
-- background;
-- responsividade mobile;
-- projetos;
-- seção Hack27;
-- formulário;
-- footer;
-- links externos;
-- robots e sitemap.
-
-## Fluxo de Git
-
-```bash
-git status
-git add .
-git commit -m "mensagem do commit"
-git push origin main
-```
-
-Depois do push para `main`, a Vercel executa o deploy de produção.
-
-## Rodapé
-
-O rodapé atual mostra:
-
-```text
 © 2026 Marcos Macêdo. Todos os direitos reservados.
-Criado e desenvolvido por Marcos Macêdo.
-```
-
-Também mantém links para GitHub, LinkedIn e e-mail.
-
-## Observação Final
-
-Este portfólio representa meu momento atual na tecnologia. Ele reúne minha experiência prática, meus estudos, meus projetos e minha transição para áreas como infraestrutura, NOC, segurança defensiva e automação.
-
-Minha intenção é manter este projeto evoluindo junto com minha carreira, com uma base limpa, segura e profissional.
