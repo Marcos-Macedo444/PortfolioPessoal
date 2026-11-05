@@ -42,17 +42,19 @@ export function Hero() {
     <section id="inicio" className="hero">
       <div className="container-shell hero-grid">
         <div className="hero-copy">
-          <p className="eyebrow">
-            <span className="status-dot" /> Redes, infraestrutura & pessoas
-          </p>
-          <h1>
-            Marcos
-            <br />
-            <span>
-              Macêdo<span className="name-period">.</span>
-            </span>
-          </h1>
-          <p className="hero-role">{profile.title}</p>
+          <div className="hero-intro">
+            <p className="eyebrow">
+              <span className="status-dot" /> Redes, infraestrutura & pessoas
+            </p>
+            <h1>
+              Marcos
+              <br />
+              <span>
+                Macêdo<span className="name-period">.</span>
+              </span>
+            </h1>
+            <p className="hero-role">{profile.title}</p>
+          </div>
           <p className="hero-description">{profile.headline}</p>
           <div className="hero-actions">
             <a className="button" href="#projetos">
@@ -64,6 +66,19 @@ export function Hero() {
           </div>
         </div>
 
+        <figure className="hero-portrait">
+          <Image
+            src="/images/profile/profile.png"
+            alt="Marcos Macêdo sorrindo, de camisa vinho e braços cruzados"
+            fill
+            priority
+            sizes="(max-width: 359px) calc(100vw - 32px), (max-width: 520px) calc(100vw - 40px), (max-width: 700px) 480px, (max-width: 1200px) calc((100vw - 96px) / 2), 480px"
+            className="hero-portrait-image"
+          />
+        </figure>
+      </div>
+
+      <div className="container-shell hero-connections">
         <div className="hero-network" ref={ref}>
           <div className="network-heading">
             <span>Conexões em movimento</span>
@@ -164,14 +179,7 @@ export function Hero() {
       </div>
       <div className="container-shell hero-foot">
         <div className="current-position">
-          <Image
-            src="/images/profile/profile.png"
-            alt="Marcos Macêdo"
-            width={44}
-            height={44}
-            sizes="44px"
-            className="mini-portrait"
-          />
+          <span className="status-dot" aria-hidden="true" />
           <div>
             <span>Atualmente na</span>
             <p>

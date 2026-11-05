@@ -53,6 +53,24 @@ Na pasta ignorada `.tmp/redesign`:
 
 Capturas, ferramentas de QA e caches permanecem fora do commit. Prettier e axe-core foram usados somente em `.tmp/qa`; `package.json` e `package-lock.json` não foram alterados.
 
+## Refinamento: foto principal na abertura
+
+Branch `codex/hero-profile-photo`. A fotografia original `profile.png` aparece em destaque ao lado do nome no desktop e logo após o cargo no celular. O arquivo original foi preservado; Next/Image usa carregamento prioritário, tamanhos responsivos e espaço reservado. A rede interativa fica abaixo, mantendo sua continuidade com a trajetória.
+
+- Build, lint, typecheck e `git diff --check` passaram, sem novas dependências.
+- Playwright e axe-core: 320, 360, 768, 1024, 1440 e 1920 CSS pixels nos dois temas. Zero overflow horizontal, violações automáticas WCAG 2 A/AA e 2.1 AA, erros de console ou requisições com falha.
+- Conferidos enquadramento, presença da foto na abertura, separação entre textos e imagem, seleção das quatro áreas, teclado, toque, âncora da trajetória, preferência de tema persistida e movimento reduzido. Nome, fotografia e links permanecem disponíveis sem JavaScript.
+- Capturas e resultados locais: `.tmp/hero-photo/1440-dark.png`, `1440-light.png`, `360-dark.png`, `360-light.png`, `768-dark.png`, `validation.json` e `performance.json`. Os arquivos continuam fora do Git.
+
+Nova amostra de laboratório no build de produção local, sem cache de navegador e com o mesmo perfil móvel limitado descrito acima:
+
+| Perfil | LCP | CLS | Transferência inicial | JS inicial | Foto principal |
+| ------ | --- | --- | --------------------- | ---------- | -------------- |
+| Desktop | 0,336s | 0,00039 | 319,8KB | 192,9KB | 39,2KB |
+| Mobile | 1,140s | 0,00077 | 303,8KB | 192,9KB | 23,2KB |
+
+São medições pontuais de laboratório, não dados de campo nem garantia de desempenho em todos os dispositivos.
+
 ## Publicação
 
 O fluxo existente associa a `main` à produção na Vercel. O resultado do push, do pipeline e da verificação do domínio será informado na entrega, distinguindo cada etapa. Não foram alteradas configurações de domínio, conta ou hospedagem.

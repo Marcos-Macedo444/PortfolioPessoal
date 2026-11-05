@@ -359,10 +359,28 @@ summary {
   display: grid;
   grid-template-columns: 1.04fr 1fr;
   gap: 40px;
-  align-items: start;
+  align-items: center;
 }
 .hero-copy {
-  padding-top: 16px;
+  padding-block: 16px;
+  min-width: 0;
+}
+.hero-portrait {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 4 / 5;
+  margin: 0;
+  justify-self: end;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.hero-portrait-image {
+  object-fit: cover;
+  object-position: 50% 25%;
+}
+.hero-connections {
+  margin-top: 64px;
 }
 .hero h1 {
   font-size: 104px;
@@ -397,12 +415,13 @@ summary {
 .hero-network {
   position: relative;
   min-width: 0;
-  padding-top: 9px;
-  max-width: 550px;
-  justify-self: end;
+  display: grid;
+  grid-template-columns: 1.04fr 1fr;
+  gap: 0 40px;
   width: 100%;
 }
 .network-heading {
+  grid-column: 1 / -1;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -420,6 +439,7 @@ summary {
   position: relative;
   aspect-ratio: 600/430;
   width: 100%;
+  max-width: 550px;
 }
 .network-svg {
   width: 100%;
@@ -567,7 +587,8 @@ summary {
   color: var(--muted);
 }
 .network-context {
-  min-height: 156px;
+  align-self: center;
+  min-height: 190px;
   padding: 10px 0 0 22px;
   border-left: 1px solid var(--line);
   max-width: 450px;
@@ -614,12 +635,6 @@ summary {
   display: flex;
   align-items: center;
   gap: 12px;
-}
-.mini-portrait {
-  object-fit: cover;
-  object-position: 50% 25%;
-  border-radius: 50%;
-  border: 1px solid var(--line);
 }
 .current-position span {
   color: var(--muted);
@@ -791,7 +806,7 @@ summary {
     padding-top: 85px;
   }
   .hero-copy {
-    padding-top: 36px;
+    padding-block: 36px;
   }
   .story-bridge {
     top: 560px;
@@ -812,6 +827,9 @@ summary {
   }
   .hero-grid {
     gap: 24px;
+  }
+  .hero-network {
+    gap: 0 24px;
   }
   .hero-description {
     font-size: 14px;
@@ -897,13 +915,23 @@ summary {
     padding-top: 42px;
   }
   .hero-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
   }
   .hero-copy {
-    padding-top: 0;
-    width: 100%;
+    display: contents;
+  }
+  .hero-intro {
+    grid-row: 1;
+  }
+  .hero-portrait {
+    grid-row: 2;
+    justify-self: center;
+    aspect-ratio: 5 / 6;
+    margin-top: 28px;
+  }
+  .hero-connections {
+    margin-top: 48px;
   }
   .hero h1 {
     font-size: 76px;
@@ -918,11 +946,13 @@ summary {
     font-size: 15px;
   }
   .hero-description {
+    grid-row: 3;
     font-size: 14px;
     max-width: 450px;
-    margin-top: 13px;
+    margin-top: 24px;
   }
   .hero-actions {
+    grid-row: 4;
     gap: 23px;
     margin-top: 23px;
   }
@@ -931,6 +961,7 @@ summary {
     padding-inline: 15px;
   }
   .hero-network {
+    grid-template-columns: minmax(0, 1fr);
     width: 100%;
     padding-top: 0;
   }

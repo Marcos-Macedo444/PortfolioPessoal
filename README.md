@@ -22,7 +22,7 @@ O portfólio apresenta essa experiência sem divulgar dados de clientes, topolog
 
 ## O que está no site
 
-- Abertura com nome, cargo atual, rede interativa e atalhos para projetos e trajetória.
+- Abertura com minha foto principal em destaque, nome, cargo atual e atalhos para projetos e trajetória; a rede interativa aparece logo abaixo.
 - Trajetória com a efetivação, o estágio como experiência anterior e minha transição para tecnologia.
 - Sobre mim com fotografia real e apresentação pessoal.
 - Projetos com filtros, demonstração real, links e detalhes expansíveis.

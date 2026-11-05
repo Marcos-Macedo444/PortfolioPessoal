@@ -4,7 +4,7 @@ Marcos Macêdo: redes, infraestrutura, NOC, segurança defensiva e automação.
 
 ## Direção
 
-Nome em escala editorial, quatro rotas selecionáveis e um monograma MM desenhado como percurso. Uma conexão da abertura continua no eixo da experiência; o scroll desenha o percurso, sem bloquear conteúdo ou rolagem. Projetos alternam uma demonstração real em destaque e uma lista de estudos expansíveis. Hack27 usa fotografias reais e legendas, com seleção manual.
+Nome em escala editorial ao lado da fotografia principal em tamanho grande. No celular, nome e cargo abrem a página, seguidos pela foto e pelos atalhos. A imagem tem espaço reservado e carregamento prioritário, sem alterar o arquivo original. Logo abaixo, quatro rotas selecionáveis e um monograma MM desenhado como percurso. Uma conexão da abertura continua no eixo da experiência; o scroll desenha o percurso, sem bloquear conteúdo ou rolagem. Projetos alternam uma demonstração real em destaque e uma lista de estudos expansíveis. Hack27 usa fotografias reais e legendas, com seleção manual.
 
 ## Sistema
 
