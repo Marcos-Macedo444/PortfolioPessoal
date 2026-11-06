@@ -11,6 +11,7 @@ export function Monogram({
       {...props}
     >
       <path
+        pathLength={1}
         d="M6 46V10L28 34L50 10V46M62 46V10L84 34L106 10V46"
         stroke="currentColor"
         strokeWidth="5"

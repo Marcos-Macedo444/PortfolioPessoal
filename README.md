@@ -8,11 +8,13 @@ Meu endereço público é [marcosmacedo.dev](https://marcosmacedo.dev/).
 
 ## A identidade do portfólio
 
-Chamei o conceito de **Conexões em movimento**. Quatro áreas, Redes, NOC, Segurança e Automação, se conectam a um monograma MM. Cada ponto pode ser selecionado para conhecer uma parte da minha atuação. O percurso continua na trajetória profissional quando a página é rolada.
+Chamei o conceito de **Conexões em movimento**. Na abertura, incorporei o **Hyperspeed do React Bits**, com uma pista em perspectiva e trilhas azuis e verdes. Redes, NOC, Segurança e Automação continuam como seleções para conhecer minha atuação. O percurso segue até a trajetória profissional quando a página é rolada.
 
 O azul organiza as rotas e as ações; o verde marca os sinais e a seleção. O tema escuro usa `#09121E`, `#4C8DFF`, `#65F5A2` e `#E7EEF8`. No claro, adaptei os contrastes para manter a leitura. O tema segue o sistema até que a pessoa escolha outro, com preferência salva no navegador.
 
-O movimento é 2D, com SVG, CSS e Framer Motion. Os conteúdos aparecem imediatamente e a navegação usa a rolagem nativa. Há controle para pausar animações e suporte à preferência de movimento reduzido. As decisões estão em [DESIGN.md](DESIGN.md).
+O Hyperspeed usa Three.js diretamente, sem iframe ou vídeo. Meu nome, cargo, apresentação e links continuam em HTML. A entrada curta mostra o monograma MM em 2D e revela a mesma cena; não criei outro núcleo 3D. Há opção de pular, limite de segurança de 1,9s e reprodução apenas na primeira entrada da sessão. A navegação mantém a rolagem nativa, pausa global e movimento reduzido. As decisões estão em [DESIGN.md](DESIGN.md).
+
+No celular, a pista é compacta e aparece na abertura, com resolução e densidade controladas. Se WebGL ou o módulo falharem, uma perspectiva 2D mantém a composição e as seleções continuam funcionando. O efeito-base tem autoria do React Bits: registrei o commit usado, a licença e minhas adaptações em [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ## Minha atuação atual
 
@@ -22,9 +24,9 @@ O portfólio apresenta essa experiência sem divulgar dados de clientes, topolog
 
 ## O que está no site
 
-- Abertura com minha foto principal em destaque, nome, cargo atual e atalhos para projetos e trajetória; a rede interativa aparece logo abaixo.
+- Abertura com Hyperspeed azul/verde, nome, cargo atual, atalhos para projetos e trajetória, quatro áreas e aceleração controlada.
 - Trajetória com a efetivação, o estágio como experiência anterior e minha transição para tecnologia.
-- Sobre mim com fotografia real e apresentação pessoal.
+- Sobre mim com minha fotografia principal real em destaque e apresentação pessoal; um retrato menor aparece na assinatura da abertura.
 - Projetos com filtros, demonstração real, links e detalhes expansíveis.
 - Conquista no Hack27 com a equipe RED BOOST e cinco fotografias navegáveis.
 - Competências organizadas por áreas e ferramentas, sem percentuais fictícios.
@@ -49,9 +51,9 @@ No Sorteio de Times, usei uma captura da aplicação pública real. Os outros pr
 
 ## Stack
 
-Next.js 16, React 18, TypeScript, Tailwind CSS, Framer Motion e Lucide. O envio de e-mail usa a API do Resend no servidor. A hospedagem está vinculada à Vercel e ao GitHub.
+Next.js 16, React 18, TypeScript, Tailwind CSS, Framer Motion, Three.js e Lucide. Acrescentei somente Three.js 0.180.0 e os tipos correspondentes para a cena, seguindo a versão da base consultada. O envio de e-mail usa a API do Resend no servidor. A hospedagem está vinculada à Vercel e ao GitHub.
 
-A tipografia de títulos é Space Grotesk, hospedada localmente. A licença SIL OFL acompanha a fonte em `public/fonts/OFL.txt`. Os textos usam fontes de sistema. Não há CDN ou cena 3D.
+A tipografia de títulos é Space Grotesk, hospedada localmente. A licença SIL OFL acompanha a fonte em `public/fonts/OFL.txt`. Os textos usam fontes de sistema. Fonte, shaders e módulos da cena são servidos pelo próprio site, sem CDN, modelos ou texturas externos.
 
 ## Desenvolvimento local
 
@@ -69,11 +71,12 @@ Para validar e executar uma versão de produção:
 ```bash
 npm run typecheck
 npm run lint
+npm test
 npm run build
 npm run start
 ```
 
-Não existe script `test` na base atual. O runner `scripts/next-runner.cjs` normaliza caminhos do Windows e recria `.next` ao iniciar dev ou build. Por isso, encerro o dev antes de preparar um build e iniciar `start`.
+O comando `npm test` usa o runner nativo do Node para verificar a entrada, a sessão, o botão de pular antes da hidratação, movimento reduzido, storage indisponível e saída de segurança. O runner `scripts/next-runner.cjs` normaliza caminhos do Windows e recria `.next` ao iniciar dev ou build. Por isso, encerro o dev antes de preparar um build e iniciar `start`. A revisão visual, os testes de WebGL e as medições estão documentados em [docs/hyperspeed-validation.md](docs/hyperspeed-validation.md).
 
 ## Formulário de contato
 
@@ -101,6 +104,7 @@ src/
     layout/                Navegação, footer, progresso e retorno ao topo
     sections/              Abertura, trajetória, sobre, projetos, conquista e contato
     ui/                    Monograma, preferências, busca e apresentação de projetos
+    visuals/               Hyperspeed e integração isolada da cena
   data/                    Perfil, conexões, navegação, projetos, competências e trajetória
   hooks/                   Busca e acompanhamento da seção ativa
   lib/                     Navegação e clipboard
@@ -112,7 +116,7 @@ public/
   images/hack27/           Registros reais da RED BOOST
   images/projects/         Captura real do Sorteio de Times
   preferences.js           Aplica o tema salvo antes da primeira pintura
-scripts/                   Runners do Next.js e TypeScript
+scripts/                   Runners do Next.js/TypeScript e testes da entrada
 docs/                      Auditoria histórica e validação do redesign
 DESIGN.md                  Sistema visual e decisões de movimento
 ```

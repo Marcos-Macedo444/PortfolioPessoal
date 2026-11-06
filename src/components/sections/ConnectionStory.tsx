@@ -14,12 +14,14 @@ export function ConnectionStory() {
     if (!root) return;
     const update = () => {
       const bounds = root.getBoundingClientRect();
-      const map = root.querySelector(".network-map")!.getBoundingClientRect();
-      const list = root
-        .querySelector(".experience-list")!
-        .getBoundingClientRect();
-      const foot = root.querySelector(".hero-foot")!.getBoundingClientRect();
-      const x = map.left + map.width / 2 - bounds.left;
+      const origin = root.querySelector("[data-connection-origin]");
+      const experience = root.querySelector(".experience-list");
+      const footer = root.querySelector(".hero-foot");
+      if (!origin || !experience || !footer) return;
+      const map = origin.getBoundingClientRect();
+      const list = experience.getBoundingClientRect();
+      const foot = footer.getBoundingClientRect();
+      const x = map.left + 12 - bounds.left;
       const y = map.bottom - bounds.top;
       const edge = foot.right - bounds.left - 8;
       const turn = foot.bottom - bounds.top + 30;

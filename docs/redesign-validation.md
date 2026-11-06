@@ -2,6 +2,8 @@
 
 Entrega de 5 de novembro de 2026. Branch de implementação: `codex/conexoes-portfolio-redesign`.
 
+Registro histórico do redesign 2D e do refinamento da foto. A evolução atual com Hyperspeed e seus novos orçamentos está em [hyperspeed-validation.md](hyperspeed-validation.md).
+
 ## Escopo conferido
 
 Next.js/React/TypeScript/Tailwind e Framer Motion existentes. Não foram adicionadas dependências de execução. Space Grotesk acompanha licença SIL OFL e é servida localmente. A imagem do Sorteio de Times é uma captura real da aplicação pública; imagens pessoais e do Hack27 foram preservadas.

@@ -9,8 +9,8 @@ export function About() {
         <div className="portrait-composition">
           <div className="portrait-frame">
             <Image
-              src="/images/profile/profile2.png"
-              alt="Marcos Macêdo em contexto profissional"
+              src="/images/profile/profile.png"
+              alt="Marcos Macêdo sorrindo, de camisa vinho e braços cruzados"
               fill
               sizes="(max-width:700px) 85vw, 430px"
               className="portrait-image"

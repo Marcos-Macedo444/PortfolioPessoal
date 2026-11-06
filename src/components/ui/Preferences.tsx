@@ -5,7 +5,7 @@ import { Monitor, Moon, Pause, Play, Sun } from "lucide-react";
 import { createPortal } from "react-dom";
 
 type Theme = "system" | "dark" | "light";
-const PreferencesContext = createContext({ motion: true });
+const PreferencesContext = createContext({ motion: false, ready: false });
 
 export function Preferences({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>("system");
@@ -33,7 +33,7 @@ export function Preferences({ children }: { children: React.ReactNode }) {
     return () => query.removeEventListener("change", update);
   }, []);
 
-  const motion = !paused && !reduced;
+  const motion = initialized && !paused && !reduced;
   useEffect(() => {
     if (!initialized) return;
     document.documentElement.dataset.motion = motion ? "on" : "off";
@@ -50,7 +50,7 @@ export function Preferences({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <PreferencesContext.Provider value={{ motion }}>
+    <PreferencesContext.Provider value={{ motion, ready: initialized }}>
       {children}
       {controlsTarget
         ? createPortal(
@@ -101,3 +101,4 @@ export function Preferences({ children }: { children: React.ReactNode }) {
 }
 
 export const useMotionPreference = () => useContext(PreferencesContext).motion;
+export const usePreferencesReady = () => useContext(PreferencesContext).ready;

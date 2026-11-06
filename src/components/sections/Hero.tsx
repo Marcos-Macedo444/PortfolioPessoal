@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion, useInView } from "framer-motion";
+import { useScroll } from "framer-motion";
 import {
   ArrowDown,
   ArrowUpRight,
+  Gauge,
   Network,
   Radio,
   ShieldCheck,
@@ -14,47 +15,88 @@ import {
 import { connections } from "@/data/connections";
 import { profile } from "@/data/profile";
 import { useMotionPreference } from "@/components/ui/Preferences";
+import { OpeningSequence } from "@/components/ui/OpeningSequence";
+import { HyperspeedScene } from "@/components/visuals/HyperspeedScene";
 
 const icons = [Network, Radio, ShieldCheck, Workflow];
-const paths = [
-  "M300 215H238L182 90H105",
-  "M300 215H362L418 90H495",
-  "M300 215H238L182 340H105",
-  "M300 215H362L418 340H495",
-];
 
 export function Hero() {
   const [selected, setSelected] = useState(0);
-  const [tabVisible, setTabVisible] = useState(true);
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref);
-  const motionEnabled = useMotionPreference();
+  const [boosting, setBoosting] = useState(false);
+  const [sceneStatus, setSceneStatus] = useState<
+    "preparing" | "ready" | "fallback"
+  >("preparing");
+  const ref = useRef<HTMLElement>(null);
+  const activity = useRef(1);
+  const boostTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const motion = useMotionPreference();
   const area = connections[selected];
-
-  useEffect(() => {
-    const update = () => setTabVisible(document.visibilityState === "visible");
-    update();
-    document.addEventListener("visibilitychange", update);
-    return () => document.removeEventListener("visibilitychange", update);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const onStatus = useCallback(
+    (status: typeof sceneStatus) => setSceneStatus(status),
+    [],
+  );
+  const stopBoost = useCallback(() => {
+    if (boostTimer.current) clearTimeout(boostTimer.current);
+    setBoosting(false);
   }, []);
+  const startBoost = () => {
+    if (!motion || sceneStatus !== "ready") return;
+    stopBoost();
+    setBoosting(true);
+    boostTimer.current = setTimeout(stopBoost, 1400);
+  };
+
+  useEffect(
+    () =>
+      scrollYProgress.on("change", (value) => {
+        activity.current = Math.max(0.12, 1 - value * 0.95);
+      }),
+    [scrollYProgress],
+  );
+  useEffect(() => {
+    const release = () => stopBoost();
+    window.addEventListener("blur", release);
+    window.addEventListener("pointerup", release);
+    window.addEventListener("pointercancel", release);
+    document.addEventListener("visibilitychange", release);
+    return () => {
+      window.removeEventListener("blur", release);
+      window.removeEventListener("pointerup", release);
+      window.removeEventListener("pointercancel", release);
+      document.removeEventListener("visibilitychange", release);
+      if (boostTimer.current) clearTimeout(boostTimer.current);
+    };
+  }, [stopBoost]);
+  useEffect(() => {
+    if (!motion || sceneStatus !== "ready") stopBoost();
+  }, [motion, sceneStatus, stopBoost]);
 
   return (
-    <section id="inicio" className="hero">
+    <section id="inicio" className="hero" ref={ref}>
+      <OpeningSequence ready={sceneStatus !== "preparing"} />
+      <HyperspeedScene
+        selected={selected}
+        boosting={boosting}
+        activity={activity}
+        onStatus={onStatus}
+      />
       <div className="container-shell hero-grid">
         <div className="hero-copy">
-          <div className="hero-intro">
-            <p className="eyebrow">
-              <span className="status-dot" /> Redes, infraestrutura & pessoas
-            </p>
-            <h1>
-              Marcos
-              <br />
-              <span>
-                Macêdo<span className="name-period">.</span>
-              </span>
-            </h1>
-            <p className="hero-role">{profile.title}</p>
-          </div>
+          <p className="eyebrow">
+            <span className="status-dot" /> Redes, infraestrutura & pessoas
+          </p>
+          <h1 tabIndex={-1}>
+            Marcos
+            <br />
+            <span>
+              Macêdo<span className="name-period">.</span>
+            </span>
+          </h1>
+          <p className="hero-role">{profile.title}</p>
           <p className="hero-description">{profile.headline}</p>
           <div className="hero-actions">
             <a className="button" href="#projetos">
@@ -65,97 +107,59 @@ export function Hero() {
             </a>
           </div>
         </div>
-
-        <figure className="hero-portrait">
-          <Image
-            src="/images/profile/profile.png"
-            alt="Marcos Macêdo sorrindo, de camisa vinho e braços cruzados"
-            fill
-            priority
-            sizes="(max-width: 359px) calc(100vw - 32px), (max-width: 520px) calc(100vw - 40px), (max-width: 700px) 480px, (max-width: 1200px) calc((100vw - 96px) / 2), 480px"
-            className="hero-portrait-image"
-          />
-        </figure>
+        <button
+          className="boost-control"
+          type="button"
+          title="Acelerar enquanto pressiona"
+          aria-pressed={boosting}
+          disabled={!motion || sceneStatus !== "ready"}
+          onPointerDown={startBoost}
+          onPointerUp={stopBoost}
+          onPointerCancel={stopBoost}
+          onPointerLeave={stopBoost}
+          onBlur={stopBoost}
+          onKeyDown={(event) => {
+            if (event.key === " " || event.key === "Enter") {
+              event.preventDefault();
+              if (!event.repeat) startBoost();
+            }
+          }}
+          onKeyUp={(event) => {
+            if (event.key === " " || event.key === "Enter") {
+              event.preventDefault();
+              stopBoost();
+            }
+          }}
+          onClick={(event) => {
+            if (event.detail === 0) startBoost();
+          }}
+        >
+          <Gauge size={18} aria-hidden="true" /> Acelerar
+        </button>
       </div>
-
-      <div className="container-shell hero-connections">
-        <div className="hero-network" ref={ref}>
-          <div className="network-heading">
-            <span>Conexões em movimento</span>
-            <span className="network-index">01 — 04</span>
-          </div>
-          <div
-            className="network-map"
-            data-running={motionEnabled && inView && tabVisible}
-          >
-            <svg
-              viewBox="0 0 600 430"
-              aria-hidden="true"
-              className="network-svg"
-            >
-              <path
-                className="network-grid"
-                d="M0 90H600M0 215H600M0 340H600M105 0V430M300 0V430M495 0V430"
-              />
-              <circle className="network-orbit" cx="300" cy="215" r="142" />
-              <circle
-                className="network-orbit inner"
-                cx="300"
-                cy="215"
-                r="104"
-              />
-              {paths.map((d, index) => (
-                <motion.path
-                  key={d}
-                  d={d}
-                  className={`network-route ${selected === index ? "selected" : ""}`}
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{
-                    duration: motionEnabled ? 0.9 : 0,
-                    delay: motionEnabled ? index * 0.04 : 0,
-                  }}
-                />
-              ))}
-              <path className="network-tail" d="M300 265V430" />
-              <path
-                className="network-core"
-                d="M246 242V188L273 219L300 188V242M310 242V188L337 219L364 188V242"
-              />
-              <circle cx="246" cy="242" r="4" className="signal-dot" />
-              <circle cx="364" cy="188" r="4" className="signal-dot" />
-              <circle
-                key={selected}
-                r="4"
-                className="route-signal"
-                style={{ offsetPath: `path('${paths[selected]}')` }}
-              />
-            </svg>
-            <div
-              className="network-nodes"
-              role="group"
-              aria-label="Áreas de atuação"
-            >
-              {connections.map((item, index) => {
-                const Icon = icons[index];
-                return (
-                  <button
-                    type="button"
-                    key={item.id}
-                    className={`network-node node-${index} ${selected === index ? "selected" : ""}`}
-                    aria-pressed={selected === index}
-                    aria-controls="area-description"
-                    onClick={() => setSelected(index)}
-                  >
-                    <span className="node-symbol">
-                      <Icon size={19} aria-hidden="true" />
-                    </span>
-                    <span>{item.label}</span>
-                  </button>
-                );
-              })}
-            </div>
-            <span className="map-coordinate">MM / VITÓRIA, ES</span>
+      <div className="container-shell hero-connections" data-connection-origin>
+        <div className="network-heading">
+          <span>Conexões em movimento</span>
+          <span className="network-index">01 — 04</span>
+        </div>
+        <div className="hero-network">
+          <div className="area-tabs" role="group" aria-label="Áreas de atuação">
+            {connections.map((item, index) => {
+              const Icon = icons[index];
+              return (
+                <button
+                  type="button"
+                  key={item.id}
+                  className={`area-tab ${selected === index ? "selected" : ""}`}
+                  aria-pressed={selected === index}
+                  aria-controls="area-description"
+                  onClick={() => setSelected(index)}
+                >
+                  <Icon size={18} aria-hidden="true" />
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
           </div>
           <div
             className="network-context"
@@ -164,7 +168,8 @@ export function Hero() {
             aria-atomic="true"
           >
             <p className="connection-label">
-              <span className="status-dot" /> {area.label}{" "}
+              <span className="status-dot" />
+              {area.label}
               <span className="connection-rule" />
             </p>
             <h2>{area.subtitle}</h2>
@@ -179,7 +184,14 @@ export function Hero() {
       </div>
       <div className="container-shell hero-foot">
         <div className="current-position">
-          <span className="status-dot" aria-hidden="true" />
+          <Image
+            src="/images/profile/profile.png"
+            alt="Marcos Macêdo"
+            width={44}
+            height={44}
+            sizes="44px"
+            className="mini-portrait"
+          />
           <div>
             <span>Atualmente na</span>
             <p>
