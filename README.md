@@ -8,13 +8,13 @@ Meu endereço público é [marcosmacedo.dev](https://marcosmacedo.dev/).
 
 ## A identidade do portfólio
 
-Chamei o conceito de **Conexões em movimento**. Na abertura, incorporei o **Hyperspeed do React Bits**, com uma pista em perspectiva e trilhas azuis e verdes. Redes, NOC, Segurança e Automação continuam como seleções para conhecer minha atuação. O percurso segue até a trajetória profissional quando a página é rolada.
+Chamei o conceito de **Conexões em movimento**. Na abertura, incorporei o **Hyperspeed do React Bits**, com uma pista em perspectiva e trilhas azuis e verdes. Depois da apresentação, um cabo azul se dobra nas minhas iniciais **MM**, abre caminhos para três projetos reais e segue até a linha da minha trajetória. A rolagem natural controla o percurso, inclusive no sentido inverso. As descrições de Redes, NOC, Segurança e Automação estão preservadas no Repertório técnico.
 
 O azul organiza as rotas e as ações; o verde marca os sinais e a seleção. O tema escuro usa `#09121E`, `#4C8DFF`, `#65F5A2` e `#E7EEF8`. No claro, adaptei os contrastes para manter a leitura. O tema segue o sistema até que a pessoa escolha outro, com preferência salva no navegador.
 
 O Hyperspeed usa Three.js diretamente, sem iframe ou vídeo. Meu nome, cargo, apresentação e links continuam em HTML. A entrada curta mostra o monograma MM em 2D e revela a mesma cena; não criei outro núcleo 3D. Há opção de pular, limite de segurança de 1,9s e reprodução apenas na primeira entrada da sessão. A navegação mantém a rolagem nativa, pausa global e movimento reduzido. As decisões estão em [DESIGN.md](DESIGN.md).
 
-No celular, a pista é compacta e aparece na abertura, com resolução e densidade controladas. Se WebGL ou o módulo falharem, uma perspectiva 2D mantém a composição e as seleções continuam funcionando. O efeito-base tem autoria do React Bits: registrei o commit usado, a licença e minhas adaptações em [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+No celular, a pista é compacta e aparece na abertura, com resolução e densidade controladas. A nova sequência usa três quadros no fluxo: assinatura, projetos e passagem para a trajetória. Construí os fios com Canvas 2D, geometria em profundidade e projeção em perspectiva, sem outro motor 3D. O renderizador só é solicitado quando começo a rolar até a seção. Com pausa, movimento reduzido, Canvas indisponível ou sem JavaScript, ficam o MM estático, os links HTML e a passagem visual. O efeito-base da abertura tem autoria do React Bits: registrei o commit usado, a licença e minhas adaptações em [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ## Minha atuação atual
 
@@ -24,8 +24,9 @@ O portfólio apresenta essa experiência sem divulgar dados de clientes, topolog
 
 ## O que está no site
 
-- Abertura com Hyperspeed azul/verde, nome, cargo atual, atalhos para projetos e trajetória, quatro áreas e aceleração controlada.
-- Trajetória com a efetivação, o estágio como experiência anterior e minha transição para tecnologia.
+- Abertura com Hyperspeed azul/verde, nome, cargo atual, atalhos para projetos e trajetória e aceleração controlada.
+- Palco Conexões em movimento com cabo azul entrelaçado, assinatura MM, pulsos verdes discretos e links reais para Futebol, Gestão Financeira e Processamento de Imagens.
+- Trajetória com a efetivação, o estágio como experiência anterior e minha transição para tecnologia. Na origem como chaveiro residencial, um traço desenha uma chave, encaixa e gira o miolo em um gesto de 1,08s; com pausa, mostro o estado final estático.
 - Sobre mim com minha fotografia principal real em destaque e apresentação pessoal; um retrato menor aparece na assinatura da abertura.
 - Projetos com filtros, demonstração real, links e detalhes expansíveis.
 - Conquista no Hack27 com a equipe RED BOOST e cinco fotografias navegáveis.
@@ -76,7 +77,7 @@ npm run build
 npm run start
 ```
 
-O comando `npm test` usa o runner nativo do Node para verificar a entrada, a sessão, o botão de pular antes da hidratação, movimento reduzido, storage indisponível e saída de segurança. O runner `scripts/next-runner.cjs` normaliza caminhos do Windows e recria `.next` ao iniciar dev ou build. Por isso, encerro o dev antes de preparar um build e iniciar `start`. A revisão visual, os testes de WebGL e as medições estão documentados em [docs/hyperspeed-validation.md](docs/hyperspeed-validation.md).
+O comando `npm test` usa o runner nativo do Node para verificar a entrada, a sessão, o botão de pular antes da hidratação, movimento reduzido, storage indisponível e saída de segurança. Também verifico a amostragem dos fios, continuidade entre os atos, reversibilidade, alinhamento dos links e saída para a trajetória em diferentes larguras. O runner `scripts/next-runner.cjs` normaliza caminhos do Windows e recria `.next` ao iniciar dev ou build. Por isso, encerro o dev antes de preparar um build e iniciar `start`. A revisão visual e as medições da sequência estão em [docs/connections-validation.md](docs/connections-validation.md); a abertura está registrada em [docs/hyperspeed-validation.md](docs/hyperspeed-validation.md).
 
 ## Formulário de contato
 
@@ -104,7 +105,7 @@ src/
     layout/                Navegação, footer, progresso e retorno ao topo
     sections/              Abertura, trajetória, sobre, projetos, conquista e contato
     ui/                    Monograma, preferências, busca e apresentação de projetos
-    visuals/               Hyperspeed e integração isolada da cena
+    visuals/               Hyperspeed, conexões Canvas 2D e chave SVG
   data/                    Perfil, conexões, navegação, projetos, competências e trajetória
   hooks/                   Busca e acompanhamento da seção ativa
   lib/                     Navegação e clipboard
@@ -116,12 +117,12 @@ public/
   images/hack27/           Registros reais da RED BOOST
   images/projects/         Captura real do Sorteio de Times
   preferences.js           Aplica o tema salvo antes da primeira pintura
-scripts/                   Runners do Next.js/TypeScript e testes da entrada
+scripts/                   Runners do Next.js/TypeScript e testes de entrada/geometria
 docs/                      Auditoria histórica e validação do redesign
 DESIGN.md                  Sistema visual e decisões de movimento
 ```
 
-Atualizo meu cargo e meus contatos em `src/data/profile.ts`; experiências em `src/data/timeline.ts`; projetos em `src/data/projects.ts`; descrições das áreas em `src/data/connections.ts`; ferramentas em `src/data/technologies.ts`. Os tokens dos temas ficam em `src/app/globals.css`.
+Atualizo meu cargo e meus contatos em `src/data/profile.ts`; experiências em `src/data/timeline.ts`; projetos em `src/data/projects.ts`; descrições profissionais em `src/data/connections.ts` (exibidas no Repertório técnico); ferramentas em `src/data/technologies.ts`. Os tokens dos temas ficam em `src/app/globals.css`. A geometria da sequência está em `src/components/visuals/connections/geometry.ts` e seu ciclo de renderização em `renderer.ts`.
 
 ## Segurança e publicação
 

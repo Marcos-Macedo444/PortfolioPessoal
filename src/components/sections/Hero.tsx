@@ -3,25 +3,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useScroll } from "framer-motion";
-import {
-  ArrowDown,
-  ArrowUpRight,
-  Gauge,
-  Network,
-  Radio,
-  ShieldCheck,
-  Workflow,
-} from "lucide-react";
-import { connections } from "@/data/connections";
+import { ArrowDown, ArrowUpRight, Gauge } from "lucide-react";
 import { profile } from "@/data/profile";
 import { useMotionPreference } from "@/components/ui/Preferences";
 import { OpeningSequence } from "@/components/ui/OpeningSequence";
 import { HyperspeedScene } from "@/components/visuals/HyperspeedScene";
 
-const icons = [Network, Radio, ShieldCheck, Workflow];
-
 export function Hero() {
-  const [selected, setSelected] = useState(0);
   const [boosting, setBoosting] = useState(false);
   const [sceneStatus, setSceneStatus] = useState<
     "preparing" | "ready" | "fallback"
@@ -30,7 +18,6 @@ export function Hero() {
   const activity = useRef(1);
   const boostTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const motion = useMotionPreference();
-  const area = connections[selected];
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -79,7 +66,6 @@ export function Hero() {
     <section id="inicio" className="hero" ref={ref}>
       <OpeningSequence ready={sceneStatus !== "preparing"} />
       <HyperspeedScene
-        selected={selected}
         boosting={boosting}
         activity={activity}
         onStatus={onStatus}
@@ -136,51 +122,6 @@ export function Hero() {
         >
           <Gauge size={18} aria-hidden="true" /> Acelerar
         </button>
-      </div>
-      <div className="container-shell hero-connections" data-connection-origin>
-        <div className="network-heading">
-          <span>Conexões em movimento</span>
-          <span className="network-index">01 — 04</span>
-        </div>
-        <div className="hero-network">
-          <div className="area-tabs" role="group" aria-label="Áreas de atuação">
-            {connections.map((item, index) => {
-              const Icon = icons[index];
-              return (
-                <button
-                  type="button"
-                  key={item.id}
-                  className={`area-tab ${selected === index ? "selected" : ""}`}
-                  aria-pressed={selected === index}
-                  aria-controls="area-description"
-                  onClick={() => setSelected(index)}
-                >
-                  <Icon size={18} aria-hidden="true" />
-                  <span>{item.label}</span>
-                </button>
-              );
-            })}
-          </div>
-          <div
-            className="network-context"
-            id="area-description"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            <p className="connection-label">
-              <span className="status-dot" />
-              {area.label}
-              <span className="connection-rule" />
-            </p>
-            <h2>{area.subtitle}</h2>
-            <p>{area.description}</p>
-            {area.projects.length > 0 && (
-              <a className="text-link" href="#project-finance-system">
-                Conhecer a automação financeira <ArrowUpRight size={15} />
-              </a>
-            )}
-          </div>
-        </div>
       </div>
       <div className="container-shell hero-foot">
         <div className="current-position">

@@ -1,6 +1,7 @@
 import { ArrowUpRight, BriefcaseBusiness } from "lucide-react";
 import { timeline } from "@/data/timeline";
 import { profile } from "@/data/profile";
+import { OriginKey } from "@/components/visuals/OriginKey";
 
 export function Timeline() {
   const current = timeline[0];
@@ -62,6 +63,7 @@ export function Timeline() {
             <span className="experience-node" aria-hidden="true" />
             <div className="experience-date">
               <p>Origem & fundamentos</p>
+              <OriginKey />
             </div>
             <div className="experience-body">
               <h3>Da prática à tecnologia</h3>

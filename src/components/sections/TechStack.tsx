@@ -1,4 +1,11 @@
 import { skillGroups as groups } from "@/data/technologies";
+import { connections } from "@/data/connections";
+
+const practice = [
+  `${connections[0].description} ${connections[1].description}`,
+  connections[2].description,
+  connections[3].description,
+];
 
 export function TechStack() {
   return (
@@ -23,7 +30,7 @@ export function TechStack() {
               <Icon className="skill-icon" size={23} />
               <div>
                 <h3>{group.title}</h3>
-                <p>{group.description}</p>
+                <p>{practice[index] || group.description}</p>
                 <ul className="plain-tags">
                   {group.skills.map((skill) => (
                     <li key={skill}>{skill}</li>

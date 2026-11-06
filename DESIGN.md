@@ -4,9 +4,13 @@ Marcos Macêdo: redes, infraestrutura, NOC, segurança defensiva e automação.
 
 ## Direção
 
-Escolha definitiva: Hyperspeed, do React Bits, integrado em azul e verde à primeira tela. Esta decisão substitui a restrição anterior de não usar 3D e a proposta de núcleo MM tridimensional. Há somente uma cena, sem moldura de demonstração; nome, cargo, apresentação e ações permanecem HTML. A fotografia principal real foi para Sobre, com um retrato pequeno na assinatura da abertura. Os arquivos originais foram preservados.
+Escolha definitiva para a abertura: Hyperspeed, do React Bits, integrado em azul e verde à primeira tela, sem núcleo MM tridimensional. Depois da apresentação, Conexões em movimento ocupa um palco próprio, sem moldura, com cabos azuis e verde apenas nos pulsos. Nome, cargo, apresentação e ações permanecem HTML. A fotografia principal real está em Sobre, com um retrato pequeno na assinatura da abertura. Os arquivos originais foram preservados.
 
-No desktop, a pista ocupa o fundo e ganha presença ao lado do nome; a máscara protege a leitura, especialmente no tablet. No celular, texto e ações vêm antes de uma pista compacta de 230px, ainda na abertura, sem altura rígida de viewport. Quatro controles HTML preservam Redes, NOC, Segurança e Automação e seus dados reais, sem repetir o mapa 2D completo. A ligação com a trajetória passa a usar uma origem semântica própria, não seletores do mapa removido.
+No desktop, a pista ocupa o fundo e ganha presença ao lado do nome; a máscara protege a leitura, especialmente no tablet. No celular, texto e ações vêm antes de uma pista compacta de 230px. As quatro seleções antigas deram lugar à narrativa cabo → MM → projetos → trajetória. Seu conteúdo profissional foi preservado no Repertório técnico. A ponte antiga e seus estilos órfãos foram removidos.
+
+O novo palco tem 82svh (mínimo 420px, máximo 1000px), em uma seção de 220svh com sticky nativo. São 18 fios e 140 amostras por fio, com curvas suavizadas e reamostradas por distância, trançado em profundidade e leve mudança de câmera. A assinatura estabiliza entre 27–53%; os links, entre 65–83%. São os dados existentes de Futebol (aplicação), Gestão Financeira (publicação) e Imagens (GitHub), não destinos inventados. Links ocultos ficam inert; um link focado permanece visível até o foco sair. O último fio acompanha o eixo real da trajetória, recalculado em resize.
+
+Até 700px, três quadros de 360/490/210px ficam no fluxo, com enquadramentos próprios, links grandes e sem sticky. SVG estático e HTML existem no servidor; Canvas é melhoria progressiva. A experiência como chaveiro ganha uma chave vazada com dentes assimétricos, inserção, giro de 90 graus e um único pulso, em 1,08s. O traço termina no item e reaparece na entrada de Sobre, sem atravessar o texto.
 
 Projetos alternam uma demonstração real em destaque e uma lista de estudos expansíveis. Hack27 mantém fotografias reais e legendas, com seleção manual.
 
@@ -22,11 +26,11 @@ Projetos alternam uma demonstração real em destaque e uma lista de estudos exp
 
 Entrada de marca em traço 2D: aproximadamente 600ms até a revelação e 400ms de saída quando o primeiro frame da cena está pronto. O bootstrap local oferece Pular abertura antes da hidratação e libera a página em até 1,9s, independentemente do módulo 3D. A sequência completa só ocorre na primeira entrada da sessão; âncoras, retorno de histórico, scroll restaurado, pausa e movimento reduzido a dispensam. Sem percentuais artificiais, bloqueio do body ou dependência de fotografias abaixo da dobra.
 
-Three.js direto, isolado em um chunk client; sem React Three Fiber, GSAP, modelos, texturas remotas ou renderer extra. A base real é Hyperspeed no commit `4dc7b5b7772e1217c8fb8d2a7aa074302180e5b4` do React Bits. Origem, autoria, licença e adaptações estão em THIRD_PARTY_NOTICES.md e licenses/React-Bits.md.
+Three.js direto na abertura, isolado em um chunk client; sem React Three Fiber, GSAP, modelos ou texturas remotas. A nova seção usa apenas Canvas 2D, sem outro motor 3D. A base real é Hyperspeed no commit `4dc7b5b7772e1217c8fb8d2a7aa074302180e5b4` do React Bits. Origem, autoria, licença e adaptações estão em THIRD_PARTY_NOTICES.md e licenses/React-Bits.md.
 
 Curva gentle com curvatura 0,3; aceleração limitada a 1,65×, FOV 88–102 e gesto limitado a 1,4s. Soltar, perder foco, pausar ou ocultar a aba desfaz o boost. DPR limitado a 1,5, ou 1 em perfis compactos/modestos; densidades 42/28. Instâncias e vetores reutilizados; sem estado React por frame. Bloom desativado e nenhum passe de pós-processamento ativo.
 
-Valores de scroll desaceleram a pista ao sair da abertura e desenham a ponte 2D para a trajetória, sem bloquear rolagem. Interseção, visibilidade da aba e preferência global cancelam o RAF; uma atualização estática pode redesenhar um frame quando tema/seleção mudam durante a pausa. Falha do chunk, WebGL, primeiro frame ou perda de contexto mantém uma perspectiva 2D e controles funcionais. A largura móvel reduz qualidade, não força fallback. Conteúdo e links permanecem acessíveis sem JavaScript.
+Valores de scroll desaceleram a pista ao sair da abertura, sem bloquear rolagem. Canvas é importado só na interseção com rolagem iniciada; DPR limitado a 1,5, geometria, Path2D e fundo rasterizado reaproveitados enquanto o scroll está parado, pulso a até 30fps. Interseção, visibilidade e preferência global cancelam o RAF de cada cena. Falhas mantêm a composição estática; conteúdo e links permanecem acessíveis sem JavaScript. A ponte SVG usa a posição real da linha do tempo, sem atravessar o texto.
 
 ## Conteúdo e preservação
 
@@ -44,4 +48,4 @@ Cargo: Técnico de Networking I — NOC, Vision Cybersecurity, tempo integral, s
 
 Metas: LCP ≤2,5s, CLS ≤0,1, INP de campo p75 ≤200ms e transferência inicial ≤1MB. O orçamento anterior de 250KB de JS total continua como referência; com a cena, o relatório separa shell, módulo 3D e soma real, sem excluir o que carrega na entrada. Alvo adicional do módulo: ≤300KB gzip, ≤40 draw calls e ≤60 mil triângulos. Medições locais não representam dados de campo ou aparelhos físicos.
 
-Evidências atuais em .tmp/hyperspeed, fora do Git; relatório em docs/hyperspeed-validation.md. Os resultados em docs/redesign-validation.md descrevem as versões anteriores, não a abertura Hyperspeed.
+Evidências da nova sequência em .tmp/connections, fora do Git; relatório em docs/connections-validation.md. docs/hyperspeed-validation.md registra a abertura anterior a essa sequência; docs/redesign-validation.md registra o redesign histórico.

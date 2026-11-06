@@ -49,12 +49,10 @@ function PerspectiveFallback() {
 }
 
 export function HyperspeedScene({
-  selected,
   boosting,
   activity,
   onStatus,
 }: {
-  selected: number;
   boosting: boolean;
   activity: React.RefObject<number>;
   onStatus: (status: Status) => void;
@@ -139,13 +137,9 @@ export function HyperspeedScene({
               glow={0}
               reflections={0.2}
               steer={0}
-              tailColors={
-                selected === 3
-                  ? [blue, green, blue, green]
-                  : [blue, blue, green]
-              }
+              tailColors={[blue, blue, green]}
               headColors={[green, blue, blue]}
-              poleColors={selected === 2 ? [green, blue] : [blue, green, blue]}
+              poleColors={[blue, green, blue]}
               roadColor={light ? "#eaf0f8" : "#09121e"}
               roadOpacity={0.16}
               lineColor={light ? "#a3b8d5" : "#203653"}

@@ -8,7 +8,7 @@
     "build": "node scripts/next-runner.cjs build --webpack",
     "start": "node scripts/next-runner.cjs start",
     "lint": "eslint .",
-    "test": "node --test scripts/intro.test.cjs",
+    "test": "node --test scripts/intro.test.cjs scripts/connections.test.cjs",
     "typecheck": "node scripts/typecheck-runner.cjs"
   },
   "engines": {

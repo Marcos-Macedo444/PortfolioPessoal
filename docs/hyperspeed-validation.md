@@ -1,6 +1,6 @@
 # Validação: abertura Hyperspeed
 
-Evolução de 5 de novembro de 2026, na branch `codex/hyperspeed-opening`. Os relatórios anteriores de redesign e foto descrevem versões históricas; este documento cobre a cena atual.
+Evolução de 5 de novembro de 2026, na branch `codex/hyperspeed-opening`. Registro da integração da abertura, antes da sequência de cabos. A evolução posterior, incluindo a substituição das quatro seleções e da ponte, está em [connections-validation.md](connections-validation.md). Os relatórios anteriores de redesign e foto também descrevem versões históricas.
 
 ## Implementação e origem
 

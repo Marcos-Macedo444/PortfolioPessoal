@@ -5,6 +5,7 @@ import { profile } from "@/data/profile";
 export function About() {
   return (
     <section id="sobre" className="section about-section">
+      <span className="about-thread" aria-hidden="true" />
       <div className="container-shell about-grid">
         <div className="portrait-composition">
           <div className="portrait-frame">

@@ -1,66 +1,61 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef } from "react";
 import { Hero } from "@/components/sections/Hero";
 import { Timeline } from "@/components/sections/Timeline";
-import { useMotionPreference } from "@/components/ui/Preferences";
+import { ConnectionsScene } from "@/components/visuals/ConnectionsScene";
 
 export function ConnectionStory() {
   const ref = useRef<HTMLDivElement>(null);
-  const [bridge, setBridge] = useState({ d: "", width: 1, height: 1 });
+  const path = useRef<SVGPathElement>(null);
+  const svg = useRef<SVGSVGElement>(null);
   useEffect(() => {
     const root = ref.current;
     if (!root) return;
+    let frame = 0;
     const update = () => {
-      const bounds = root.getBoundingClientRect();
-      const origin = root.querySelector("[data-connection-origin]");
-      const experience = root.querySelector(".experience-list");
-      const footer = root.querySelector(".hero-foot");
-      if (!origin || !experience || !footer) return;
-      const map = origin.getBoundingClientRect();
-      const list = experience.getBoundingClientRect();
-      const foot = footer.getBoundingClientRect();
-      const x = map.left + 12 - bounds.left;
-      const y = map.bottom - bounds.top;
-      const edge = foot.right - bounds.left - 8;
-      const turn = foot.bottom - bounds.top + 30;
-      const target = list.left - bounds.left + (bounds.width <= 700 ? 9 : 27);
-      const end = list.top - bounds.top - (bounds.width <= 700 ? 50 : 65);
-      setBridge({
-        width: bounds.width,
-        height: bounds.height,
-        d: `M${x} ${y} V${y + 8} H${edge - 20} Q${edge} ${y + 8} ${edge} ${y + 28} V${turn - 20} Q${edge} ${turn} ${edge - 20} ${turn} H${target + 20} Q${target} ${turn} ${target} ${turn + 20} V${end}`,
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const bounds = root.getBoundingClientRect();
+        const scene = root
+          .querySelector(".cable-story")
+          ?.getBoundingClientRect();
+        const list = root
+          .querySelector(".experience-list")
+          ?.getBoundingClientRect();
+        if (!scene || !list || !svg.current || !path.current) return;
+        const compact = matchMedia("(max-width: 700px)").matches;
+        const x = list.left - bounds.left + (compact ? 9 : 27);
+        const start = scene.bottom - bounds.top;
+        const end = list.top - bounds.top - (compact ? 50 : 65);
+        svg.current.setAttribute(
+          "viewBox",
+          `0 0 ${bounds.width} ${bounds.height}`,
+        );
+        path.current.setAttribute("d", `M${x} ${start} V${end}`);
+        root.style.setProperty("--rail-x", `${x}px`);
       });
     };
-    const observer = new ResizeObserver(update);
-    observer.observe(root);
+    const resize = new ResizeObserver(update);
+    resize.observe(root);
+    window.addEventListener("resize", update);
     update();
-    return () => observer.disconnect();
+    return () => {
+      resize.disconnect();
+      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", update);
+    };
   }, []);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end center"],
-  });
-  const pathLength = useTransform(scrollYProgress, [0, 0.65], [0.08, 1]);
-  const motionEnabled = useMotionPreference();
   return (
-    <div className="connection-story" ref={ref}>
-      <div className="story-bridge" aria-hidden="true">
-        <svg
-          viewBox={`0 0 ${bridge.width} ${bridge.height}`}
-          preserveAspectRatio="none"
-        >
-          <path d={bridge.d} />
-          <motion.path
-            className="bridge-progress"
-            d={bridge.d}
-            style={{ pathLength: motionEnabled ? pathLength : 1 }}
-          />
-        </svg>
-      </div>
+    <>
       <Hero />
-      <Timeline />
-    </div>
+      <div className="connection-story" ref={ref}>
+        <ConnectionsScene />
+        <svg className="journey-bridge" ref={svg} aria-hidden="true">
+          <path ref={path} />
+        </svg>
+        <Timeline />
+      </div>
+    </>
   );
 }

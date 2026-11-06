@@ -345,7 +345,7 @@ summary {
   z-index: 100;
   padding: 14px;
   background: var(--blue);
-  color: #fff;
+  color: var(--on-blue);
 }
 .skip-link:focus {
   top: 10px;
@@ -364,11 +364,6 @@ summary {
   padding-block: 16px;
   min-width: 0;
   max-width: 580px;
-}
-.hero-connections {
-  position: relative;
-  z-index: 2;
-  margin-top: 48px;
 }
 .hero h1 {
   font-size: 104px;
@@ -399,64 +394,6 @@ summary {
   align-items: center;
   gap: 27px;
   margin-top: 28px;
-}
-.hero-network {
-  position: relative;
-  min-width: 0;
-  display: grid;
-  grid-template-columns: 1.04fr 1fr;
-  gap: 0 40px;
-  width: 100%;
-  padding-top: 24px;
-}
-.network-heading {
-  grid-column: 1 / -1;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 10px;
-  color: var(--muted);
-  text-transform: uppercase;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 15px;
-}
-.network-index {
-  font-family: Consolas, monospace;
-  font-size: 10px;
-}
-.network-context {
-  align-self: start;
-  min-height: 190px;
-  padding: 0 0 0 22px;
-  border-left: 1px solid var(--line);
-  max-width: 450px;
-}
-.connection-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--green);
-  font-size: 10px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-.connection-rule {
-  display: inline-block;
-  background: var(--line);
-  width: 40px;
-  height: 1px;
-}
-.network-context h2 {
-  font-size: 20px;
-  margin-bottom: 9px;
-}
-.network-context > p:last-of-type {
-  line-height: 1.7;
-  font-size: 13px;
-  color: var(--muted);
-}
-.network-context .text-link {
-  font-size: 11px;
 }
 .hero-foot {
   position: relative;
@@ -504,29 +441,340 @@ summary {
 }
 .connection-story {
   position: relative;
+  --rail-x: max(83px, calc((100% - 1328px) / 2 + 27px));
 }
-.story-bridge {
+.cable-story {
+  position: relative;
+  height: 220svh;
+  margin-top: 32px;
+}
+.cable-stage {
+  position: sticky;
+  top: 88px;
+  height: 82svh;
+  min-height: 420px;
+  max-height: 1000px;
+  overflow: clip;
+  isolation: isolate;
+}
+.cable-title {
   position: absolute;
-  top: 540px;
-  height: 260px;
   left: 0;
   right: 0;
+  top: 30px;
+  z-index: 2;
+  font-size: 28px;
+  line-height: 1.3;
   pointer-events: none;
-  opacity: 0.5;
 }
-.story-bridge svg {
+.cable-stage canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  visibility: hidden;
+}
+.cable-story[data-animated] canvas {
+  visibility: visible;
+}
+.cable-frame {
+  display: contents;
+}
+.cable-frame canvas,
+.cable-static-branches {
+  display: none;
+}
+.cable-static-signature {
+  position: absolute;
+  inset: 10% 0 auto;
+  width: 100%;
+  height: 64%;
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+}
+.cable-static-handoff {
+  position: absolute;
+  bottom: 0;
+  left: var(--rail-x);
+  width: calc(100% - var(--rail-x));
+  height: 15%;
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 1;
+  opacity: 0.6;
+}
+.cable-projects {
+  position: absolute;
+  z-index: 2;
+  inset: 74% 7% auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+}
+.cable-project {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  font-family: var(--font-display), sans-serif;
+  font-size: 20px;
+  line-height: 1.35;
+  color: var(--text);
+  border-bottom: 1px solid var(--line);
+  padding: 12px 0;
+  overflow-wrap: break-word;
+}
+.cable-project svg {
+  flex-shrink: 0;
+  color: var(--blue);
+}
+.cable-project:hover {
+  color: var(--blue);
+  border-color: var(--blue);
+}
+.cable-story[data-animated] .cable-static-signature,
+.cable-story[data-animated] .cable-static-handoff,
+.cable-story[data-animated] .cable-static-branches {
+  visibility: hidden;
+}
+.cable-story[data-animated] .cable-projects {
+  inset: 0;
+  display: block;
+  visibility: hidden;
+  pointer-events: none;
+}
+.cable-story[data-animated][data-links="visible"] .cable-projects {
+  visibility: visible;
+}
+.cable-story[data-animated] .cable-project {
+  position: absolute;
+  left: 64.26%;
+  width: 29%;
+  transform: translateY(-50%);
+  pointer-events: auto;
+  background: var(--bg);
+}
+.cable-project-0 {
+  top: 34.52%;
+}
+.cable-project-1 {
+  top: 50%;
+}
+.cable-project-2 {
+  top: 65.48%;
+}
+.journey-bridge {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   fill: none;
-}
-.story-bridge path {
-  stroke: var(--line);
+  stroke: var(--blue);
   stroke-width: 1;
-  vector-effect: non-scaling-stroke;
+  opacity: 0.5;
+  pointer-events: none;
 }
-.story-bridge .bridge-progress {
+.origin-key {
+  display: block;
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  margin-top: 22px;
+  overflow: visible;
   stroke: var(--blue);
   stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.key-insert {
+  transform: translateX(22px);
+}
+.lock-turn {
+  transform: rotate(90deg);
+  transform-origin: 207px 45px;
+}
+.key-pulse {
+  opacity: 0;
+  stroke: var(--green);
+}
+.origin-key[data-play="true"] .key-branch,
+.origin-key[data-play="true"] .key-outline {
+  animation: key-draw 650ms ease-out both;
+  stroke-dasharray: 1;
+}
+.origin-key[data-play="true"] .key-insert {
+  animation: key-insert 240ms 580ms ease-in-out both;
+}
+.origin-key[data-play="true"] .lock-turn {
+  animation: key-turn 220ms 780ms ease-in-out both;
+}
+.origin-key[data-play="true"] .key-exit {
+  animation: key-draw 180ms 900ms ease-out both;
+  stroke-dasharray: 1;
+}
+.origin-key[data-play="true"] .key-pulse {
+  animation: key-pulse 280ms 760ms ease-out both;
+}
+@keyframes key-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes key-insert {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(22px);
+  }
+}
+@keyframes key-turn {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(90deg);
+  }
+}
+@keyframes key-pulse {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+}
+.about-section {
+  position: relative;
+}
+.about-thread {
+  position: absolute;
+  top: 0;
+  left: max(83px, calc((100% - 1328px) / 2 + 27px));
+  height: 46px;
+  width: 24px;
+  border-left: 1px solid var(--blue);
+  border-bottom: 1px solid var(--blue);
+  border-bottom-left-radius: 12px;
+  opacity: 0.5;
+}
+@media (max-width: 1200px) {
+  .connection-story {
+    --rail-x: 63px;
+  }
+  .about-thread {
+    left: 63px;
+  }
+}
+@media (max-width: 700px) {
+  .connection-story {
+    --rail-x: 29px;
+  }
+  .cable-story {
+    height: auto;
+    margin-top: 26px;
+  }
+  .cable-stage {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow: clip;
+  }
+  .cable-title {
+    position: relative;
+    top: auto;
+    padding-top: 20px;
+    font-size: 25px;
+  }
+  .cable-desktop-canvas {
+    display: none;
+  }
+  .cable-frame {
+    position: relative;
+    display: block;
+    width: 100%;
+  }
+  .cable-frame canvas {
+    display: block;
+  }
+  .cable-mobile-signature {
+    height: 360px;
+  }
+  .cable-static-signature {
+    inset: 0;
+    height: 100%;
+  }
+  .cable-project-frame {
+    height: 490px;
+  }
+  .cable-static-branches {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: var(--blue);
+    stroke-width: 0.35;
+  }
+  .cable-projects,
+  .cable-story[data-animated] .cable-projects {
+    inset: 0;
+    display: block;
+    visibility: visible;
+  }
+  .cable-project,
+  .cable-story[data-animated] .cable-project {
+    position: absolute;
+    left: 33.44%;
+    width: 59%;
+    font-size: 18px;
+    transform: translateY(-50%);
+    background: var(--bg);
+    gap: 8px;
+  }
+  .cable-project-0 {
+    top: 29.36%;
+  }
+  .cable-project-2 {
+    top: 70.64%;
+  }
+  .cable-handoff-frame {
+    height: 210px;
+  }
+  .cable-static-handoff {
+    height: 100%;
+  }
+  .origin-key {
+    max-width: 280px;
+    width: calc(100% + 36px);
+    margin-left: -36px;
+    margin-top: 14px;
+  }
+  .origin-key .key-branch {
+    d: path("M10 44 H32");
+  }
+  .about-thread {
+    left: 29px;
+    height: 38px;
+  }
+}
+@media (max-width: 359px) {
+  .connection-story {
+    --rail-x: 25px;
+  }
+  .about-thread {
+    left: 25px;
+  }
 }
 .journey {
   padding-top: 95px;
@@ -646,9 +894,6 @@ summary {
   .hero-copy {
     padding-block: 36px;
   }
-  .story-bridge {
-    top: 560px;
-  }
 }
 @media (max-width: 1200px) {
   .container-shell {
@@ -666,14 +911,8 @@ summary {
   .hero-grid {
     gap: 24px;
   }
-  .hero-network {
-    gap: 0 24px;
-  }
   .hero-description {
     font-size: 14px;
-  }
-  .story-bridge {
-    top: 490px;
   }
 }
 @media (max-width: 900px) {
@@ -687,19 +926,12 @@ summary {
   .hero h1 {
     font-size: 76px;
   }
-  .network-context {
-    min-height: 200px;
-  }
   .experience {
     grid-template-columns: 165px 1fr;
     gap: 24px;
   }
   .section-heading h2 {
     font-size: 40px;
-  }
-  .story-bridge {
-    top: 420px;
-    height: 300px;
   }
 }
 @media (max-width: 700px) {
@@ -749,9 +981,6 @@ summary {
   .hero-copy {
     display: block;
   }
-  .hero-connections {
-    margin-top: 48px;
-  }
   .hero h1 {
     font-size: 76px;
     margin-left: -3px;
@@ -779,22 +1008,6 @@ summary {
     font-size: 12px;
     padding-inline: 15px;
   }
-  .hero-network {
-    grid-template-columns: minmax(0, 1fr);
-    width: 100%;
-    padding-top: 0;
-  }
-  .network-context {
-    max-width: none;
-    min-height: 177px;
-    padding-left: 18px;
-  }
-  .network-context h2 {
-    font-size: 21px;
-  }
-  .network-context > p:last-of-type {
-    font-size: 13px;
-  }
   .hero-foot {
     margin-top: 0;
     padding-top: 24px;
@@ -812,14 +1025,6 @@ summary {
   }
   .current-position span {
     font-size: 9px;
-  }
-  .story-bridge {
-    top: 810px;
-    height: 370px;
-    opacity: 0.3;
-  }
-  .story-bridge svg {
-    overflow: visible;
   }
   .journey-heading {
     padding-left: 36px;
@@ -1615,9 +1820,6 @@ html[data-motion="off"] *::after {
   .hero h1 {
     font-size: 76px;
   }
-  .network-context {
-    min-height: 200px;
-  }
   .featured-project {
     gap: 30px;
   }
@@ -1663,18 +1865,8 @@ html[data-motion="off"] *::after {
   .hero h1 {
     font-size: 76px;
   }
-  .hero-network {
-    max-width: none;
-  }
-  .network-context {
-    min-height: 177px;
-  }
   .hero-foot {
     margin-top: 0;
-  }
-  .story-bridge {
-    top: 800px;
-    height: 400px;
   }
   .about-grid {
     display: flex;
@@ -1919,13 +2111,6 @@ html[data-motion="off"] *::after {
   }
 }
 
-.story-bridge {
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-}
-
 .hero-scene {
   position: absolute;
   inset: -200px 0 auto;
@@ -1997,34 +2182,6 @@ html[data-motion="off"] *::after {
 .boost-control:disabled {
   cursor: default;
   opacity: 0.5;
-}
-.area-tabs {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  max-width: 440px;
-}
-.area-tab {
-  min-height: 48px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  border: 0;
-  border-bottom: 1px solid var(--line);
-  background: var(--bg);
-  color: var(--muted);
-  font-size: 13px;
-  text-align: left;
-}
-.area-tab:hover {
-  color: var(--text);
-  border-color: var(--blue);
-}
-.area-tab.selected {
-  color: var(--green);
-  border-color: var(--green);
-  background: var(--green-soft);
 }
 .mini-portrait {
   object-fit: cover;
@@ -2177,26 +2334,6 @@ html[data-intro="revealing"] .brand-intro {
     top: calc(100% + 170px);
     bottom: auto;
     padding: 8px 12px;
-  }
-  .hero-connections {
-    order: 3;
-    margin-top: 14px;
-  }
-  .hero-network {
-    display: block;
-    padding-top: 18px;
-  }
-  .area-tabs {
-    max-width: none;
-  }
-  .area-tab {
-    font-size: 12px;
-    gap: 9px;
-    padding-inline: 10px;
-  }
-  .network-context {
-    margin-top: 26px;
-    min-height: 192px;
   }
   .hero-foot {
     order: 4;
