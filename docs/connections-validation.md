@@ -1,5 +1,7 @@
 # Validação: Conexões em movimento
 
+Relatório histórico da primeira sequência com links de projetos e chave executada uma vez. O Encaixe MM, os dois temas manuais, o nó tridimensional e o loop da chave foram validados posteriormente em [refinement-validation.md](refinement-validation.md), que descreve a implementação atual.
+
 Evolução de 6 de novembro de 2026, branch `codex/scroll-driven-connections`, sobre `54d6c3c` da main. Este relatório complementa o histórico de [Hyperspeed](hyperspeed-validation.md), cuja abertura foi preservada.
 
 ## Implementação
@@ -33,15 +35,15 @@ DPR limitado a 1,5. Geometria projetada, buffers, Path2D e fundo rasterizado sã
 
 Mesmo computador, Chrome headless, build de produção e script `.tmp/connections/measure.cjs`. Desktop: 1440×1000, DPR de dispositivo 2. Mobile: 360×820, DPR de dispositivo 3, CPU 4× mais lenta, latência de 150ms e rede de 1,6Mbps/750Kbps. Cache de navegador novo em cada contexto. Valores de uma amostra final, não estatística de campo.
 
-| Métrica | Desktop antes → depois | Mobile antes → depois |
-| --- | --- | --- |
-| LCP | 328 → 420ms | 896 → 868ms |
-| CLS | 0,00040 → 0,00301 | 0,00075 → 0,00105 |
-| Recursos iniciais, corpos comprimidos | 411,6 → 411,7kB | 417,9 → 418,0kB |
-| JavaScript inicial total, incluindo Hyperspeed | 335,7 → 335,2kB | 335,7 → 335,2kB |
-| Novo módulo, somente depois da rolagem | 0 → 2,8kB | 0 → 2,8kB |
-| Maior long task inicial | 139 → 180ms | 202 → 190ms |
-| Intervalo p95 de 90 callbacks RAF | 10,1 → 30,0ms | 10,1 → 10,1ms |
+| Métrica                                        | Desktop antes → depois | Mobile antes → depois |
+| ---------------------------------------------- | ---------------------- | --------------------- |
+| LCP                                            | 328 → 420ms            | 896 → 868ms           |
+| CLS                                            | 0,00040 → 0,00301      | 0,00075 → 0,00105     |
+| Recursos iniciais, corpos comprimidos          | 411,6 → 411,7kB        | 417,9 → 418,0kB       |
+| JavaScript inicial total, incluindo Hyperspeed | 335,7 → 335,2kB        | 335,7 → 335,2kB       |
+| Novo módulo, somente depois da rolagem         | 0 → 2,8kB              | 0 → 2,8kB             |
+| Maior long task inicial                        | 139 → 180ms            | 202 → 190ms           |
+| Intervalo p95 de 90 callbacks RAF              | 10,1 → 30,0ms          | 10,1 → 10,1ms         |
 
 Os bytes de recursos excluem o documento HTML de navegação, por definição do coletor; não são o peso total de todas as visitas. Os callbacks RAF foram amostrados na abertura antiga e na assinatura nova. Não são uma medição de FPS do Canvas nem de INP. O novo desenho tem teto intencional de 30fps e o movimento de câmera depende da rolagem, não desse indicador isolado.
 

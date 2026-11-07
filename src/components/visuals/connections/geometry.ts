@@ -1,6 +1,6 @@
 export type Point = { x: number; y: number; z: number };
 export const STRANDS = 18;
-export const SAMPLES = 140;
+export const SAMPLES = 180;
 export const clamp = (n: number) => Math.max(0, Math.min(1, n));
 export const smooth = (a: number, b: number, n: number) => {
   const t = clamp((n - a) / (b - a));
@@ -80,16 +80,22 @@ export function createPaths(compact: boolean, exit: number) {
     [0.05, -0.08, -0.15],
     [1.25, -0.72, 0.2],
   ]);
-  const branches = [0, 1, 2].map((i) => {
-    const y = (i - 1) * (compact ? 0.48 : 0.36);
-    return rounded([
-      [-1.2, 0.4],
-      [-0.7, 0.4],
-      [compact ? -0.65 : -0.42, 0.23, -0.1],
-      [compact ? -0.52 : -0.14, y, 0.05],
-      [compact ? -0.36 : 0.31, y, 0],
-    ]);
+  const scale = compact ? 1.05 : 1;
+  const core = Array.from({ length: 241 }, (_, i) => {
+    const t = Math.PI + 0.15 + (i / 240) * (2 * Math.PI - 0.3);
+    return [
+      ((Math.sin(t) + 2 * Math.sin(2 * t)) / 3) * 0.94 * scale,
+      (-(Math.cos(t) - 2 * Math.cos(2 * t)) / 3) * 0.9 * scale - 0.12,
+      -Math.sin(3 * t) * 0.36,
+    ];
   });
+  const knot = samplePath([
+    [-1.2, 0.4, 0.04],
+    [-0.65, 0.72, -0.08],
+    ...core,
+    [0.65, 0.72, 0.08],
+    [1.2, 0.4, 0.04],
+  ]);
   const handoff = rounded([
     [-1.2, 0.4],
     [-0.65, 0.32],
@@ -97,7 +103,30 @@ export function createPaths(compact: boolean, exit: number) {
     [exit, 0.8],
     [exit, 1.17],
   ]);
-  return { signature, arrival, branches, handoff };
+  return { signature, arrival, knot, handoff };
+}
+
+export const knotWeight = (progress: number) =>
+  smooth(0.53, 0.68, progress) * (1 - smooth(0.83, 0.99, progress));
+
+export function centerPoint(
+  paths: ReturnType<typeof createPaths>,
+  index: number,
+  progress: number,
+): Point {
+  const signature = smooth(0.06, 0.27, progress);
+  const knot = smooth(0.53, 0.68, progress);
+  const exit = smooth(0.83, 0.99, progress);
+  const a = paths.arrival[index],
+    b = paths.signature[index],
+    c = paths.knot[index],
+    d = paths.handoff[index];
+  const mix = (key: keyof Point) => {
+    const ab = a[key] + (b[key] - a[key]) * signature;
+    const abc = ab + (c[key] - ab) * knot;
+    return abc + (d[key] - abc) * exit;
+  };
+  return { x: mix("x"), y: mix("y"), z: mix("z") };
 }
 
 export function strandPoint(
@@ -106,39 +135,26 @@ export function strandPoint(
   strand: number,
   progress: number,
 ): Point {
-  const signature = smooth(0.06, 0.27, progress);
-  const projects = smooth(0.53, 0.65, progress);
   const exit = smooth(0.83, 0.99, progress);
-  const mix = (key: keyof Point, at = index) => {
-    const a = paths.arrival[at],
-      b = paths.signature[at];
-    const c = paths.branches[Math.floor(strand / (STRANDS / 3))][at],
-      d = paths.handoff[at];
-    const ab = a[key] + (b[key] - a[key]) * signature;
-    const abc = ab + (c[key] - ab) * projects;
-    return abc + (d[key] - abc) * exit;
-  };
-  const before = Math.max(0, index - 1),
-    after = Math.min(SAMPLES - 1, index + 1);
-  const tangent = Math.atan2(
-    mix("y", after) - mix("y", before),
-    mix("x", after) - mix("x", before),
-  );
+  const point = centerPoint(paths, index, progress);
+  const before = centerPoint(paths, Math.max(0, index - 1), progress);
+  const after = centerPoint(paths, Math.min(SAMPLES - 1, index + 1), progress);
+  const tangent = Math.atan2(after.y - before.y, after.x - before.x);
   const twist = (strand * Math.PI * 2) / STRANDS + index * 0.12;
   const radius = 0.014 + (0.022 * (strand % 3)) / 2;
-  const spread = 1 - exit * 0.82;
+  const spread = 1 - exit * 0.97;
   const arrivalFan =
     (strand - (STRANDS - 1) / 2) *
     0.025 *
     (1 - smooth(0.02, 0.2, progress)) *
     (1 - index / (SAMPLES - 1)) ** 2;
   return {
-    x: mix("x") - Math.sin(tangent) * Math.cos(twist) * radius * spread,
+    x: point.x - Math.sin(tangent) * Math.cos(twist) * radius * spread,
     y:
-      mix("y") +
+      point.y +
       Math.cos(twist) * Math.cos(tangent) * radius * spread +
       arrivalFan,
-    z: mix("z") + Math.sin(twist) * 0.075 * spread,
+    z: point.z + Math.sin(twist) * 0.055 * spread,
   };
 }
 
@@ -148,15 +164,36 @@ export function project(
   height: number,
   progress: number,
 ) {
-  // Camera settles at the HTML endpoints during the project reading window.
+  const weight = knotWeight(progress);
   const angle =
-    Math.sin(progress * Math.PI) * 0.11 * (1 - smooth(0.52, 0.65, progress));
+    Math.sin(progress * Math.PI) * 0.11 * (1 - weight) +
+    (0.22 + 0.32 * smooth(0.68, 0.83, progress)) * weight;
   const x = point.x * Math.cos(angle) + point.z * Math.sin(angle);
   const z = point.z * Math.cos(angle) - point.x * Math.sin(angle);
-  const perspective = 3.6 / (3.6 + z);
+  const pitch = -0.22 * weight;
+  const y = point.y * Math.cos(pitch) - z * Math.sin(pitch);
+  const depth = point.y * Math.sin(pitch) + z * Math.cos(pitch);
+  const perspective = 3.6 / (3.6 + depth);
+  const isotropic = Math.min(width * 0.52, height * 0.5);
+  const scaleX = width * 0.46 * (1 - weight) + isotropic * weight;
+  const scaleY = height * 0.43 * (1 - weight) + isotropic * weight;
   return {
-    x: width * (0.5 + x * 0.46 * perspective),
-    y: height * (0.5 + point.y * 0.43 * perspective),
+    x: width * 0.5 + x * scaleX * perspective,
+    y: height * 0.5 + y * scaleY * perspective,
+    z: depth,
     depth: perspective,
   };
+}
+
+export function occludes(point: Point, a: Point, b: Point, radius: number) {
+  const dx = b.x - a.x,
+    dy = b.y - a.y;
+  const t = clamp(
+    ((point.x - a.x) * dx + (point.y - a.y) * dy) / (dx * dx + dy * dy || 1),
+  );
+  const z = a.z + (b.z - a.z) * t;
+  return (
+    z < point.z - 0.045 &&
+    Math.hypot(point.x - a.x - dx * t, point.y - a.y - dy * t) < radius
+  );
 }

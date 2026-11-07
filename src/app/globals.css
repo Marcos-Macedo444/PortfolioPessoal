@@ -21,8 +21,8 @@
 }
 :root[data-theme="light"] {
   color-scheme: light;
-  --bg: #f5f8fc;
-  --surface: #fff;
+  --bg: #ffffff;
+  --surface: #f5f8fc;
   --surface-high: #eaf0f8;
   --text: #15263d;
   --muted: #4c6079;
@@ -34,24 +34,6 @@
   --error: #ae2525;
   --header: #f5f8fcf5;
   --on-blue: #ffffff;
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]):not([data-theme="light"]) {
-    color-scheme: light;
-    --bg: #f5f8fc;
-    --surface: #fff;
-    --surface-high: #eaf0f8;
-    --text: #15263d;
-    --muted: #4c6079;
-    --line: #c6d2e2;
-    --blue: #205bc5;
-    --green: #08733c;
-    --blue-soft: #e2ebfb;
-    --green-soft: #e2f4e9;
-    --error: #ae2525;
-    --header: #f5f8fcf5;
-    --on-blue: #ffffff;
-  }
 }
 * {
   box-sizing: border-box;
@@ -481,8 +463,7 @@ summary {
 .cable-frame {
   display: contents;
 }
-.cable-frame canvas,
-.cable-static-branches {
+.cable-frame canvas {
   display: none;
 }
 .cable-static-signature {
@@ -506,65 +487,9 @@ summary {
   stroke-width: 1;
   opacity: 0.6;
 }
-.cable-projects {
-  position: absolute;
-  z-index: 2;
-  inset: 74% 7% auto;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 30px;
-}
-.cable-project {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 48px;
-  font-family: var(--font-display), sans-serif;
-  font-size: 20px;
-  line-height: 1.35;
-  color: var(--text);
-  border-bottom: 1px solid var(--line);
-  padding: 12px 0;
-  overflow-wrap: break-word;
-}
-.cable-project svg {
-  flex-shrink: 0;
-  color: var(--blue);
-}
-.cable-project:hover {
-  color: var(--blue);
-  border-color: var(--blue);
-}
 .cable-story[data-animated] .cable-static-signature,
-.cable-story[data-animated] .cable-static-handoff,
-.cable-story[data-animated] .cable-static-branches {
+.cable-story[data-animated] .cable-static-handoff {
   visibility: hidden;
-}
-.cable-story[data-animated] .cable-projects {
-  inset: 0;
-  display: block;
-  visibility: hidden;
-  pointer-events: none;
-}
-.cable-story[data-animated][data-links="visible"] .cable-projects {
-  visibility: visible;
-}
-.cable-story[data-animated] .cable-project {
-  position: absolute;
-  left: 64.26%;
-  width: 29%;
-  transform: translateY(-50%);
-  pointer-events: auto;
-  background: var(--bg);
-}
-.cable-project-0 {
-  top: 34.52%;
-}
-.cable-project-1 {
-  top: 50%;
-}
-.cable-project-2 {
-  top: 65.48%;
 }
 .journey-bridge {
   position: absolute;
@@ -600,55 +525,181 @@ summary {
   opacity: 0;
   stroke: var(--green);
 }
-.origin-key[data-play="true"] .key-branch,
-.origin-key[data-play="true"] .key-outline {
-  animation: key-draw 650ms ease-out both;
+.key-signal {
+  opacity: 0;
+  stroke: var(--green);
+}
+.key-turn {
+  transform-origin: 179px 44px;
+}
+.origin-key[data-loop] .key-branch {
+  animation: key-branch-cycle 4.8s ease-in-out infinite !important;
   stroke-dasharray: 1;
 }
-.origin-key[data-play="true"] .key-insert {
-  animation: key-insert 240ms 580ms ease-in-out both;
-}
-.origin-key[data-play="true"] .lock-turn {
-  animation: key-turn 220ms 780ms ease-in-out both;
-}
-.origin-key[data-play="true"] .key-exit {
-  animation: key-draw 180ms 900ms ease-out both;
+.origin-key[data-loop] .key-outline {
+  animation: key-draw-cycle 4.8s ease-in-out infinite !important;
   stroke-dasharray: 1;
 }
-.origin-key[data-play="true"] .key-pulse {
-  animation: key-pulse 280ms 760ms ease-out both;
+.origin-key[data-loop] .key-insert {
+  animation: key-insert-cycle 4.8s ease-in-out infinite !important;
 }
-@keyframes key-draw {
-  from {
+.origin-key[data-loop] .key-turn {
+  animation: key-turn-cycle 4.8s ease-in-out infinite !important;
+}
+.origin-key[data-loop] .lock-turn {
+  animation: lock-turn-cycle 4.8s ease-in-out infinite !important;
+}
+.origin-key[data-loop] .key-exit {
+  animation: key-exit-cycle 4.8s ease-in-out infinite !important;
+  stroke-dasharray: 1;
+}
+.origin-key[data-loop] .key-pulse {
+  animation: key-pulse-cycle 4.8s ease-in-out infinite !important;
+}
+.origin-key[data-loop] .key-signal {
+  animation: key-signal-cycle 4.8s ease-in-out infinite !important;
+  stroke-dasharray: 0.15 0.85;
+}
+/* Keep paused timelines instantiated; static overrides paint the accessible resting pose. */
+.origin-key[data-loop][data-running="false"] * {
+  animation-play-state: paused !important;
+}
+.origin-key[data-static="true"] .key-branch,
+.origin-key[data-static="true"] .key-outline,
+.origin-key[data-static="true"] .key-exit {
+  stroke-dashoffset: 0 !important;
+}
+.origin-key[data-static="true"] .key-insert {
+  transform: translateX(22px) !important;
+}
+.origin-key[data-static="true"] .key-turn {
+  transform: none !important;
+}
+.origin-key[data-static="true"] .lock-turn {
+  transform: rotate(90deg) !important;
+}
+.origin-key[data-static="true"] .key-pulse,
+.origin-key[data-static="true"] .key-signal {
+  opacity: 0 !important;
+}
+@keyframes key-branch-cycle {
+  0%,
+  100% {
     stroke-dashoffset: 1;
   }
-  to {
+  8%,
+  85% {
     stroke-dashoffset: 0;
   }
 }
-@keyframes key-insert {
-  from {
+@keyframes key-draw-cycle {
+  0%,
+  8%,
+  96%,
+  100% {
+    stroke-dashoffset: 1;
+  }
+  28%,
+  76% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes key-insert-cycle {
+  0%,
+  27%,
+  73%,
+  100% {
     transform: translateX(0);
   }
-  to {
+  39%,
+  61% {
     transform: translateX(22px);
   }
 }
-@keyframes key-turn {
-  from {
+@keyframes key-turn-cycle {
+  0%,
+  39%,
+  63%,
+  100% {
+    transform: rotateX(0deg);
+  }
+  47%,
+  55% {
+    transform: rotateX(78deg);
+  }
+}
+@keyframes lock-turn-cycle {
+  0%,
+  39%,
+  63%,
+  100% {
     transform: rotate(0deg);
   }
-  to {
+  47%,
+  55% {
     transform: rotate(90deg);
   }
 }
-@keyframes key-pulse {
+@keyframes key-exit-cycle {
   0%,
+  38%,
+  96%,
+  100% {
+    stroke-dashoffset: 1;
+  }
+  56%,
+  76% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes key-pulse-cycle {
+  0%,
+  38%,
+  47%,
   100% {
     opacity: 0;
   }
-  35% {
+  41% {
     opacity: 1;
+  }
+}
+@keyframes key-signal-cycle {
+  0%,
+  40% {
+    opacity: 0;
+    stroke-dashoffset: 1;
+  }
+  43% {
+    opacity: 1;
+    stroke-dashoffset: 0.9;
+  }
+  60% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+  64%,
+  100% {
+    opacity: 0;
+    stroke-dashoffset: 0;
+  }
+}
+.cable-static-knot {
+  display: none;
+}
+@media (max-width: 700px) {
+  .cable-static-knot {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: var(--blue);
+    stroke-width: 7;
+    stroke-linecap: round;
+  }
+  .cable-story[data-animated] .cable-static-knot {
+    visibility: hidden;
   }
 }
 .about-section {
@@ -713,40 +764,8 @@ summary {
     inset: 0;
     height: 100%;
   }
-  .cable-project-frame {
+  .cable-knot-frame {
     height: 490px;
-  }
-  .cable-static-branches {
-    display: block;
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    fill: none;
-    stroke: var(--blue);
-    stroke-width: 0.35;
-  }
-  .cable-projects,
-  .cable-story[data-animated] .cable-projects {
-    inset: 0;
-    display: block;
-    visibility: visible;
-  }
-  .cable-project,
-  .cable-story[data-animated] .cable-project {
-    position: absolute;
-    left: 33.44%;
-    width: 59%;
-    font-size: 18px;
-    transform: translateY(-50%);
-    background: var(--bg);
-    gap: 8px;
-  }
-  .cable-project-0 {
-    top: 29.36%;
-  }
-  .cable-project-2 {
-    top: 70.64%;
   }
   .cable-handoff-frame {
     height: 210px;
@@ -2190,6 +2209,7 @@ html[data-motion="off"] *::after {
   border: 1px solid var(--line);
 }
 .brand-intro {
+  --intro-width: min(360px, calc(100vw - 64px));
   display: none;
   position: fixed;
   inset: 0;
@@ -2197,49 +2217,123 @@ html[data-motion="off"] *::after {
   place-items: center;
   background: var(--bg);
   clip-path: inset(0);
-  transition: clip-path 400ms var(--ease);
+  transition:
+    clip-path 400ms var(--ease),
+    opacity 400ms;
 }
 html[data-intro="pending"] .brand-intro,
 html[data-intro="revealing"] .brand-intro {
   display: grid;
 }
 html[data-intro="revealing"] .brand-intro {
-  clip-path: inset(0 0 100% 0);
+  opacity: 0;
   pointer-events: none;
 }
+@supports (
+  clip-path: polygon(
+      evenodd,
+      0% 0%,
+      100% 0%,
+      100% 100%,
+      0% 100%,
+      0% 0%,
+      50% 45%,
+      50% 45%,
+      50% 45%
+    )
+) {
+  .brand-intro {
+    clip-path: polygon(
+      evenodd,
+      0% 0%,
+      100% 0%,
+      100% 100%,
+      0% 100%,
+      0% 0%,
+      50% 45%,
+      50% 45%,
+      50% 45%,
+      50% 45%,
+      50% 45%
+    );
+  }
+  html[data-intro="revealing"] .brand-intro {
+    opacity: 1;
+    clip-path: polygon(
+      evenodd,
+      0% 0%,
+      100% 0%,
+      100% 100%,
+      0% 100%,
+      0% 0%,
+      72% -160%,
+      230% 32%,
+      72% 230%,
+      -130% 32%,
+      72% -160%
+    );
+  }
+}
 .intro-identity {
-  position: relative;
-  width: min(500px, calc(100% - 40px));
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  width: var(--intro-width);
   text-align: center;
 }
 .intro-mark {
-  width: 160px;
-  height: 80px;
-  margin: 0 auto 24px;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 1;
+  overflow: visible;
 }
-.intro-mark path {
+.intro-piece {
   stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: brand-draw 600ms var(--ease) forwards;
+  animation: piece-snap 360ms calc(170ms + var(--piece) * 60ms) var(--ease) both;
+  transform-origin: center;
+}
+.intro-mark .monogram-point {
+  animation: intro-settle 150ms 830ms both;
 }
 .intro-identity > p {
+  position: absolute;
+  top: calc(100% + 22px);
+  width: 100%;
   font-family: var(--font-display), sans-serif;
   font-size: 24px;
+  animation: intro-settle 160ms 810ms both;
 }
-.intro-routes {
+.intro-circuit {
   position: absolute;
-  width: 100%;
-  height: 180px;
-  top: calc(100% + 24px);
-  left: 0;
+  width: var(--intro-width);
+  height: calc(var(--intro-width) * 0.5);
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: visible;
   fill: none;
-  stroke: var(--blue);
-  stroke-width: 1;
-  transform-origin: center top;
-  animation: brand-routes 900ms var(--ease) both;
+  pointer-events: none;
 }
-.intro-routes path {
-  stroke-dasharray: 75 150;
+.intro-route-bed {
+  stroke: var(--line);
+  stroke-width: 0.3;
+  opacity: 0.5;
+  transform: translate(-2px, -1px) scale(1.025);
+  transform-origin: 56px 28px;
+}
+.intro-route {
+  stroke: var(--blue);
+  stroke-width: 0.45;
+  stroke-dasharray: 1;
+  animation: circuit-arrive 780ms calc(var(--route) * 24ms) ease-out both;
+}
+.intro-signal {
+  stroke: var(--green);
+  stroke-width: 0.7;
+  stroke-dasharray: 0.012 0.988;
+  animation: circuit-signal 800ms calc(var(--route) * 25ms) ease-in-out both;
 }
 .intro-skip {
   position: absolute;
@@ -2251,21 +2345,48 @@ html[data-intro="revealing"] .brand-intro {
   color: var(--muted);
   padding: 10px;
 }
-@keyframes brand-draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-@keyframes brand-routes {
+@keyframes piece-snap {
   from {
     opacity: 0;
-    transform: scaleY(0.2);
-    stroke-dashoffset: 150;
+    stroke-dashoffset: 1;
+    transform: translate(var(--piece-x), var(--piece-y)) scale(0.88);
   }
   to {
-    opacity: 0.8;
-    transform: scaleY(1);
+    opacity: 1;
     stroke-dashoffset: 0;
+    transform: translate(0, 0) scale(1);
+  }
+}
+@keyframes circuit-arrive {
+  from {
+    stroke-dashoffset: 1;
+    opacity: 0.2;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 0.7;
+  }
+}
+@keyframes circuit-signal {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  12%,
+  85% {
+    opacity: 0.9;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+@keyframes intro-settle {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 @media (min-width: 701px) and (max-width: 1100px) {

@@ -87,22 +87,15 @@ export function HyperspeedScene({
 
   useEffect(() => {
     const root = document.documentElement;
-    const query = matchMedia("(prefers-color-scheme: light)");
-    const update = () =>
-      setLight(
-        root.dataset.theme === "light" ||
-          (root.dataset.theme !== "dark" && query.matches),
-      );
+    const update = () => setLight(root.dataset.theme === "light");
     update();
     const observer = new MutationObserver(update);
     observer.observe(root, {
       attributes: true,
       attributeFilter: ["data-theme"],
     });
-    query.addEventListener("change", update);
     return () => {
       observer.disconnect();
-      query.removeEventListener("change", update);
     };
   }, []);
 
@@ -143,7 +136,7 @@ export function HyperspeedScene({
               roadColor={light ? "#eaf0f8" : "#09121e"}
               roadOpacity={0.16}
               lineColor={light ? "#a3b8d5" : "#203653"}
-              background={light ? "#f5f8fc" : "#09121e"}
+              background={light ? "#ffffff" : "#09121e"}
               theme={light ? "light" : "dark"}
               interactive={false}
               boosting={boosting}

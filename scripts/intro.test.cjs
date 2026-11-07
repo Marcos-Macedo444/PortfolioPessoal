@@ -136,8 +136,50 @@ test("keyboard and native navigation can dismiss the opening immediately", () =>
 
 test("blocked storage remains functional and still releases the entrance", () => {
   const state = boot({ blockStorage: true });
-  assert.equal(state.dataset.theme, "system");
+  assert.equal(state.dataset.theme, "dark");
   assert.equal(state.dataset.intro, "pending");
   state.timers.get(1).callback();
   assert.equal(state.dataset.intro, "done");
+});
+
+test("blue is the first-paint default for missing, invalid and legacy automatic preferences", () => {
+  for (const saved of [undefined, "system", "auto", "invalid"]) {
+    assert.equal(
+      boot({ local: saved ? { "mm-theme": saved } : {} }).dataset.theme,
+      "dark",
+    );
+  }
+});
+
+test("explicit legacy dark and light choices are preserved before hydration", () => {
+  for (const saved of ["dark", "light"]) {
+    assert.equal(boot({ local: { "mm-theme": saved } }).dataset.theme, saved);
+  }
+});
+
+test("assembled opening reuses the official separate Ms and color points", () => {
+  const ts = require("typescript");
+  const brand = {};
+  const source = fs.readFileSync(
+    path.join(__dirname, "../src/components/ui/Monogram.tsx"),
+    "utf8",
+  );
+  vm.runInNewContext(
+    ts.transpileModule(source, {
+      fileName: "Monogram.tsx",
+      compilerOptions: {
+        jsx: ts.JsxEmit.ReactJSX,
+        module: ts.ModuleKind.CommonJS,
+      },
+    }).outputText,
+    { exports: brand, require },
+  );
+  assert.equal(brand.monogramSegments.length, 8);
+  const html = require("react-dom/server").renderToStaticMarkup(
+    require("react").createElement(brand.Monogram, { assemble: true }),
+  );
+  assert.ok(html.includes('viewBox="0 0 112 56"'));
+  assert.equal((html.match(/class="intro-piece"/g) || []).length, 8);
+  assert.ok(html.includes('cx="6" cy="46" r="3"'));
+  assert.ok(html.includes('cx="106" cy="10" r="3"'));
 });

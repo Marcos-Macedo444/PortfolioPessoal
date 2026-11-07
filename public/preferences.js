@@ -1,6 +1,6 @@
 (function () {
   var root = document.documentElement;
-  var theme = "system";
+  var theme = "dark";
   var paused = false;
   try {
     var saved = localStorage.getItem("mm-theme");

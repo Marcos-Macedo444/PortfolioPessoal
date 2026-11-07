@@ -54,7 +54,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" data-theme="system" suppressHydrationWarning>
+    <html lang="pt-BR" data-theme="dark" suppressHydrationWarning>
       <head>
         {/* Apply persisted preferences before paint, using a same-origin CSP-compatible file. */}
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}

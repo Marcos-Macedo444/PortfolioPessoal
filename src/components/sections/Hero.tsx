@@ -6,7 +6,6 @@ import { useScroll } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Gauge } from "lucide-react";
 import { profile } from "@/data/profile";
 import { useMotionPreference } from "@/components/ui/Preferences";
-import { OpeningSequence } from "@/components/ui/OpeningSequence";
 import { HyperspeedScene } from "@/components/visuals/HyperspeedScene";
 
 export function Hero() {
@@ -64,7 +63,6 @@ export function Hero() {
 
   return (
     <section id="inicio" className="hero" ref={ref}>
-      <OpeningSequence ready={sceneStatus !== "preparing"} />
       <HyperspeedScene
         boosting={boosting}
         activity={activity}

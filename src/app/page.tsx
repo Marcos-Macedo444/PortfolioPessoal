@@ -11,10 +11,12 @@ import { Projects } from "@/components/sections/Projects";
 import { TechStack } from "@/components/sections/TechStack";
 import { CommandPalette } from "@/components/ui/CommandPalette";
 import { Preferences } from "@/components/ui/Preferences";
+import { OpeningSequence } from "@/components/ui/OpeningSequence";
 
 export default function Home() {
   return (
     <Preferences>
+      <OpeningSequence />
       <ScrollProgress />
       <Navbar />
       <main id="main-content" className="relative z-10">

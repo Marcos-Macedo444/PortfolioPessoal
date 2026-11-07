@@ -8,13 +8,13 @@ Meu endereço público é [marcosmacedo.dev](https://marcosmacedo.dev/).
 
 ## A identidade do portfólio
 
-Chamei o conceito de **Conexões em movimento**. Na abertura, incorporei o **Hyperspeed do React Bits**, com uma pista em perspectiva e trilhas azuis e verdes. Depois da apresentação, um cabo azul se dobra nas minhas iniciais **MM**, abre caminhos para três projetos reais e segue até a linha da minha trajetória. A rolagem natural controla o percurso, inclusive no sentido inverso. As descrições de Redes, NOC, Segurança e Automação estão preservadas no Repertório técnico.
+Chamei o conceito de **Conexões em movimento**. Na primeira tela, incorporei o **Hyperspeed do React Bits**, com uma pista em perspectiva e trilhas azuis e verdes. Antes dela, o **Encaixe MM** monta minha marca oficial com conexões que chegam das bordas da tela; o espaço entre os dois Ms se abre para revelar o site. Depois da apresentação, um cabo azul forma minhas iniciais **MM**, se transforma em um nó tridimensional de três lóbulos e se desenrola até a linha da minha trajetória. A rolagem natural controla o percurso, inclusive no sentido inverso. Os trabalhos ficam na seção Projetos, sem nomes ou links duplicados na cena. As descrições de Redes, NOC, Segurança e Automação estão preservadas no Repertório técnico.
 
-O azul organiza as rotas e as ações; o verde marca os sinais e a seleção. O tema escuro usa `#09121E`, `#4C8DFF`, `#65F5A2` e `#E7EEF8`. No claro, adaptei os contrastes para manter a leitura. O tema segue o sistema até que a pessoa escolha outro, com preferência salva no navegador.
+O azul organiza as rotas e as ações; o verde marca os sinais e a seleção. O tema **Azul**, padrão mesmo quando o dispositivo usa modo claro, combina `#09121E`, `#4C8DFF`, `#65F5A2` e `#E7EEF8`. O **Branco** usa fundo branco, texto escuro e fios azuis com contraste próprio. São as duas escolhas manuais, salvas no navegador pela chave `mm-theme`. Escolhas antigas explícitas continuam válidas; ausência, valor inválido ou o antigo modo automático voltam ao Azul. A troca não recarrega a página nem reinicia a abertura ou a posição da rolagem.
 
-O Hyperspeed usa Three.js diretamente, sem iframe ou vídeo. Meu nome, cargo, apresentação e links continuam em HTML. A entrada curta mostra o monograma MM em 2D e revela a mesma cena; não criei outro núcleo 3D. Há opção de pular, limite de segurança de 1,9s e reprodução apenas na primeira entrada da sessão. A navegação mantém a rolagem nativa, pausa global e movimento reduzido. As decisões estão em [DESIGN.md](DESIGN.md).
+O Hyperspeed usa Three.js diretamente, sem iframe ou vídeo. Meu nome, cargo, apresentação e links continuam em HTML. A entrada usa SVG e CSS, preserva as proporções e os pontos de cor do meu Monogram e dura aproximadamente 1,5s com o hero disponível; não criei outro núcleo 3D. Há opção de pular antes da hidratação, Escape, limite de segurança independente de 1,9s e reprodução apenas na primeira entrada da sessão. Âncoras e retorno pelo histórico dispensam a sequência. A navegação mantém a rolagem nativa, pausa global e movimento reduzido. As decisões estão em [DESIGN.md](DESIGN.md).
 
-No celular, a pista é compacta e aparece na abertura, com resolução e densidade controladas. A nova sequência usa três quadros no fluxo: assinatura, projetos e passagem para a trajetória. Construí os fios com Canvas 2D, geometria em profundidade e projeção em perspectiva, sem outro motor 3D. O renderizador só é solicitado quando começo a rolar até a seção. Com pausa, movimento reduzido, Canvas indisponível ou sem JavaScript, ficam o MM estático, os links HTML e a passagem visual. O efeito-base da abertura tem autoria do React Bits: registrei o commit usado, a licença e minhas adaptações em [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+No celular, a pista é compacta e aparece na abertura, com resolução e densidade controladas. A sequência seguinte usa três quadros no fluxo: chegada e assinatura, nó e passagem para a trajetória. Construí os fios com Canvas 2D, geometria em profundidade e projeção em perspectiva, sem outro motor 3D. Nos cruzamentos, a profundidade determina qual trecho encobre o outro, inclusive o pulso verde que passa atrás do cabo. O renderizador só é solicitado quando começo a rolar até a seção. Com pausa, movimento reduzido, Canvas indisponível ou sem JavaScript, ficam o MM e a passagem visual estáticos; no celular, também há uma projeção estática do nó. O conteúdo e os links reais continuam em HTML. O efeito-base da primeira tela tem autoria do React Bits: registrei o commit usado, a licença e minhas adaptações em [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ## Minha atuação atual
 
@@ -25,15 +25,15 @@ O portfólio apresenta essa experiência sem divulgar dados de clientes, topolog
 ## O que está no site
 
 - Abertura com Hyperspeed azul/verde, nome, cargo atual, atalhos para projetos e trajetória e aceleração controlada.
-- Palco Conexões em movimento com cabo azul entrelaçado, assinatura MM, pulsos verdes discretos e links reais para Futebol, Gestão Financeira e Processamento de Imagens.
-- Trajetória com a efetivação, o estágio como experiência anterior e minha transição para tecnologia. Na origem como chaveiro residencial, um traço desenha uma chave, encaixa e gira o miolo em um gesto de 1,08s; com pausa, mostro o estado final estático.
+- Palco Conexões em movimento com cabo azul entrelaçado, assinatura MM, nó tridimensional, pulso verde discreto e saída alinhada à trajetória.
+- Trajetória com a efetivação, o estágio como experiência anterior e minha transição para tecnologia. Na origem como chaveiro residencial, um loop de 4,8s desenha uma chave, encaixa, gira, envia um sinal e recolhe o traço. A animação só avança enquanto está visível e a aba está ativa. Pausa global e movimento reduzido mostram uma composição estática; a retomada preserva o ponto do ciclo.
 - Sobre mim com minha fotografia principal real em destaque e apresentação pessoal; um retrato menor aparece na assinatura da abertura.
 - Projetos com filtros, demonstração real, links e detalhes expansíveis.
 - Conquista no Hack27 com a equipe RED BOOST e cinco fotografias navegáveis.
 - Competências organizadas por áreas e ferramentas, sem percentuais fictícios.
 - Filosofia profissional, contato, formulário e canais diretos.
 - Navegação responsiva, busca de seções com `Ctrl+K`, progresso de leitura e retorno ao início.
-- Temas claro/escuro/sistema, preferências persistidas e controle de animação.
+- Temas Azul e Branco, preferências persistidas e controle de animação.
 - Metadata, sitemap, robots, favicon e página 404.
 
 Não há currículo, certificados ou diplomas para download no repositório. As datas do estágio ainda não estavam documentadas na base anterior; por isso, mantive a experiência histórica sem inventar um período.
@@ -77,7 +77,7 @@ npm run build
 npm run start
 ```
 
-O comando `npm test` usa o runner nativo do Node para verificar a entrada, a sessão, o botão de pular antes da hidratação, movimento reduzido, storage indisponível e saída de segurança. Também verifico a amostragem dos fios, continuidade entre os atos, reversibilidade, alinhamento dos links e saída para a trajetória em diferentes larguras. O runner `scripts/next-runner.cjs` normaliza caminhos do Windows e recria `.next` ao iniciar dev ou build. Por isso, encerro o dev antes de preparar um build e iniciar `start`. A revisão visual e as medições da sequência estão em [docs/connections-validation.md](docs/connections-validation.md); a abertura está registrada em [docs/hyperspeed-validation.md](docs/hyperspeed-validation.md).
+O comando `npm test` usa o runner nativo do Node para verificar a entrada, a sessão, o botão de pular antes da hidratação, movimento reduzido, storage indisponível, padrão Azul e saída de segurança. Também verifico os oito segmentos do Monogram oficial, a amostragem dos fios, a continuidade entre os atos, a reversibilidade, os cruzamentos do nó com separação de profundidade, a oclusão e a saída para a trajetória em diferentes larguras. O runner `scripts/next-runner.cjs` normaliza caminhos do Windows e recria `.next` ao iniciar dev ou build. Por isso, encerro o dev antes de preparar um build e iniciar `start`. A rodada atual está em [docs/refinement-validation.md](docs/refinement-validation.md). Os relatórios de [Conexões](docs/connections-validation.md) e [Hyperspeed](docs/hyperspeed-validation.md) preservam as validações históricas.
 
 ## Formulário de contato
 
@@ -130,7 +130,7 @@ Os headers em `next.config.mjs` incluem CSP, HSTS, `X-Content-Type-Options`, `Re
 
 O fluxo de produção existente usa a `main`: após validação e integração autorizada, um push dispara a Vercel. Branches de trabalho podem receber previews conforme a integração. Os resultados desta entrega, medições de laboratório e limitações estão em [docs/redesign-validation.md](docs/redesign-validation.md).
 
-Capturas locais de revisão ficam em `.tmp/redesign`, ignoradas pelo Git. Não publico caches, traces, segredos ou screenshots temporários no repositório.
+Capturas locais desta revisão ficam em `.tmp/refinement`, ignoradas pelo Git, assim como as rodadas anteriores em `.tmp/redesign` e `.tmp/connections`. Não publico caches, traces, segredos ou screenshots temporários no repositório.
 
 ## Contato
 

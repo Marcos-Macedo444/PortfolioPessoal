@@ -22,6 +22,8 @@ const {
   localProgress,
   SAMPLES,
   STRANDS,
+  centerPoint,
+  occludes,
 } = geometry;
 
 test("distance sampling keeps equal steps along a polyline", () => {
@@ -70,16 +72,53 @@ test("all four acts stay finite and continuous in both layouts", () => {
     }
   }
 });
-test("project camera settles at the three HTML anchor heights", () => {
+test("the knot has three separated depth crossings and a sideways camera", () => {
   const paths = createPaths(false, -0.9);
-  paths.branches.forEach((branch, i) => {
-    const a = project(branch[SAMPLES - 1], 1440, 820, 0.7);
-    const b = project(branch[SAMPLES - 1], 1440, 820, 0.81);
-    assert.equal(a.x, b.x);
-    assert.equal(a.y, b.y);
-    assert.ok(Math.abs(a.x / 1440 - 0.6426) < 1e-8);
-    assert.ok(Math.abs(a.y / 820 - [0.3452, 0.5, 0.6548][i]) < 1e-8);
-  });
+  const points = paths.knot.map((p) => project(p, 1440, 820, 0.73));
+  let crossings = 0;
+  for (let i = 0; i < points.length - 1; i++)
+    for (let j = i + 9; j < points.length - 1; j++) {
+      const a = points[i],
+        b = points[i + 1],
+        c = points[j],
+        d = points[j + 1];
+      const dx = b.x - a.x,
+        dy = b.y - a.y,
+        ex = d.x - c.x,
+        ey = d.y - c.y;
+      const denominator = dx * ey - dy * ex;
+      if (Math.abs(denominator) < 0.001) continue;
+      const t = ((c.x - a.x) * ey - (c.y - a.y) * ex) / denominator;
+      const u = ((c.x - a.x) * dy - (c.y - a.y) * dx) / denominator;
+      if (
+        t > 0 &&
+        t < 1 &&
+        u > 0 &&
+        u < 1 &&
+        Math.abs(a.z + (b.z - a.z) * t - c.z - (d.z - c.z) * u) > 0.1
+      )
+        crossings++;
+    }
+  assert.ok(crossings >= 3, `Expected separated crossings, got ${crossings}`);
+  const center = centerPoint(paths, 60, 0.7);
+  const first = project(center, 1440, 820, 0.7),
+    second = project(center, 1440, 820, 0.8);
+  assert.ok(Math.hypot(first.x - second.x, first.y - second.y) > 2);
+});
+test("only a nearer crossing occludes a pulse at the same screen position", () => {
+  const point = { x: 5, y: 5, z: 0.3 };
+  assert.equal(
+    occludes(point, { x: 0, y: 5, z: -0.3 }, { x: 10, y: 5, z: -0.3 }, 2),
+    true,
+  );
+  assert.equal(
+    occludes(point, { x: 0, y: 5, z: 0.5 }, { x: 10, y: 5, z: 0.5 }, 2),
+    false,
+  );
+  assert.equal(
+    occludes(point, { x: 0, y: 10, z: -0.3 }, { x: 10, y: 10, z: -0.3 }, 2),
+    false,
+  );
 });
 test("final cable endpoint follows the measured timeline rail on resize", () => {
   for (const width of [320, 360, 768, 1440, 1920]) {

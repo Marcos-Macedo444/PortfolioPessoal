@@ -1,14 +1,14 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { Monitor, Moon, Pause, Play, Sun } from "lucide-react";
+import { Moon, Pause, Play, Sun } from "lucide-react";
 import { createPortal } from "react-dom";
 
-type Theme = "system" | "dark" | "light";
+type Theme = "dark" | "light";
 const PreferencesContext = createContext({ motion: false, ready: false });
 
 export function Preferences({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("system");
+  const [theme, setTheme] = useState<Theme>("dark");
   const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(false);
   const [initialized, setInitialized] = useState(false);
@@ -18,13 +18,16 @@ export function Preferences({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setControlsTarget(document.getElementById("display-controls"));
+    let initialTheme: Theme = "dark";
     try {
       const saved = localStorage.getItem("mm-theme");
-      if (saved === "light" || saved === "dark") setTheme(saved);
+      if (saved === "light" || saved === "dark") initialTheme = saved;
       setPaused(localStorage.getItem("mm-motion") === "paused");
     } catch {
       /* Preferences still work when storage is unavailable. */
     }
+    setTheme(initialTheme);
+    document.documentElement.dataset.theme = initialTheme;
     const query = matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => setReduced(query.matches);
     update();
@@ -56,22 +59,15 @@ export function Preferences({ children }: { children: React.ReactNode }) {
         ? createPortal(
             <div className="preferences" aria-label="Preferências de exibição">
               <label className="theme-control" title="Tema de aparência">
-                {theme === "dark" ? (
-                  <Moon size={16} />
-                ) : theme === "light" ? (
-                  <Sun size={16} />
-                ) : (
-                  <Monitor size={16} />
-                )}
+                {theme === "dark" ? <Moon size={16} /> : <Sun size={16} />}
                 <span className="sr-only">Tema de aparência</span>
                 <select
                   aria-label="Tema de aparência"
                   value={theme}
                   onChange={(event) => changeTheme(event.target.value as Theme)}
                 >
-                  <option value="system">Sistema</option>
-                  <option value="dark">Escuro</option>
-                  <option value="light">Claro</option>
+                  <option value="dark">Azul</option>
+                  <option value="light">Branco</option>
                 </select>
               </label>
               <button

@@ -8,20 +8,27 @@ export function OriginKey() {
   const motion = useMotionPreference();
   useEffect(() => {
     const svg = ref.current;
-    if (!svg || !motion) return;
+    if (!svg) return;
+    let visible = false;
+    svg.dataset.loop = "true";
+    svg.dataset.static = String(!motion);
+    const update = () => {
+      svg.dataset.running = String(motion && visible && !document.hidden);
+    };
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          svg.dataset.play = "true";
-          observer.disconnect();
-        }
+        visible = entries.some((entry) => entry.isIntersecting);
+        update();
       },
-      { threshold: 0.5 },
+      { threshold: 0.25 },
     );
     observer.observe(svg);
+    document.addEventListener("visibilitychange", update);
+    update();
     return () => {
       observer.disconnect();
-      delete svg.dataset.play;
+      document.removeEventListener("visibilitychange", update);
+      svg.dataset.running = "false";
     };
   }, [motion]);
   return (
@@ -34,11 +41,13 @@ export function OriginKey() {
     >
       <path className="key-branch" pathLength="1" d="M-63 44 H32" />
       <g className="key-insert">
-        <path
-          className="key-outline"
-          pathLength="1"
-          d="M32 44 A22 22 0 1 1 76 44 A22 22 0 1 1 32 44 M41 44 A13 13 0 1 0 67 44 A13 13 0 1 0 41 44 M76 40 H179 V47 H169 V57 H159 V50 H147 V61 H136 V52 H123 V57 H111 V48 H76"
-        />
+        <g className="key-turn">
+          <path
+            className="key-outline"
+            pathLength="1"
+            d="M32 44 A22 22 0 1 1 76 44 A22 22 0 1 1 32 44 M41 44 A13 13 0 1 0 67 44 A13 13 0 1 0 41 44 M76 40 H179 V47 H169 V57 H159 V50 H147 V61 H136 V52 H123 V57 H111 V48 H76"
+          />
+        </g>
       </g>
       <path
         className="lock-housing"
@@ -51,6 +60,11 @@ export function OriginKey() {
       <circle className="key-pulse" cx="207" cy="45" r="16" />
       <path
         className="key-exit"
+        pathLength="1"
+        d="M227 45 H276 Q294 45 294 63 V112"
+      />
+      <path
+        className="key-signal"
         pathLength="1"
         d="M227 45 H276 Q294 45 294 63 V112"
       />
