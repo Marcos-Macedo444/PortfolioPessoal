@@ -765,7 +765,7 @@ summary {
     height: 100%;
   }
   .cable-knot-frame {
-    height: 490px;
+    display: none;
   }
   .cable-handoff-frame {
     height: 210px;

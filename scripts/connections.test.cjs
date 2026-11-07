@@ -134,3 +134,17 @@ test("final cable endpoint follows the measured timeline rail on resize", () => 
     assert.ok(Math.abs(p.x - rail) < 0.01);
   }
 });
+
+test("the compact layout removes the knot frame without reserving space", () => {
+  const css = require("postcss").parse(
+    fs.readFileSync("src/app/globals.css", "utf8"),
+  );
+  const displays = [];
+  css.walkAtRules("media", (media) => {
+    if (media.params !== "(max-width: 700px)") return;
+    media.walkRules(".cable-knot-frame", (rule) => {
+      rule.walkDecls("display", (decl) => displays.push(decl.value));
+    });
+  });
+  assert.deepEqual(displays, ["none"]);
+});

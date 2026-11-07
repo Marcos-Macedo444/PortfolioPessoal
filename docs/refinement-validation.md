@@ -2,6 +2,8 @@
 
 Rodada de 6 de novembro de 2026, na branch `codex/refine-opening-knot-themes`, sobre a base `105a29d`. Este relatório substitui as descrições de tema automático, links de projetos na cena e chave executada uma vez dos relatórios históricos.
 
+Ajuste posterior, em 7 de novembro de 2026: o quadro do nó foi oculto em telas de até 700px, sem espaço reservado ou desenho do Canvas oculto. A versão mobile passou a ter assinatura e passagem para a trajetória; o nó desktop foi preservado. Verificados 320, 360, 516, 700, 701, 768 e 1440px nos dois temas, ausência de espaço residual e overflow, cinco projetos e nó desktop após redimensionamento. Lint, tipos, 17 testes e build aprovados. Evidência local em `.tmp/refinement/mobile-no-knot.jpg`. As evidências abaixo registram a rodada original de três quadros.
+
 ## Implementação
 
 - Encaixe MM em SVG/CSS de tela inteira: oito segmentos da marca oficial, rotas angulares, sinais verdes e máscara que se abre entre os dois Ms para revelar o Hyperspeed existente. A camada foi movida para o nível global da página para não ficar abaixo do header ou das seções seguintes.

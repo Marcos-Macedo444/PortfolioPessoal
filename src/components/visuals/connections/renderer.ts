@@ -318,7 +318,13 @@ export function mountConnections(root: HTMLElement, moving: () => boolean) {
     } else {
       canvases.slice(1).forEach((canvas, i) => {
         const bounds = canvas.getBoundingClientRect();
-        if (bounds.top > innerHeight || bounds.bottom < 0) return;
+        if (
+          !bounds.width ||
+          !bounds.height ||
+          bounds.top > innerHeight ||
+          bounds.bottom < 0
+        )
+          return;
         const local = Math.max(
           0,
           Math.min(
