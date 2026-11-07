@@ -34,19 +34,11 @@
   var release = function () {
     root.dataset.intro = "done";
     clearTimeout(safety);
-    document.removeEventListener("click", click);
     document.removeEventListener("keydown", key);
     document.removeEventListener("focusin", focus);
     window.removeEventListener("hashchange", release);
     window.removeEventListener("pagehide", release);
     window.removeEventListener("wheel", release);
-  };
-  var click = function (event) {
-    if (
-      event.target instanceof Element &&
-      event.target.closest("[data-skip-intro]")
-    )
-      release();
   };
   var key = function (event) {
     if (event.key === "Escape" || event.key === "Tab") release();
@@ -58,8 +50,7 @@
     )
       release();
   };
-  var safety = setTimeout(release, 1900);
-  document.addEventListener("click", click);
+  var safety = setTimeout(release, 2400);
   document.addEventListener("keydown", key);
   document.addEventListener("focusin", focus);
   window.addEventListener("hashchange", release);

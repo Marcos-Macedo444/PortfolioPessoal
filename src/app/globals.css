@@ -2305,6 +2305,108 @@ html[data-intro="revealing"] .brand-intro {
   font-size: 24px;
   animation: intro-settle 160ms 810ms both;
 }
+.intro-rocket {
+  position: absolute;
+  top: calc(100% + 76px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(320px, 100%);
+  height: auto;
+  aspect-ratio: 40 / 11;
+  overflow: hidden;
+  pointer-events: none;
+}
+.intro-rocket-guide,
+.intro-rocket-ticks {
+  stroke: var(--blue);
+  stroke-width: 0.8;
+  opacity: 0.25;
+}
+.intro-rocket-guide {
+  stroke-dasharray: 2 9;
+}
+.intro-rocket-flight {
+  animation: rocket-flight 1450ms 80ms cubic-bezier(0.32, 0.08, 0.4, 1) both;
+}
+.intro-rocket-trail {
+  stroke: var(--green);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-dasharray: 12 9;
+  opacity: 0.65;
+  animation: rocket-trail 320ms linear infinite;
+}
+.intro-rocket-flame {
+  fill: var(--green);
+  opacity: 0.8;
+  transform-origin: 20px 44px;
+  animation: rocket-thrust 240ms ease-in-out infinite alternate;
+}
+.intro-rocket-shell {
+  fill: var(--surface);
+  stroke: var(--blue);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+.intro-rocket-fin,
+.intro-rocket-nose {
+  fill: var(--blue-soft);
+}
+.intro-rocket-window {
+  fill: var(--green-soft);
+  stroke: var(--green);
+}
+.intro-rocket-glint {
+  stroke: var(--green);
+  stroke-linecap: round;
+  stroke-width: 1;
+}
+.intro-rocket .monogram {
+  width: 14px;
+  height: 7px;
+  color: var(--text);
+}
+@keyframes rocket-flight {
+  0% {
+    opacity: 0;
+    transform: translate(-32px, 4px);
+  }
+  12% {
+    opacity: 1;
+  }
+  55% {
+    transform: translate(120px, -3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(224px, 0);
+  }
+}
+@keyframes rocket-trail {
+  to {
+    stroke-dashoffset: 21;
+  }
+}
+@keyframes rocket-thrust {
+  from {
+    transform: scaleX(0.8);
+  }
+  to {
+    transform: scaleX(1.2);
+  }
+}
+@media (max-height: 520px) {
+  .brand-intro {
+    --intro-width: min(200px, calc(100vw - 64px));
+  }
+  .intro-identity > p {
+    top: calc(100% + 14px);
+    font-size: 20px;
+  }
+  .intro-rocket {
+    top: calc(100% + 54px);
+  }
+}
 .intro-circuit {
   position: absolute;
   width: var(--intro-width);
@@ -2334,16 +2436,6 @@ html[data-intro="revealing"] .brand-intro {
   stroke-width: 0.7;
   stroke-dasharray: 0.012 0.988;
   animation: circuit-signal 800ms calc(var(--route) * 25ms) ease-in-out both;
-}
-.intro-skip {
-  position: absolute;
-  right: 32px;
-  bottom: 28px;
-  min-height: 44px;
-  border: 0;
-  background: transparent;
-  color: var(--muted);
-  padding: 10px;
 }
 @keyframes piece-snap {
   from {
@@ -2458,10 +2550,6 @@ html[data-intro="revealing"] .brand-intro {
   }
   .hero-foot {
     order: 4;
-  }
-  .intro-skip {
-    right: 16px;
-    bottom: 16px;
   }
 }
 @media (max-width: 359px) {

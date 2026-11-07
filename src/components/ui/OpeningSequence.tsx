@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { ArrowUpRight } from "lucide-react";
 import { Monogram } from "./Monogram";
+import { IntroRocket } from "./IntroRocket";
 import { useMotionPreference, usePreferencesReady } from "./Preferences";
 
 const routes = [
@@ -47,13 +47,13 @@ export function OpeningSequence() {
           if (root.dataset.intro === "pending")
             root.dataset.intro = "revealing";
         },
-        Math.max(0, 1100 - elapsed),
+        Math.max(0, 1600 - elapsed),
       );
       finish = window.setTimeout(
         () => {
           root.dataset.intro = "done";
         },
-        Math.max(0, 1100 - elapsed) + 400,
+        Math.max(0, 1600 - elapsed) + 400,
       );
     };
     const observer = new MutationObserver(update);
@@ -92,20 +92,8 @@ export function OpeningSequence() {
         <p>
           Marcos Macêdo<span className="accent">.</span>
         </p>
+        <IntroRocket />
       </div>
-      <button
-        className="intro-skip text-link"
-        type="button"
-        data-skip-intro
-        onClick={() => {
-          document.documentElement.dataset.intro = "done";
-          document
-            .querySelector<HTMLElement>("#inicio h1")
-            ?.focus({ preventScroll: true });
-        }}
-      >
-        Pular abertura <ArrowUpRight size={16} />
-      </button>
     </div>
   );
 }
