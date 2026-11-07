@@ -1,5 +1,9 @@
 # Validação: Encaixe MM, Temas e Nó
 
+Recalibração posterior, em 7 de novembro de 2026: abertura ampliada para aproximadamente 4s, com revelação aos 3,6s, transição de 400ms e saída independente de segurança em 4,4s. O voo do foguete acompanha o novo intervalo (3,45s mais 80ms de atraso); a montagem da marca mantém o ritmo anterior. Continua sem botão de pular, uma vez por sessão e respeitando as preferências de movimento. Os registros de 2s abaixo são históricos.
+
+Validação da duração ampliada: lint, tipos, 18 testes e build aprovados. Em 360×820/Azul e 1440×1000/Branco, a abertura permanecia ativa após 2,1s de observação, sem botão e com voo de 3,45s. Na amostra com cache quente, a saída foi observada aos 4,09s desde a navegação, incluindo 162ms de navegação. Recarga da sessão não repetiu a sequência; nenhum erro de console foi detectado. Capturas locais em `.tmp/refinement/rocket-four-seconds-*.jpg`.
+
 Rodada de 6 de novembro de 2026, na branch `codex/refine-opening-knot-themes`, sobre a base `105a29d`. Este relatório substitui as descrições de tema automático, links de projetos na cena e chave executada uma vez dos relatórios históricos.
 
 Ajuste posterior, em 7 de novembro de 2026: o quadro do nó foi oculto em telas de até 700px, sem espaço reservado ou desenho do Canvas oculto. A versão mobile passou a ter assinatura e passagem para a trajetória; o nó desktop foi preservado. Verificados 320, 360, 516, 700, 701, 768 e 1440px nos dois temas, ausência de espaço residual e overflow, cinco projetos e nó desktop após redimensionamento. Lint, tipos, 17 testes e build aprovados. Evidência local em `.tmp/refinement/mobile-no-knot.jpg`. As evidências abaixo registram a rodada original de três quadros.

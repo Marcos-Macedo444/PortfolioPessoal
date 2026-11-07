@@ -50,7 +50,7 @@
     )
       release();
   };
-  var safety = setTimeout(release, 2400);
+  var safety = setTimeout(release, 4400);
   document.addEventListener("keydown", key);
   document.addEventListener("focusin", focus);
   window.addEventListener("hashchange", release);

@@ -66,11 +66,11 @@ function boot(options = {}) {
   return { dataset, timers, events, session, Element };
 }
 
-test("first session prepares a brief opening with an independent 2.4s safety exit", () => {
+test("first session prepares a brief opening with an independent 4.4s safety exit", () => {
   const state = boot();
   assert.equal(state.dataset.intro, "pending");
   assert.equal(state.dataset.motion, "on");
-  assert.equal(state.timers.get(1).delay, 2400);
+  assert.equal(state.timers.get(1).delay, 4400);
   state.timers.get(1).callback();
   assert.equal(state.dataset.intro, "done");
   assert.equal(state.events.document.size, 0);
@@ -188,7 +188,7 @@ test("assembled opening reuses the official separate Ms and color points", () =>
   assert.ok(html.includes('cx="106" cy="10" r="3"'));
 });
 
-test("a ready hero reveals at 1.6s and completes the opening at 2s", () => {
+test("a ready hero reveals at 3.6s and completes the opening at 4s", () => {
   const ts = require("typescript");
   const opening = {};
   const dataset = { intro: "pending", introStarted: "100" };
@@ -247,7 +247,7 @@ test("a ready hero reveals at 1.6s and completes the opening at 2s", () => {
   assert.equal(html.includes("<button"), false);
   assert.deepEqual(
     Array.from(timers.values(), (timer) => timer.delay),
-    [1400, 1800],
+    [3400, 3800],
   );
   timers.get(1).callback();
   assert.equal(dataset.intro, "revealing");

@@ -47,13 +47,13 @@ export function OpeningSequence() {
           if (root.dataset.intro === "pending")
             root.dataset.intro = "revealing";
         },
-        Math.max(0, 1600 - elapsed),
+        Math.max(0, 3600 - elapsed),
       );
       finish = window.setTimeout(
         () => {
           root.dataset.intro = "done";
         },
-        Math.max(0, 1600 - elapsed) + 400,
+        Math.max(0, 3600 - elapsed) + 400,
       );
     };
     const observer = new MutationObserver(update);
